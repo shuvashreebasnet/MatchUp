@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MatchUp - Log in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Luxurious+Script&display=swap" rel="stylesheet">
+  <style>
+    :root { --pink: #FBCDD5; --border: #9f1f47; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #f4f4f4; font-family: Karla, sans-serif; }
+    .phone { width: 393px; min-height: 852px; margin: 0 auto; overflow: hidden; background: linear-gradient(#fdecef 0%, #fffafa 57%, #fff 100%); }
+    .page { min-height: 852px; padding: 42px 22px 28px; display: flex; flex-direction: column; align-items: center; }
+    .brand { margin: 0 0 120px; color: #000; font-family: "Luxurious Script", cursive; font-size: 120px; font-weight: 400; line-height: .8; white-space: nowrap; }
+    h1 { align-self: flex-start; margin: 0 0 28px 0px; font-size: 40px; line-height: .95; font-weight: 500; letter-spacing: -.8px; }
+    .form { width: 337px; display: flex; flex-direction: column; align-items: center; }
+    .field { position: relative; width: 380px; height: 65px; margin-bottom: 25px; }
+    .field input { width: 100%; height: 100%; border: 1px solid var(--border); border-radius: 100px; outline: none; background: var(--pink); padding: 0 22px 0 80px; color: #000; font: 400 27px Karla, sans-serif; box-shadow: 0 4px 5px rgba(0,0,0,.22); }
+    .field input:focus { border-width: 2px; }
+    .field img { position: absolute; z-index: 1; left: 30px; top: 15px; width: 39px; height: 39px; object-fit: contain; pointer-events: none; }
+    .field.password img { width: 37px; height: 37px; left: 31px; top: 16px; }
+    .remember { width: 337px; display: flex; align-items: center; gap: 12px; margin: 11px 0 30px 36px; font-size: 16px; gap: 8px; }
+    .remember input { appearance: none; width: 20px; height: 20px; margin: 0; background: #d9d9d9; cursor: pointer; }
+    .remember input:checked { background: var(--border); position: relative; }
+    .remember input:checked::after { content: "✓"; color: #fff; font: 700 22px Karla; position: absolute; left: 5px; top: 0; }
+    .primary { align-self: flex-end; width: 150px; height: 40px; border: 1px solid var(--border); border-radius: 100px; background: #F7A0B0; color: black; box-shadow: 0 4px 5px rgba(0,0,0,.22); font: 400 20px Karla, sans-serif; cursor: pointer; }
+    .primary:active { transform: translateY(1px); }
+    .secondary { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); white-space: nowrap; border: 0; background: transparent; padding: 0; font: 400 20px Karla, sans-serif; cursor: pointer; }
+    .secondary:active { transform: translateX(-50%) translateY(1px); }
+    .secondary:hover { text-decoration: underline; }
+    .signup-link { color: #9F1F47 }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <section class="page">
+      <div class="brand">MatchUp</div>
+      <h1>Login</h1>
+      <form class="form" id="loginForm">
+        <label class="field">
+          <img src="assets/profile.png" alt="">
+          <input id="loginUsername" type="text" autocomplete="username" placeholder="Username" aria-label="Username">
+        </label>
+        <label class="field password">
+          <img src="assets/lock.png" alt="">
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password">
+        </label>
+        <label class="remember">
+          <input id="rememberLogin" type="checkbox">
+          <span>Stay Signed In</span>
+        </label>
+        <button class="primary" type="submit">Log in</button>
+        <button class="secondary" type="button" id="toSignup">Don’t have an account? <span class="signup-link">Sign Up</span></button>
+      </form>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll('.field input').forEach((input) => {
+      const originalPlaceholder = input.placeholder;
+      input.addEventListener('focus', () => { input.placeholder = ''; });
+      input.addEventListener('blur', () => {
+        if (!input.value) input.placeholder = originalPlaceholder;
+      });
+    });
+    document.getElementById('toSignup').addEventListener('click', () => {
+      window.location.href = 'signup.html';
+    });
+    document.getElementById('loginForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      // Frontend-only placeholder: no backend connection yet.
+      if (document.getElementById('rememberLogin').checked) {
+        localStorage.setItem('matchupRememberLogin', 'true');
+      }
+    });
+  </script>
+</body>
+</html>

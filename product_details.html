@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAC Serum Powered Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --pink: #f7a0b0; --border: #9f1f47; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #eee; font-family: Karla, sans-serif; color: #000; }
+    .phone { position: relative; width: 393px; min-height: 852px; margin: 0 auto; overflow: hidden; background: linear-gradient(#fdecef 0%, #fff8f9 55%, #fff 100%); }
+    .page { min-height: 852px; padding-bottom: 94px; overflow-y: auto; }
+
+    .back-button { position: absolute; z-index: 2; top: 22px; left: 15px; width: 64px; height: 64px; padding: 8px; border: 0; border-radius: 15px; background: #fff; box-shadow: 0 4px 5px rgba(0,0,0,.25); cursor: pointer; }
+    .back-button img { width: 100%; height: 100%; object-fit: contain; }
+
+    .product-title { margin: 118px 20px 10px; font-size: 28px; line-height: 1.05; font-weight: 500; white-space: nowrap; }
+    .rating-row { height: 37px; display: flex; align-items: center; gap: 2px; padding: 0 10px; font-size: 17px; }
+    .stars { font-size: 30px; letter-spacing: -5px; line-height: 1; }
+    .reviews { margin-left: 5px; white-space: nowrap; }
+    .recommendation {
+      min-height: 29px;
+      height: auto;
+      padding: 5px 10px;
+      background: var(--pink);
+      font-size: 15px;
+      line-height: 1.2;
+      white-space: normal;
+    }
+
+    .recommendation span {
+      color: var(--border);
+      margin-left: 4px;
+    }
+
+    .product-image { width: 340px; height: 340px; margin: 36px auto 22px; background: #fff; }
+    .dots { display: flex; justify-content: center; gap: 27px; margin-bottom: 25px; }
+    .dot { width: 19px; height: 19px; border-radius: 50%; background: #d9d9d9; }
+    .dot.active { background: #000; }
+    .price { margin: 0 0 8px; text-align: center; font-size: 31px; font-weight: 600; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px 12px; padding: 0 24px; }
+    .tag { height: 33px; display: flex; align-items: center; padding: 0 14px; border-radius: 20px; background: #cdeac6; font-size: 18px; white-space: nowrap; }
+    .tag.eco { background: #d9d9d9; }
+    .tag img { width: 25px; height: 25px; margin-left: 5px; object-fit: contain; }
+
+    .description { margin: 18px 20px 0; }
+    .description h2 { margin: 0; font-size: 25px; font-weight: 600; }
+    .description p { margin: 0; font-size: 16px; font-weight: 600; }
+
+    .actions { display: flex; align-items: center; gap: 18px; margin: 43px 20px 0; }
+    .heart-button { width: 57px; height: 57px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+    .heart-button img { width: 100%; height: 100%; object-fit: contain; }
+    .list-button { flex: 1; height: 58px; border: 1px solid var(--border); border-radius: 100px; background: var(--pink); box-shadow: 0 4px 5px rgba(0,0,0,.22); font: 400 29px Karla, sans-serif; cursor: pointer; }
+    .list-button:active { transform: translateY(1px); }
+
+    .bottom-nav { position: absolute; z-index: 3; right: 0; bottom: 0; left: 0; height: 72px; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #000; background: #fff; }
+    .nav-item { position: relative; width: 55px; height: 60px; display: flex; justify-content: center; align-items: center; }
+    .nav-item img { width: 43px; height: 43px; object-fit: contain; }
+    .nav-item.active::before { content: ""; position: absolute; top: 0; left: 50%; width: 45px; height: 8px; transform: translateX(-50%); background: var(--pink); }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <section class="page">
+      <button class="back-button" type="button" aria-label="Back to results">
+        <img src="assets/back_arrow.png" alt="">
+      </button>
+
+      <h1 class="product-title">Product Name</h1>
+      <div class="rating-row">
+        <span class="stars">★ ★ ☆ ☆ ☆</span>
+        <span class="reviews">3k reviews</span>
+      </div>
+      <div class="recommendation">Highly rated by customers for:<span>Blendability, Texture, Shade Match</span></div>
+
+      <div class="product-image" aria-label="Product image placeholder"></div>
+
+      <div class="dots" aria-hidden="true">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+
+      <p class="price">$24.00</p>
+
+      <div class="tags">
+        <div class="tag">$5 - 25</div>
+        <div class="tag">Cruelty-free <img src="assets/bunny.png" alt=""></div>
+        <div class="tag">Dry Skin</div>
+        <div class="tag eco">Eco-friendly <img src="assets/leaf.png" alt=""></div>
+      </div>
+
+      <section class="description">
+        <h2>Product Description</h2>
+        <p>[product description]</p>
+      </section>
+
+      <div class="actions">
+        <button class="heart-button" id="heartButton" type="button">
+          <img id="heartImage" src="assets/hearted.png" alt="Favorite">
+        </button>
+      
+        <button class="list-button" type="button">
+          Add to List
+        </button>
+      </div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <div class="nav-item"><img src="assets/house.png" alt=""></div>
+      <div class="nav-item"><img src="assets/saved.png" alt=""></div>
+      <div class="nav-item active"><img src="assets/lookup.png" alt=""></div>
+      <div class="nav-item"><img src="assets/favorites.png" alt=""></div>
+      <div class="nav-item"><img src="assets/settings.png" alt=""></div>
+    </nav>
+  </main>
+
+  <script>
+    document.querySelector('.back-button').addEventListener('click', () => {
+      window.location.href = 'results_scan.html';
+    });
+  
+    const heartButton = document.getElementById('heartButton');
+    const heartImage = document.getElementById('heartImage');
+  
+    let heartClicked = false;
+  
+    heartButton.addEventListener('mouseenter', () => {
+      if (!heartClicked) {
+        heartImage.src = 'assets/hover_heart.png';
+      }
+    });
+  
+    heartButton.addEventListener('mouseleave', () => {
+      if (!heartClicked) {
+        heartImage.src = 'assets/hearted.png';
+      }
+    });
+  
+    heartButton.addEventListener('click', () => {
+      heartClicked = !heartClicked;
+  
+      heartImage.src = heartClicked
+        ? 'assets/clicked_heart.png'
+        : 'assets/hearted.png';
+    });
+  </script>
+</body>
+</html>
