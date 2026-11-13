@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchUp - Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #f7a0b0;
+      --border: #9f1f47;
+      --green: #CEE9C7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #eee;
+      font-family: Karla, sans-serif;
+      color: #000;
+    }
+
+    .phone {
+      position: relative;
+      width: 393px;
+      min-height: 852px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: linear-gradient(#fdecef 0%, #fff8f9 55%, #fff 100%);
+    }
+
+    .page {
+      min-height: 852px;
+      padding: 22px 15px 94px;
+      overflow-y: auto;
+    }
+
+    .top-button {
+      position: absolute;
+      z-index: 2;
+      top: 22px;
+      width: 45px;
+      height: 45px;
+      padding: 10px;
+      border: 0;
+      border-radius: 15px;
+      background: #fff;
+      box-shadow: 0 5px 5px rgba(0, 0, 0, .25);
+      cursor: pointer;
+    }
+
+    .top-button.back { left: 15px; }
+    .top-button.restart { right: 15px; }
+
+    .top-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    h1 {
+      margin: 56px 0 18px;
+      text-align: center;
+      font-size: 48px;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .shade-result {
+      width: 100%;
+      height: 195px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 18px;
+      border: 4px solid #000;
+      border-radius: 40px;
+      background: #cc987d;
+    }
+
+    .shade-name {
+      margin: 0 0 7px;
+      font-size: 50px;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .shade-details {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .pink-pills,
+    .green-pills {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .pink-pills { margin-bottom: 20px; }
+    .green-pills { margin-bottom: 10px; }
+
+    .pill {
+      flex: 1;
+      min-width: 0;
+      height: 38px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .pink-pills .pill { background: var(--pink); }
+    .green-pills .pill { background: var(--green); }
+
+    .preference-title {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .product-card {
+      position: relative;
+      width: 367px;
+      height: 366px;
+      margin: 0 auto 16px;
+      padding: 242px 18px 12px;
+      border-radius: 30px;
+      background: #fff;
+      box-shadow: 0 5px 6px rgba(0, 0, 0, .25);
+    }
+
+    .favorite-icon {
+      position: absolute;
+      top: 12px;
+      right: 13px;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .product-name {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.15;
+      font-weight: 600;
+    }
+
+    .product-price {
+      margin: 2px 0 0;
+      font-size: 31px;
+      font-weight: 600;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 27px;
+      margin-bottom: 29px;
+    }
+
+    .dot {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #d9d9d9;
+    }
+
+    .dot.active { background: #000; }
+
+    .explore-button {
+      display: block;
+      width: calc(100% - 40px);
+      height: 68px;
+      margin: 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--pink);
+      box-shadow: 0 5px 6px rgba(0, 0, 0, .25);
+      font: 400 30px Karla, sans-serif;
+      cursor: pointer;
+    }
+
+    .bottom-nav {
+      position: absolute;
+      z-index: 3;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 72px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid #000;
+      background: #fff;
+    }
+
+    .nav-item {
+      position: relative;
+      width: 55px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-item img {
+      width: 43px;
+      height: 43px;
+      object-fit: contain;
+    }
+
+    .nav-item.active::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 45px;
+      height: 8px;
+      transform: translateX(-50%);
+      background: var(--pink);
+    }
+
+    @media (max-width: 393px) {
+      .phone { width: 100%; }
+      .product-card { width: calc(100% - 14px); }
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <section class="page">
+      <button class="top-button back" type="button" aria-label="Back to intro">
+        <img src="assets/back_arrow.png" alt="">
+      </button>
+
+      <button class="top-button restart" type="button" aria-label="Restart scan">
+        <img src="assets/restart_arrow.png" alt="">
+      </button>
+
+      <h1>Your Results</h1>
+
+      <section class="shade-result">
+        <p class="shade-name">Mocha N40</p>
+        <p class="shade-details">Warm <span style="color:#f7a0b0">●</span> Medium</p>
+      </section>
+
+      <div class="pink-pills">
+        <div class="pill">Eye: Almond</div>
+        <div class="pill">Nose: Greek</div>
+        <div class="pill">Face: Oval</div>
+      </div>
+
+      <p class="preference-title">Your Preferences:</p>
+
+      <div class="green-pills">
+        <div class="pill">Skin type: Dry</div>
+        <div class="pill">Cruelty-Free</div>
+        <div class="pill">Environment</div>
+      </div>
+
+      <section class="product-card">
+        <img class="favorite-icon" src="assets/hearted.png" alt="">
+        <p class="product-name">MAC Serum Powered<br>Foundation</p>
+        <p class="product-price">$X.XX</p>
+      </section>
+
+      <div class="dots" aria-hidden="true">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <button class="explore-button" type="button">Explore More</button>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <div class="nav-item"><img src="assets/house.png" alt=""></div>
+      <div class="nav-item"><img src="assets/saved.png" alt=""></div>
+      <div class="nav-item active"><img src="assets/lookup.png" alt=""></div>
+      <div class="nav-item"><img src="assets/favorites.png" alt=""></div>
+      <div class="nav-item"><img src="assets/settings.png" alt=""></div>
+    </nav>
+  </main>
+
+  <script>
+    document.querySelector('.back').addEventListener('click', () => {
+      window.location.href = 'intro_scan.html';
+    });
+
+    document.querySelector('.restart').addEventListener('click', () => {
+      window.location.href = 'face_scan.html';
+    });
+
+    document.querySelector('.explore-button').addEventListener('click', () => {
+      // Frontend-only placeholder for the explore screen.
+      alert('Explore More coming soon!');
+    });
+  </script>
+</body>
+</html>

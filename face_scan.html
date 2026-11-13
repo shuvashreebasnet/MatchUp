@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchUp - Face Scan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --pink: #f7a0b0; --border: #9f1f47; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #eee; font-family: Karla, sans-serif; }
+    .phone { position: relative; width: 393px; height: 852px; margin: 0 auto; overflow: hidden; background: #fff; }
+
+    .close-button {
+      position: absolute;
+      z-index: 3;
+      top: 18px;
+      left: 19px;
+      width: 45px;
+      height: 45px;
+      border: 0;
+      background: #fff;
+      box-shadow: 0 4px 5px rgba(0,0,0,.25);
+      cursor: pointer;
+    }
+
+    .close-button::before,
+    .close-button::after {
+      content: "";
+      position: absolute;
+      top: 21px;
+      left: 5px;
+      width: 35px;
+      height: 4px;
+      background: #000;
+      transform: rotate(45deg);
+    }
+
+    .close-button::after { transform: rotate(-45deg); }
+
+    .scan-status {
+      position: absolute;
+      top: 115px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 202px;
+      height: 52px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 30px;
+      background: #fff;
+      box-shadow: 0 5px 6px rgba(0,0,0,.25);
+      font-size: 27px;
+    }
+
+    .face-frame {
+      position: absolute;
+      left: 28px;
+      top: 505px;
+      width: 337px;
+      height: 376px;
+      border: 5px solid #fff;
+      pointer-events: none;
+    }
+
+    .bottom-nav {
+      position: absolute;
+      z-index: 4;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      border-top: 1px solid #000;
+      background: #fff;
+    }
+
+    .nav-button {
+      position: relative;
+      width: 55px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-button img { width: 43px; height: 43px; object-fit: contain; }
+
+    .nav-button.active::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 45px;
+      height: 8px;
+      transform: translateX(-50%);
+      background: var(--pink);
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <button class="close-button" type="button" aria-label="Close face scan"></button>
+    <div class="scan-status">Scanning...</div>
+    <div class="face-frame" aria-label="Face positioning frame"></div>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-button" type="button" aria-label="Home">
+        <img src="assets/house.png" alt="">
+      </button>
+      <button class="nav-button" type="button" aria-label="Saved">
+        <img src="assets/saved.png" alt="">
+      </button>
+      <button class="nav-button active" type="button" aria-label="Makeup scanner">
+        <img src="assets/lookup.png" alt="">
+      </button>
+      <button class="nav-button" type="button" aria-label="Favorites">
+        <img src="assets/favorites.png" alt="">
+      </button>
+      <button class="nav-button" type="button" aria-label="Profile">
+        <img src="assets/settings.png" alt="">
+      </button>
+    </nav>
+  </main>
+
+  <script>
+    document.querySelector('.close-button').addEventListener('click', () => {
+      window.location.href = 'intro_scan.html';
+    });
+  </script>
+</body>
+</html>
