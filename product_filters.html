@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Product Filters </title>
+    </head>
+
+    <body>
+        <form>
+            <div class="price-range">
+                <label> Price: </label>
+                <input type="range" min="0" max="200" step="25">
+                
+            </div>
+            <br>
+            <div class="makeup-brands">
+                <label> Search Brands: </label>
+            </div>
+            <br>
+            <div class="ingredient-menu">
+                <label> Allergens to Exclude: </label>
+
+                <select name="Natural Rubber">
+                    <option> Select All </option>
+                    <option> Latex </option>
+                    <option> Other </option>
+                </select>
+
+                <select name="Metals">
+                    <option> Select All </option>
+                    <option> Nickel </option>
+                    <option> Gold </option>
+                    <option> Other </option>
+                </select>
+
+                <select name="Dyes">
+                    <option> Select All </option>
+                    <option> PPD </option>
+                    <option> Coal-tar </option>
+                    <option> Other </option>
+                </select>
+
+                <select name="Fragrances"></select>
+                    <option> Select All </option>
+                    <option> Other </option>
+                </select>
+
+                <select name="Preservatives">
+                    <option> Select All </option>
+                    <option> MIT </option>
+                    <option> CMIT </option>
+                    <option> Formaldehyde and formaldehyde releasing ingredients </option>
+                    <option> Other </option>
+                </select>
+            </div>
+            <br>
+            <div class="ethical-production-tags">
+                <label> Ethical Production: </label> <br>
+                <input type="checkbox" name="cruelty-free"> Cruelty-Free <br>
+                <input type="checkbox" name="fair-trade"> Fair-Trade Certified <br>
+                <input type="checkbox" name="eco-friendly"> Eco-Friendly <br>
+            </div>
+            <br>
+            <div class="filter-management-buttons">
+                <button type="reset"> Clear All </button>
+                <button type="submit"> Save and Apply </button>
+            </div>
+        </form>
+    </body>
+</html>
