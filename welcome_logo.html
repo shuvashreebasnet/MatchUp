@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the page fit properly on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MatchUp</title>
+
+  <!-- Imports the cursive font used for the MatchUp logo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap" rel="stylesheet">
+
+  <style>
+    /* Makes sizing more predictable for every element */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Background outside the mobile frame */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f4f4f4;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /*
+      Main mobile splash-screen frame.
+
+      It can shrink on smaller phones but will not become
+      wider than the original 393px design.
+    */
+    .splash-screen {
+      width: 100%;
+      max-width: 393px;
+      min-height: 100svh;
+      height: 852px;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      overflow: hidden;
+      cursor: pointer;
+
+      /* Original pink-to-white gradient */
+      background: linear-gradient(
+        to bottom,
+        #fdecef 0%,
+        #fffafa 57%,
+        #ffffff 100%
+      );
+
+      /* Helps show the mobile frame on a desktop screen */
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+
+      /* Controls the fade-out transition */
+      transition: opacity 0.6s ease;
+    }
+
+    /*
+      JavaScript adds this class after the user clicks.
+      This fades the splash screen away.
+    */
+    .splash-screen.fade-out {
+      opacity: 0;
+    }
+
+    /*
+      Controls the MatchUp logo.
+      Each letter is placed beside the next using flexbox.
+    */
+    .wordmark {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      font-family: "Luxurious Script", cursive;
+      font-size: 92px;
+      line-height: 1;
+      color: #000;
+
+      /* Prevents the logo from wrapping */
+      white-space: nowrap;
+    }
+
+    /*
+      Each letter begins invisible, blurry, and slightly lowered.
+      The animation makes each letter appear individually.
+    */
+    .wordmark span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(3px);
+
+      animation: letterAppear 0.75s ease forwards;
+    }
+
+    /* Staggered animation timing for each letter */
+    .wordmark span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .wordmark span:nth-child(2) {
+      animation-delay: 0.18s;
+    }
+
+    .wordmark span:nth-child(3) {
+      animation-delay: 0.36s;
+    }
+
+    .wordmark span:nth-child(4) {
+      animation-delay: 0.54s;
+    }
+
+    .wordmark span:nth-child(5) {
+      animation-delay: 0.72s;
+    }
+
+    .wordmark span:nth-child(6) {
+      animation-delay: 0.90s;
+    }
+
+    .wordmark span:nth-child(7) {
+      animation-delay: 1.08s;
+    }
+
+    /*
+      Changes each letter from blurry/invisible
+      to sharp/visible.
+    */
+    @keyframes letterAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    /*
+      Responsive styling for screens smaller than 393px.
+    */
+    @media (max-width: 393px) {
+      .splash-screen {
+        width: 100%;
+        height: 100svh;
+      }
+
+      .wordmark {
+        font-size: 23vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- The entire splash screen is clickable -->
+  <main class="splash-screen" id="splashScreen">
+
+    <!-- The logo is split into letters for the animation -->
+    <div class="wordmark" aria-label="MatchUp">
+      <span>M</span>
+      <span>a</span>
+      <span>t</span>
+      <span>c</span>
+      <span>h</span>
+      <span>U</span>
+      <span>p</span>
+    </div>
+
+  </main>
+
+  <script>
+    /*
+      Finds the splash screen so JavaScript
+      can control it.
+    */
+    const splashScreen = document.getElementById("splashScreen");
+
+    /*
+      Runs when the user clicks or taps anywhere
+      on the splash screen.
+    */
+    splashScreen.addEventListener("click", () => {
+
+      /* Starts the fade-out animation */
+      splashScreen.classList.add("fade-out");
+
+      /*
+        Waits for the fade-out to finish,
+        then opens the login page.
+      */
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 600);
+    });
+  </script>
+
+</body>
+</html>

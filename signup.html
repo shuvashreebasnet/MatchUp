@@ -1,132 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>MatchUp - Sign up</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Luxurious+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    :root { --pink: #FBCDD5; --border: #9f1f47; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; background: #f4f4f4; font-family: Karla, sans-serif; }
-    main.phone { width: 393px; min-height: 852px; margin: 0 auto; overflow: hidden; background: linear-gradient(#fdecef 0%, #fffafa 57%, #fff 100%); }
-    .page { min-height: 852px; padding: 20px 22px 25px; display: flex; flex-direction: column; align-items: center; }
-    .brand { margin: 0 0 30px; color: #000; font-family: "Luxurious Script", cursive; font-size: 92px; line-height: .8; white-space: nowrap; }
-    h1 { align-self: center; margin: 0 0 19px 21px; font-size: 50px; line-height: .95; font-weight: 500; letter-spacing: -.8px; }
+    :root {
+      --field-pink: #fbcdd5;
+      --border: #9f1f47;
+      --placeholder: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f4f4f4;
+      font-family: Karla, sans-serif;
+    }
+
+    /* Responsive mobile frame */
+    main.phone {
+      position: relative;
+      width: 100%;
+      max-width: 393px;
+      min-height: 100svh;
+      margin: 0 auto;
+      overflow: hidden;
+
+      background: linear-gradient(
+        to bottom,
+        #fdecef 0%,
+        #fffafa 57%,
+        #ffffff 100%
+      );
+    }
+
+    /* Main page content */
+    .page {
+      min-height: 100svh;
+      padding: 38px 22px 32px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Page heading */
+    h1 {
+      margin: 0 0 26px;
+      color: #000;
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Contains the profile circle and remove button */
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    /* Clickable profile circle */
     .avatar {
       position: relative;
-      width: 151px;
-      height: 151px;
-      margin-top: 30px;
-      margin-bottom: 37px;
-      padding: 0;
-      border: 0;
+      width: 128px;
+      height: 128px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       border-radius: 50%;
       background: #d9d9d9;
       overflow: hidden;
       cursor: pointer;
+
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.16);
     }
 
+    /* Default profile head */
     .avatar::before {
       content: "";
       position: absolute;
-      width: 54px;
-      height: 54px;
-      left: 49px;
-      top: 27px;
+      width: 46px;
+      height: 46px;
+      top: 23px;
+      left: 41px;
       border-radius: 50%;
-      background: white;
+      background: #fff;
+      transition: opacity 0.2s ease;
     }
 
+    /* Default profile body */
     .avatar::after {
       content: "";
       position: absolute;
-      width: 112px;
-      height: 58px;
-      left: 20px;
-      bottom: -4px;
-      border-radius: 65px 65px 0 0;
-      background: white;
+      width: 96px;
+      height: 51px;
+      left: 16px;
+      bottom: -3px;
+      border-radius: 60px 60px 0 0;
+      background: #fff;
+      transition: opacity 0.2s ease;
     }
 
+    /* Uploaded profile image */
+    .profile-photo {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+
+      width: 100%;
+      height: 100%;
+
+      display: none;
+      object-fit: cover;
+      object-position: 50% 50%;
+
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .profile-photo:active {
+      cursor: grabbing;
+    }
+
+    /* Show uploaded image */
+    .avatar.has-photo .profile-photo {
+      display: block;
+    }
+
+    /* Hide default icon after photo upload */
+    .avatar.has-photo::before,
+    .avatar.has-photo::after {
+      opacity: 0;
+    }
+
+    /* Pencil hover image */
     .avatar .pencil {
       position: absolute;
-      z-index: 2;
-      left: 55px;
-      top: 55px;
-      width: 50px;
-      height: 50px;
+      z-index: 3;
+
+      width: 42px;
+      height: 42px;
       object-fit: contain;
+
       opacity: 0;
-      transition: opacity 0.15s ease;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
     }
 
     .avatar:hover .pencil,
-    .avatar:focus-visible .pencil {
+    .avatar:focus .pencil {
       opacity: 1;
     }
-    .form { width: 337px; margin-top: 30px; display: flex; flex-direction: column; align-items: center; }
-    .field { position: relative; width: 380px; height: 65px; margin-bottom: 25px; }
-    .field input { width: 100%; height: 100%; border: 1px solid var(--border); border-radius: 100px; outline: none; background: var(--pink); padding: 0 20px 0 80px; color: #000; font: 400 27px Karla, sans-serif; box-shadow: 0 4px 5px rgba(0,0,0,.22); }
-    .field input:focus { border-width: 2px; }
-    .field img { position: absolute; z-index: 1; left: 30px; top: 15px; width: 39px; height: 39px; object-fit: contain; pointer-events: none; }
-    .field.phone img { width: 36px; height: 36px; left: 31px; top: 16px; }
-    .field.password img { width: 37px; height: 37px; left: 31px; top: 16px; }
-    .remember { width: 337px; display: flex; align-items: center; gap: 12px; margin: 11px 0 20px 36px; font-size: 16px; gap: 8px}
-    .remember input { appearance: none; width: 20px; height: 20px; margin: 0; background: #d9d9d9; cursor: pointer; }
-    .remember input:checked { background: var(--border); position: relative; }
-    .remember input:checked::after { content: "✓"; color: #fff; font: 700 22px Karla; position: absolute; left: 5px; top: 0; }
-    .primary { align-self: flex-end; width: 150px; height: 40px; border: 1px solid var(--border); border-radius: 100px; background: #F7A0B0; color: black; box-shadow: 0 4px 5px rgba(0,0,0,.22); font: 400 20px Karla, sans-serif; cursor: pointer; }
-    .primary:active { transform: translateY(1px); }
-    .secondary { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); white-space: nowrap; border: 0; background: transparent; margin-top: 9px; padding: 0; font: 400 20px Karla, sans-serif; cursor: pointer; }
-    .secondary:active { transform: translateX(-50%) translateY(1px); }
-    .secondary:hover { text-decoration: underline; }
-    .signup-link { color: #9F1F47 }
+
+    /* Hidden file input */
+    .profile-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    /* Remove-photo button */
+    .remove-photo {
+      position: absolute;
+      z-index: 5;
+      top: -8px;
+      right: -8px;
+
+      width: 28px;
+      height: 28px;
+
+      border: 0;
+      border-radius: 50%;
+      background: var(--border);
+      color: #fff;
+
+      font: 600 22px Karla, sans-serif;
+      line-height: 25px;
+      cursor: pointer;
+    }
+
+    .remove-photo:hover {
+      background: #761533;
+    }
+
+    /* Signup form */
+    .form {
+      width: 100%;
+      max-width: 337px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Individual input container */
+    .field {
+      position: relative;
+      width: 100%;
+      height: 62px;
+      margin-bottom: 16px;
+    }
+
+    /* Input box */
+    .field input {
+      width: 100%;
+      height: 100%;
+      padding: 0 18px 0 72px;
+
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      outline: none;
+
+      background: var(--field-pink);
+      color: #000;
+
+      font: 400 21px Karla, sans-serif;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Placeholder text */
+    .field input::placeholder {
+      color: var(--placeholder);
+      opacity: 1;
+    }
+
+    /* Focused input */
+    .field input:focus {
+      border-width: 2px;
+    }
+
+    /* Input icons */
+    .field > img {
+      position: absolute;
+      z-index: 1;
+      left: 24px;
+      top: 50%;
+
+      width: 32px;
+      height: 32px;
+
+      transform: translateY(-50%);
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* Phone icon */
+    .field.phone > img {
+      width: 34px;
+      height: 34px;
+    }
+
+    /* Lock icon */
+    .field.password > img {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Signup button */
+    .primary {
+      align-self: stretch;
+      width: 100%;
+      height: 54px;
+      margin-top: 8px;
+
+      border: 1px solid var(--border);
+      border-radius: 100px;
+
+      background: var(--border);
+      color: #fff;
+
+      font: 500 22px Karla, sans-serif;
+      cursor: pointer;
+
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .primary:hover {
+      background: #82183a;
+    }
+
+    .primary:active {
+      transform: translateY(1px);
+    }
+
+    /* Login link */
+    .secondary {
+      margin-top: 18px;
+      padding: 0;
+
+      border: 0;
+      background: transparent;
+
+      color: #000;
+      font: 400 17px Karla, sans-serif;
+      cursor: pointer;
+    }
+
+    .secondary:hover {
+      text-decoration: underline;
+    }
+
+    /* Burgundy Log In text */
+    .signup-link {
+      color: var(--border);
+    }
+
+    /* Smaller-screen adjustments */
+    @media (max-width: 350px) {
+      .page {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .field input {
+        font-size: 19px;
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <main class="phone">
     <section class="page">
+
       <h1>Register</h1>
-      <button class="avatar" type="button" aria-label="Edit profile image">
-        <img class="pencil" src="assets/pencil.png" alt="">
-      </button>
+
+      <!-- Profile photo area -->
+      <div class="avatar-wrap">
+
+        <!-- Clicking the avatar opens the gallery -->
+        <div
+          class="avatar"
+          id="avatar"
+          tabindex="0"
+          role="button"
+          aria-label="Choose a profile photo"
+        >
+          <!-- Uploaded photo preview -->
+          <img
+            class="profile-photo"
+            id="profilePreview"
+            src=""
+            alt="Selected profile photo"
+          >
+
+          <!-- Pencil hover image -->
+          <img
+            class="pencil"
+            src="assets/pencil.png"
+            alt=""
+          >
+        </div>
+
+        <!-- Separate file picker -->
+        <input
+          class="profile-input"
+          id="profilePhoto"
+          type="file"
+          accept="image/*"
+        >
+
+        <!-- Remove uploaded photo -->
+        <button
+          class="remove-photo"
+          id="removePhoto"
+          type="button"
+          aria-label="Remove profile photo"
+          hidden
+        >
+          ×
+        </button>
+
+      </div>
+
+      <!-- Signup form -->
       <form class="form" id="signupForm">
+
+        <!-- Username -->
         <label class="field">
           <img src="assets/profile.png" alt="">
-          <input id="signupUsername" type="text" autocomplete="username" placeholder="Username" aria-label="Username">
+
+          <input
+            id="signupUsername"
+            type="text"
+            autocomplete="username"
+            placeholder="Username"
+            aria-label="Username"
+          >
         </label>
+
+        <!-- Email -->
+        <label class="field">
+          <img src="assets/email.png" alt="">
+
+          <input
+            id="signupEmail"
+            type="email"
+            autocomplete="email"
+            placeholder="Email"
+            aria-label="Email"
+          >
+        </label>
+
+        <!-- Mobile number -->
         <label class="field phone">
           <img src="assets/phone-call.png" alt="">
-          <input id="mobileNumber" type="tel" autocomplete="tel" placeholder="Mobile Number" aria-label="Mobile Number">
+
+          <input
+            id="mobileNumber"
+            type="tel"
+            autocomplete="tel"
+            placeholder="Mobile Number"
+            aria-label="Mobile Number"
+          >
         </label>
+
+        <!-- Password -->
         <label class="field password">
           <img src="assets/lock.png" alt="">
-          <input id="signupPassword" type="password" autocomplete="new-password" placeholder="Password" aria-label="Password">
+
+          <input
+            id="signupPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Password"
+            aria-label="Password"
+          >
         </label>
-        <button class="primary" type="submit">Sign Up</button>
-        <button class="secondary" type="button" id="toLogin">Have an account? <span class="signup-link">Log In</span></button>
+
+        <!-- Confirm password -->
+        <label class="field password">
+          <img src="assets/lock.png" alt="">
+
+          <input
+            id="confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Confirm Password"
+            aria-label="Confirm Password"
+          >
+        </label>
+
+        <!-- Signup button -->
+        <button class="primary" type="submit">
+          Sign Up
+        </button>
+
+        <!-- Login link -->
+        <button class="secondary" type="button" id="toLogin">
+          Have an account?
+          <span class="signup-link">Log In</span>
+        </button>
+
       </form>
     </section>
   </main>
+
   <script>
-    document.querySelectorAll('.field input').forEach((input) => {
+    const profileInput = document.getElementById("profilePhoto");
+    const avatar = document.getElementById("avatar");
+    const profilePreview = document.getElementById("profilePreview");
+    const removePhoto = document.getElementById("removePhoto");
+
+    let photoPositionX = 50;
+    let photoPositionY = 50;
+
+    let isDragging = false;
+    let wasDragged = false;
+    let startX = 0;
+    let startY = 0;
+
+    /*
+      Clicking the avatar opens the file picker.
+      Dragging the uploaded photo does not open it.
+    */
+    avatar.addEventListener("click", () => {
+      if (!wasDragged) {
+        profileInput.click();
+      }
+    });
+
+    /*
+      Allows keyboard users to open the gallery.
+    */
+    avatar.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        profileInput.click();
+      }
+    });
+
+    /*
+      Reads and displays the selected image.
+    */
+    profileInput.addEventListener("change", () => {
+      const selectedFile = profileInput.files[0];
+
+      if (!selectedFile) {
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.addEventListener("load", () => {
+        profilePreview.src = reader.result;
+
+        photoPositionX = 50;
+        photoPositionY = 50;
+
+        profilePreview.style.objectPosition = "50% 50%";
+        avatar.classList.add("has-photo");
+        removePhoto.hidden = false;
+      });
+
+      reader.readAsDataURL(selectedFile);
+    });
+
+    /*
+      Starts dragging the uploaded image.
+    */
+    profilePreview.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      isDragging = true;
+      wasDragged = false;
+
+      startX = event.clientX;
+      startY = event.clientY;
+
+      profilePreview.setPointerCapture(event.pointerId);
+    });
+
+    /*
+      Repositions the uploaded image inside the circle.
+    */
+    profilePreview.addEventListener("pointermove", (event) => {
+      if (!isDragging) {
+        return;
+      }
+
+      const movementX = event.clientX - startX;
+      const movementY = event.clientY - startY;
+
+      if (Math.abs(movementX) > 2 || Math.abs(movementY) > 2) {
+        wasDragged = true;
+      }
+
+      const avatarWidth = avatar.offsetWidth;
+      const avatarHeight = avatar.offsetHeight;
+
+      photoPositionX -= (movementX / avatarWidth) * 100;
+      photoPositionY -= (movementY / avatarHeight) * 100;
+
+      photoPositionX = Math.max(0, Math.min(100, photoPositionX));
+      photoPositionY = Math.max(0, Math.min(100, photoPositionY));
+
+      profilePreview.style.objectPosition =
+        `${photoPositionX}% ${photoPositionY}%`;
+
+      startX = event.clientX;
+      startY = event.clientY;
+    });
+
+    /*
+      Stops dragging the image.
+    */
+    profilePreview.addEventListener("pointerup", (event) => {
+      isDragging = false;
+
+      if (profilePreview.hasPointerCapture(event.pointerId)) {
+        profilePreview.releasePointerCapture(event.pointerId);
+      }
+
+      /*
+        Keeps the click suppressed briefly after dragging,
+        so the gallery does not open accidentally.
+      */
+      setTimeout(() => {
+        wasDragged = false;
+      }, 100);
+    });
+
+    profilePreview.addEventListener("pointercancel", () => {
+      isDragging = false;
+      wasDragged = false;
+    });
+
+    /*
+      Removes the uploaded photo.
+    */
+    removePhoto.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      profileInput.value = "";
+      profilePreview.src = "";
+      profilePreview.style.objectPosition = "50% 50%";
+
+      photoPositionX = 50;
+      photoPositionY = 50;
+
+      avatar.classList.remove("has-photo");
+      removePhoto.hidden = true;
+    });
+
+    /*
+      Removes placeholders while typing.
+    */
+    document.querySelectorAll(".field input").forEach((input) => {
       const originalPlaceholder = input.placeholder;
-      input.addEventListener('focus', () => { input.placeholder = ''; });
-      input.addEventListener('blur', () => {
-        if (!input.value) input.placeholder = originalPlaceholder;
+
+      input.addEventListener("focus", () => {
+        input.placeholder = "";
+      });
+
+      input.addEventListener("blur", () => {
+        if (!input.value) {
+          input.placeholder = originalPlaceholder;
+        }
       });
     });
-    document.getElementById('toLogin').addEventListener('click', () => {
-      window.location.href = 'login.html';
+
+    /*
+      Goes to the login page.
+    */
+    document.getElementById("toLogin").addEventListener("click", () => {
+      window.location.href = "login.html";
     });
-    document.getElementById('signupForm').addEventListener('submit', (event) => {
+
+    /*
+      Frontend-only signup behavior.
+    */
+    document.getElementById("signupForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      // Frontend-only placeholder: a real account is not created.
-      window.location.href = 'login.html';
+
+      window.location.href = "login.html";
     });
   </script>
+
 </body>
 </html>
