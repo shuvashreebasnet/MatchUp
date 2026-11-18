@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Other User Profile </title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+    <body>
+        <div class="phone">
+            <div id="user_profile">
+                <img src=profile.png alt="profile picture not provided"></img>
+                <p id="username"> Their Name </p>
+            </div><br>
+            
+            <h3>Preferences</h3>
+            <ul name="preferences"> 
+                <li>X Eyeshadow</li>
+                <li>Y Blush</li>
+                <li>Z Perfume</li>
+            </ul> <br>
+            <button id="toggle_friend" onclick="add()" ondblclick="remove()" style="background-color:#F7A0B0">
+            <p id="button_text">Add Friend</p>
+            </button>
+        </div>
+
+        <script>
+            let current_friend = true;
+            const button_status = document.getElementById("toggle_friend");
+            const button_label = document.getElementById("button_text");
+
+            function add(){
+                current_friend = true;
+
+                // change button's look
+                button_label.innerHTML = "Remove Friend";
+                button_status.style = "background-color:#CEE9C7";
+            }
+
+            function remove(){
+                current_friend = false;
+
+                // change button's look
+                button_label.innerHTML = "Add Friend";
+                button_status.style = "background-color:#F7A0B0";
+            }
+        </script>
+    </body>
+</html>

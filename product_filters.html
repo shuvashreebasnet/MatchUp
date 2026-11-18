@@ -3,68 +3,82 @@
     <head>
         <meta charset="utf-8">
         <title> Product Filters </title>
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
-        <form>
+        <form class="phone">
+            <h1>Filters</h1>
             <div class="price-range">
-                <label> Price: </label>
-                <input type="range" min="0" max="200" step="25">
-                
-            </div>
-            <br>
+                <h4> Price: </h4>
+                <input id="min_price" type="range" min="0" max="200" step="25">
+                <input id="max_price" type="range" min="0" max="200" step="25">
+            </div><br>
+            
             <div class="makeup-brands">
-                <label> Search Brands: </label>
-            </div>
-            <br>
+                <h4> Search Brands: </h4>
+                <div id="search_bar">
+                    <img src="lookup.png" width=30px height=30px>
+                    <input type="text" id="search">
+                    <!--<button id="add_brand" onclick="add_brand()"> Add Brand </button>-->
+                </div>
+                <p id="brand_list"></p>
+            </div><br>
+            
             <div class="ingredient-menu">
-                <label> Allergens to Exclude: </label>
-
+                <h4> Allergens to Exclude: </h4>
                 <select name="Natural Rubber">
-                    <option> Select All </option>
+                    <option>Natural Rubber</option>
                     <option> Latex </option>
-                    <option> Other </option>
                 </select>
 
                 <select name="Metals">
-                    <option> Select All </option>
-                    <option> Nickel </option>
+                    <option>Metals</option>
                     <option> Gold </option>
-                    <option> Other </option>
+                    <option> Nickel </option>
                 </select>
 
                 <select name="Dyes">
-                    <option> Select All </option>
-                    <option> PPD </option>
+                    <option>Dyes</option>
                     <option> Coal-tar </option>
-                    <option> Other </option>
+                    <option> PPD </option>
                 </select>
 
-                <select name="Fragrances"></select>
-                    <option> Select All </option>
-                    <option> Other </option>
+                <select name="Fragrances">
+                    <option> Fragrances </option>
+                    <option> Citral </option>
+                    <option> Citronellol </option>
+                    <option> Geraniol </option>
+                    <option> Limolene </option>
+                    <option> Linalool </option>
                 </select>
 
                 <select name="Preservatives">
-                    <option> Select All </option>
-                    <option> MIT </option>
+                    <option> Perservatives </option>
                     <option> CMIT </option>
                     <option> Formaldehyde and formaldehyde releasing ingredients </option>
-                    <option> Other </option>
+                    <option> MIT </option>
                 </select>
-            </div>
-            <br>
+            </div> <br>
+            
             <div class="ethical-production-tags">
-                <label> Ethical Production: </label> <br>
+                <h4> Ethical Production: </h4>
                 <input type="checkbox" name="cruelty-free"> Cruelty-Free <br>
                 <input type="checkbox" name="fair-trade"> Fair-Trade Certified <br>
                 <input type="checkbox" name="eco-friendly"> Eco-Friendly <br>
-            </div>
-            <br>
-            <div class="filter-management-buttons">
+            </div> <br>
+            
+            <div class="filter-management-buttons" justify-content: center;>
                 <button type="reset"> Clear All </button>
                 <button type="submit"> Save and Apply </button>
             </div>
+
+            <script>
+                function add_brand(){
+                    new_brand = document.getElementById("search").innerText;
+                    document.getElementById("brand_list").innerText = new_brand;
+                }
+            </script>
         </form>
     </body>
 </html>
