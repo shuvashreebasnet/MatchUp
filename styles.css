@@ -14,7 +14,7 @@ body {
     height: min(852px, 100vh);
     min-height: 400px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: scroll;
     background: linear-gradient(#fdecef 0%, #fff8f9 55%, #fff 100%);
     padding: 5px 20px;
 }
@@ -73,6 +73,27 @@ body {
     border-radius: 10px;
     padding:5px;
     margin:8px;
+}
+
+/* scrollbar styling */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 /* element styling */
