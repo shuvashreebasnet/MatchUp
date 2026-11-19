@@ -8,23 +8,23 @@
     
     <body>
         <div class="phone">
-            <div id="user_profile" style="margin-top: 40px; margin-left: 135px;">
-                <img src=profile.png alt="profile picture not provided"></img>
-                <p id="username" style="margin-left: 5px;"> Their Name </p>
+            <div id="user_profile">
+                <img src=profile.png alt="profile picture not available" style="margin-top: 50px; margin-left: 130px;"></img>
+                <h2 id="username" style="text-align:center;"> User Name </h2>
             </div><br>
             
             <div id="preferences_list">
                 <h3>Preferences</h3>
                 <ul name="preferences" style="justify-content: center;"> 
-                    <li>MAC Serum Powered Foundation</li>
-                    <li>X Eyeshadow</li>
-                    <li>Y Blush</li>
-                    <li>Z Perfume</li>
+                    <li class="green_textbox">MAC Serum Powered Foundation</li>
+                    <li class="green_textbox">X Eyeshadow</li>
+                    <li class="green_textbox">Y Blush</li>
+                    <li class="green_textbox">Z Perfume</li>
                 </ul>
             </div><br>
             
-            <button id="toggle_friend" onclick="add()" ondblclick="remove()" style="background-color:#F7A0B0; margin-left:138px;">
-                <p id="button_text">Add Friend</p>
+            <button id="toggle_friend" onclick="add()" ondblclick="remove()" style="background-color:#F7A0B0; margin-left:133px;">
+                <p id="button_text" style="font-size: medium;">Add Friend</p>
             </button>
         </div>
 
@@ -38,7 +38,7 @@
 
                 // change button's look
                 button_label.innerHTML = "Remove Friend";
-                button_status.style = "background-color:#CEE9C7";
+                button_status.style = "background-color:#CEE9C7; margin-left:133px;";
             }
 
             function remove(){
@@ -46,7 +46,7 @@
 
                 // change button's look
                 button_label.innerHTML = "Add Friend";
-                button_status.style = "background-color:#F7A0B0";
+                button_status.style = "background-color:#F7A0B0; margin-left:133px;";
             }
         </script>
     </body>

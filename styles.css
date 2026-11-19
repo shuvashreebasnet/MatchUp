@@ -67,6 +67,15 @@ body {
     transform: translateY(-3px) scale(1.2);
 }
 
+/* green text box styling */
+.green_textbox{
+    background-color:#cee9c7;
+    border-radius: 10px;
+    padding:5px;
+    margin:8px;
+}
+
+/* element styling */
 button{
    background-color:#f7a0b0;
    border-radius: 12px;
@@ -75,6 +84,7 @@ button{
 select{
     background-color: #fbcdd5;
     border-radius: 8px;
+    margin:4px;
 }
 
 input[type="checkbox"]{
@@ -84,6 +94,8 @@ input[type="checkbox"]{
 input[type="range"]{
     accent-color: #cee9c7;
     border-width: 2px;
+    margin: 5px;
+    
 }
 
 h1{

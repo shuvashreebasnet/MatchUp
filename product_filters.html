@@ -7,13 +7,18 @@
     </head>
 
     <body>
-        <form class="phone">
+        <form class="phone" method="POST">
             <h1>Filters</h1>
             <div class="price-range">
                 <h4> Price: </h4>
-                <input id="min_price" type="range" min="0" max="200" step="25">
-                <input id="max_price" type="range" min="0" max="200" step="25">
-            </div><br>
+                <input type="checkbox" id="0-25"> $0 - $25 <br>
+                <input type="checkbox" id="25-50"> $25 - $50 <br>
+                <input type="checkbox" id="50-75"> $50 - $75 <br>
+                <input type="checkbox" id="75-100"> $75 - $100 <br>
+                <input type="checkbox" id="100-125"> $100 - $125 <br>
+                <input type="checkbox" id="150-175"> $150 - $175 <br>
+                <input type="checkbox" id="175-200"> $175 - $200 <br>
+            </div>
             
             <div class="makeup-brands">
                 <h4> Search Brands: </h4>
@@ -29,36 +34,42 @@
                 <h4> Allergens to Exclude: </h4>
                 <select name="Natural Rubber">
                     <option>Natural Rubber</option>
+                    <option> N/A </option>
                     <option> Latex </option>
-                </select>
+                </select> 
 
                 <select name="Metals">
                     <option>Metals</option>
+                    <option> N/A </option>
                     <option> Gold </option>
                     <option> Nickel </option>
-                </select>
+                </select> <br>
 
                 <select name="Dyes">
                     <option>Dyes</option>
+                    <option> N/A </option>
                     <option> Coal-tar </option>
                     <option> PPD </option>
-                </select>
+                </select> 
 
                 <select name="Fragrances">
                     <option> Fragrances </option>
+                    <option> N/A </option>
                     <option> Citral </option>
                     <option> Citronellol </option>
                     <option> Geraniol </option>
                     <option> Limolene </option>
                     <option> Linalool </option>
-                </select>
+                </select> 
 
                 <select name="Preservatives">
                     <option> Perservatives </option>
+                    <option> N/A </option>
                     <option> CMIT </option>
                     <option> Formaldehyde and formaldehyde releasing ingredients </option>
                     <option> MIT </option>
-                </select>
+                </select> <br>
+                <input type="checkbox"> I'm not allergic to any of these.
             </div> <br>
             
             <div class="ethical-production-tags">
@@ -68,9 +79,9 @@
                 <input type="checkbox" name="eco-friendly"> Eco-Friendly <br>
             </div> <br>
             
-            <div class="filter-management-buttons" justify-content: center;>
-                <button type="reset"> Clear All </button>
-                <button type="submit"> Save and Apply </button>
+            <div class="filter-management-buttons" style="margin-left: 60px;">
+                <button type="reset" style="font-size: large; background-color: #fbcdd5;"> Clear All </button>
+                <button type="submit" style="font-size: large;"> <strong>Save and Apply</strong></button>
             </div>
 
             <script>
