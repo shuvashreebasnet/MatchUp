@@ -2,862 +2,206 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <!-- Makes the page responsive on mobile devices -->
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MatchUp - Results</title>
-
-  <!-- Imports the Karla font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
-
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --pink: #f7a0b0;
-      --border: #9f1f47;
-      --green: #cee9c7;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #eee;
-      font-family: Karla, sans-serif;
-      color: #000;
-    }
-
-    /* Responsive mobile frame */
-    .phone {
-      position: relative;
-      width: 100%;
-      max-width: 393px;
-      min-height: 100svh;
-      margin: 0 auto;
-      overflow: hidden;
-
-      background: linear-gradient(
-        to bottom,
-        #fdecef 0%,
-        #fffafa 55%,
-        #ffffff 100%
-      );
-    }
-
-    /* Main page content */
-    .page {
-      min-height: 100svh;
-      padding: 22px 15px 94px;
-      overflow-y: auto;
-    }
-
-    /* Back and restart buttons */
-    .top-button {
-      position: absolute;
-      z-index: 2;
-      top: 22px;
-
-      width: 45px;
-      height: 45px;
-      padding: 10px;
-
-      border: 0;
-      border-radius: 15px;
-      background: #fff;
-      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
-
-      cursor: pointer;
-    }
-
-    .top-button.back {
-      left: 15px;
-    }
-
-    .top-button.restart {
-      right: 15px;
-    }
-
-    .top-button img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    /* Results heading */
-    h1 {
-      margin: 56px 0 18px;
-
-      text-align: center;
-      font-size: 48px;
-      line-height: 1;
-      font-weight: 500;
-    }
-
-    /* Foundation shade result */
-    .shade-result {
-      width: 100%;
-      height: 195px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      margin-bottom: 18px;
-
-      border: 4px solid #000;
-      border-radius: 40px;
-      background: #cc987d;
-    }
-
-    .shade-name {
-      margin: 0 0 7px;
-
-      font-size: 50px;
-      line-height: 1;
-      font-weight: 500;
-    }
-
-    .shade-details {
-      margin: 0;
-      font-size: 26px;
-    }
-
-    /* Appearance and preference rows */
-    .pink-pills,
-    .green-pills {
-      width: 100%;
-
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .pink-pills {
-      margin-bottom: 20px;
-    }
-
-    .green-pills {
-      margin-bottom: 10px;
-    }
-
-    /* Individual pill */
-    .pill {
-      flex: 1;
-      min-width: 0;
-      height: 38px;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      border-radius: 25px;
-      font-size: 17px;
-      white-space: nowrap;
-    }
-
-    .pink-pills .pill {
-      background: var(--pink);
-    }
-
-    .green-pills .pill {
-      background: var(--green);
-    }
-
-    /* Preferences heading */
-    .preference-title {
-      margin: 0 0 8px;
-
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    /*
-      Product card.
-
-      The card supports horizontal dragging/swiping.
-    */
-    .product-card {
-      position: relative;
-      width: 100%;
-      max-width: 367px;
-      height: 366px;
-
-      margin: 0 auto 16px;
-      padding: 242px 18px 12px;
-
-      border-radius: 30px;
-      background: #fff;
-      box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
-
-      touch-action: pan-y;
-      cursor: grab;
-    }
-
-    .product-card:active {
-      cursor: grabbing;
-    }
-
-    /* Product image */
-    .product-image {
-      display: block;
-
-      width: 180px;
-      height: 180px;
-      margin: -225px auto 42px;
-
-      object-fit: contain;
-    }
-
-    /*
-      Favorite button.
-    */
-    .favorite-button {
-      position: absolute;
-      z-index: 5;
-      top: 12px;
-      right: 13px;
-
-      width: 60px;
-      height: 60px;
-      padding: 0;
-
-      border: 0;
-      border-radius: 50%;
-      background: transparent;
-
-      cursor: pointer;
-    }
-
-    .favorite-button img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    /* Product name */
-    .product-name {
-      margin: 0;
-
-      font-size: 30px;
-      line-height: 1.15;
-      font-weight: 600;
-    }
-
-    /* Product price */
-    .product-price {
-      margin: 2px 0 0;
-
-      font-size: 31px;
-      font-weight: 600;
-    }
-
-    /*
-      Product transition when moving forward.
-    */
-    .product-card.product-enter-next .product-image,
-    .product-card.product-enter-next .product-name,
-    .product-card.product-enter-next .product-price {
-      animation: slideInFromRight 0.35s ease;
-    }
-
-    /*
-      Product transition when moving backward.
-    */
-    .product-card.product-enter-prev .product-image,
-    .product-card.product-enter-prev .product-name,
-    .product-card.product-enter-prev .product-price {
-      animation: slideInFromLeft 0.35s ease;
-    }
-
-    @keyframes slideInFromRight {
-      from {
-        opacity: 0;
-        transform: translateX(35px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes slideInFromLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-35px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* Product navigation dots */
-    .dots {
-      position: relative;
-      z-index: 10;
-
-      display: flex;
-      justify-content: center;
-      gap: 27px;
-
-      margin-bottom: 29px;
-    }
-
-    /* Individual product dot */
-    .dot {
-      width: 19px;
-      height: 19px;
-      padding: 0;
-
-      border: 0;
-      border-radius: 50%;
-      background: #d9d9d9;
-
-      cursor: pointer;
-    }
-
-    /* Active product dot */
-    .dot.active {
-      background: #000;
-    }
-
-    /* Explore More button */
-    .explore-button {
-      display: block;
-
-      width: calc(100% - 40px);
-      height: 68px;
-      margin: 0 auto;
-
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      background: var(--pink);
-      box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
-
-      font: 400 30px Karla, sans-serif;
-      cursor: pointer;
-    }
-
-    /* Bottom navigation */
-    .bottom-nav {
-      position: absolute;
-      z-index: 3;
-      right: 0;
-      bottom: 0;
-      left: 0;
-
-      height: 72px;
-
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-
-      border-top: 1px solid #000;
-      background: #fff;
-    }
-
-    /* Navigation item */
-    .nav-item {
-      position: relative;
-      width: 55px;
-      height: 60px;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Navigation icon */
-    .nav-item img {
-      width: 43px;
-      height: 43px;
-      object-fit: contain;
-    }
-
-    /* Active navigation indicator */
-    .nav-item.active::before {
-      content: "";
-
-      position: absolute;
-      top: 0;
-      left: 50%;
-
-      width: 45px;
-      height: 8px;
-
-      transform: translateX(-50%);
-      background: var(--pink);
-    }
-
-    /* Smaller-phone adjustments */
-    @media (max-width: 393px) {
-      .phone {
-        width: 100%;
-      }
-
-      .product-card {
-        width: calc(100% - 14px);
-      }
-    }
+    :root { --pink: #f7a0b0; --border: #9f1f47; --green: #CEE9C7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #eee; font-family: Karla, sans-serif; color: #000; }
+    .phone { position: relative; width: 100%; max-width: 393px; min-height: 100svh; margin: 0 auto; overflow: hidden; background: linear-gradient(#fdecef 0%, #fffafa 55%, #fff 100%); }
+    .page { min-height: 852px; padding: 22px 15px 94px; overflow-y: auto; }
+    .top-button { position: absolute; z-index: 2; top: 22px; width: 45px; height: 45px; padding: 10px; border: 0; border-radius: 15px; background: #fff; box-shadow: 0 5px 5px rgba(0,0,0,.25); cursor: pointer; }
+    .top-button.back { left: 15px; } .top-button.restart { right: 15px; }
+    .top-button img { width: 100%; height: 100%; object-fit: contain; }
+    h1 { margin: 56px 0 18px; text-align: center; font-size: 48px; line-height: 1; font-weight: 500; }
+    .shade-result { width: 100%; height: 195px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 18px; border: 4px solid #000; border-radius: 40px; background: #cc987d; transition: background-color .35s ease; }
+    .shade-name { margin: 0 0 7px; font-size: 50px; line-height: 1; font-weight: 500; }
+    .shade-details { margin: 0; font-size: 26px; }
+    .pink-pills, .green-pills { display: flex; justify-content: space-between; gap: 12px; width: 100%; }
+    .pink-pills { margin-bottom: 20px; } .green-pills { margin-bottom: 10px; }
+    .pill { flex: 1; min-width: 0; height: 38px; display: flex; justify-content: center; align-items: center; border-radius: 25px; font-size: 17px; white-space: nowrap; }
+    .pink-pills .pill { background: var(--pink); } .green-pills .pill { background: var(--green); }
+    .preference-title { margin: 0 0 8px; font-size: 16px; font-weight: 700; }
+    .product-card { position: relative; width: 100%; max-width: 367px; height: 366px; margin: 0 auto 16px; padding: 242px 18px 12px; border-radius: 30px; background: #fff; box-shadow: 0 5px 6px rgba(0,0,0,.25); touch-action: pan-y; }
+    .product-image { position: absolute; top: 24px; left: 50%; width: 180px; height: 180px; transform: translateX(-50%); object-fit: contain; }
+    .favorite-button { position: absolute; top: 12px; right: 13px; z-index: 2; width: 60px; height: 60px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+    .favorite-button img { width: 100%; height: 100%; object-fit: contain; }
+    .product-name { margin: 0; font-size: 30px; line-height: 1.15; font-weight: 600; }
+    .product-price { margin: 2px 0 0; font-size: 31px; font-weight: 600; }
+    .dots { display: flex; justify-content: center; gap: 27px; margin-bottom: 29px; }
+    .dot { width: 19px; height: 19px; padding: 0; border: 0; border-radius: 50%; background: #d9d9d9; cursor: pointer; }
+    .dot.active { background: #000; }
+    .product-card.slide-left { animation: slideLeft .25s ease; } .product-card.slide-right { animation: slideRight .25s ease; }
+    @keyframes slideLeft { from { opacity: .35; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideRight { from { opacity: .35; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+    .explore-button { display: block; width: calc(100% - 40px); height: 68px; margin: 0 auto; border: 1px solid var(--border); border-radius: 100px; background: var(--pink); box-shadow: 0 5px 6px rgba(0,0,0,.25); font: 400 30px Karla, sans-serif; cursor: pointer; }
+    .navbar { position: absolute; z-index: 3; right: 0; bottom: 0; left: 0; height: 66px; border-top: 1px solid #000; background: #fff; }
+    .navbar ul { display: flex; align-items: center; justify-content: space-around; height: 100%; margin: 0; padding: 0 6px; list-style: none; }
+    .navbar li { position: relative; display: flex; flex: 1; justify-content: center; height: 100%; }
+    .navbar a { display: flex; align-items: center; justify-content: center; width: 100%; padding: 8px; }
+    .navbar img { width: 33px; height: 33px; object-fit: contain; transition: transform 200ms ease; }
+    .navbar li.active img { transform: translateY(-3px) scale(1.2); }
+    @media (max-width: 393px) { .phone { width: 100%; } }
   </style>
 </head>
-
 <body>
-
-  <!-- Responsive mobile frame -->
   <main class="phone">
-
-    <!-- Main results content -->
     <section class="page">
-
-      <!-- Back button -->
-      <button
-        class="top-button back"
-        type="button"
-        aria-label="Back to intro"
-      >
-        <img src="assets/back_arrow.png" alt="">
-      </button>
-
-      <!-- Restart button -->
-      <button
-        class="top-button restart"
-        type="button"
-        aria-label="Restart scan"
-      >
-        <img src="assets/restart_arrow.png" alt="">
-      </button>
-
-      <!-- Results heading -->
+      <button class="top-button back" type="button" aria-label="Back to intro"><img src="assets/back_arrow.png" alt=""></button>
+      <button class="top-button restart" type="button" aria-label="Restart scan"><img src="assets/restart_arrow.png" alt=""></button>
       <h1>Your Results</h1>
 
-      <!-- Foundation shade result -->
-      <section class="shade-result">
-        <p class="shade-name">Mocha N40</p>
-
-        <p class="shade-details">
-          Warm
-          <span style="color: #f7a0b0;">●</span>
-          Medium
-        </p>
+      <section class="shade-result" id="shadeResult">
+        <p class="shade-name" id="shadeName">Medium Match</p>
+        <p class="shade-details" id="shadeDetails">Skin depth: Medium</p>
       </section>
 
-      <!-- Facial feature results -->
       <div class="pink-pills">
-        <div class="pill">Eye: Almond</div>
-        <div class="pill">Nose: Greek</div>
-        <div class="pill">Face: Oval</div>
+        <div class="pill" id="eyePill">Eye: Almond</div>
+        <div class="pill" id="nosePill">Nose: Straight</div>
+        <div class="pill" id="facePill">Face: Oval</div>
       </div>
 
-      <!-- Preferences heading -->
-      <p class="preference-title">
-        Your Preferences:
-      </p>
+      <!-- Preferences are intentionally left unchanged for now. -->
+      <p class="preference-title">Your Preferences:</p>
+      <div class="green-pills"><div class="pill">Skin type: Dry</div><div class="pill">Cruelty-Free</div><div class="pill">Environment</div></div>
 
-      <!-- User preferences -->
-      <div class="green-pills">
-        <div class="pill">Skin type: Dry</div>
-        <div class="pill">Cruelty-Free</div>
-        <div class="pill">Environment</div>
-      </div>
-
-      <!-- Product recommendation card -->
-      <section
-        class="product-card"
-        id="productCard"
-      >
-        <!-- Clickable favorite button -->
-        <button
-          class="favorite-button"
-          id="favoriteButton"
-          type="button"
-        >
-          <img
-            id="favoriteImage"
-            src="assets/hearted.png"
-            alt="Favorite product"
-          >
+      <section class="product-card" id="productCard">
+        <button class="favorite-button" id="favoriteButton" type="button" aria-label="Favorite product">
+          <img id="favoriteImage" src="assets/hearted.png" alt="">
         </button>
-
-        <!-- Product image -->
-        <img
-          class="product-image"
-          id="productImage"
-          src="assets/mac_foundation.png"
-          alt="MAC Studio Radiance Serum-Powered Foundation"
-        >
-
-        <!-- Product name -->
-        <p
-          class="product-name"
-          id="productName"
-        >
-          MAC Serum Powered<br>
-          Foundation
-        </p>
-
-        <!-- Product price -->
-        <p
-          class="product-price"
-          id="productPrice"
-        >
-          $X.XX
-        </p>
+        <img class="product-image" id="productImage" src="assets/mac_foundation.png" alt="MAC foundation">
+        <p class="product-name" id="productName">MAC Studio Radiance<br>Foundation</p>
+        <p class="product-price" id="productPrice">$46.00</p>
       </section>
 
-      <!-- Clickable product dots -->
-      <div
-        class="dots"
-        aria-label="Product matches"
-      >
-        <button
-          class="dot active"
-          type="button"
-          data-product="0"
-          aria-label="Show product 1"
-        ></button>
-
-        <button
-          class="dot"
-          type="button"
-          data-product="1"
-          aria-label="Show product 2"
-        ></button>
-
-        <button
-          class="dot"
-          type="button"
-          data-product="2"
-          aria-label="Show product 3"
-        ></button>
+      <div class="dots" aria-label="Product matches">
+        <button class="dot active" type="button" data-product="0" aria-label="Show product 1"></button>
+        <button class="dot" type="button" data-product="1" aria-label="Show product 2"></button>
+        <button class="dot" type="button" data-product="2" aria-label="Show product 3"></button>
       </div>
-
-      <!-- Explore button -->
-      <button
-        class="explore-button"
-        type="button"
-      >
-        Explore More
-      </button>
-
+      <button class="explore-button" type="button">Explore More</button>
     </section>
 
-    <!-- Bottom navigation -->
-    <nav
-      class="bottom-nav"
-      aria-label="Main navigation"
-    >
-      <div class="nav-item">
-        <img src="assets/house.png" alt="">
-      </div>
-
-      <div class="nav-item">
-        <img src="assets/saved.png" alt="">
-      </div>
-
-      <!-- Lookup is the active page -->
-      <div class="nav-item active">
-        <img src="assets/lookup.png" alt="">
-      </div>
-
-      <div class="nav-item">
-        <img src="assets/favorites.png" alt="">
-      </div>
-
-      <div class="nav-item">
-        <img src="assets/settings.png" alt="">
-      </div>
+    <nav class="navbar" aria-label="Main navigation">
+      <ul>
+        <li><a href="#" aria-label="Home"><img src="assets/navbar-icons/home-icon-black.png" data-black="assets/navbar-icons/home-icon-black.png" data-pink="assets/navbar-icons/home-icon-pink.png" alt=""></a></li>
+        <li><a href="#" aria-label="Favorites"><img src="assets/navbar-icons/favorites-icon-black.png" data-black="assets/navbar-icons/favorites-icon-black.png" data-pink="assets/navbar-icons/favorites-icon-pink.png" alt=""></a></li>
+        <li class="active"><a href="intro_scan.html" aria-label="Scan" aria-current="page"><img src="assets/navbar-icons/scan-icon-pink.png" data-black="assets/navbar-icons/scan-icon-black.png" data-pink="assets/navbar-icons/scan-icon-pink.png" alt=""></a></li>
+        <li><a href="#" aria-label="Browse"><img src="assets/navbar-icons/browse-icon-black.png" data-black="assets/navbar-icons/browse-icon-black.png" data-pink="assets/navbar-icons/browse-icon-pink.png" alt=""></a></li>
+        <li><a href="#" aria-label="Account"><img src="assets/navbar-icons/account-icon-black.png" data-black="assets/navbar-icons/account-icon-black.png" data-pink="assets/navbar-icons/account-icon-pink.png" alt=""></a></li>
+      </ul>
     </nav>
-
   </main>
 
+  <script src="script.js"></script>
   <script>
-    /*
-      Back button behavior.
-    */
-    document.querySelector(".back").addEventListener("click", () => {
-      window.location.href = "intro_scan.html";
-    });
+    const skinColors = { Fair: "#F7DCC8", Light: "#E9B99B", Medium: "#CC987D", Tan: "#A9684D", Deep: "#75402F" };
+    const productsByDepth = {
+      Fair: [
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_n11.png", alt: "MAC N11 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_100.png", alt: "Fenty shade 100 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_oslo.png", alt: "NARS Oslo foundation" }
+      ],
 
-    /*
-      Restart button behavior.
-    */
-    document.querySelector(".restart").addEventListener("click", () => {
-      window.location.href = "face_scan.html";
-    });
+      Light: [
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_nc20.png", alt: "MAC NC20 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_185.png", alt: "Fenty shade 185 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_fiji.png", alt: "NARS Fiji foundation" }
+      ],
 
-    /*
-      Explore button placeholder.
-    */
-    document
-      .querySelector(".explore-button")
-      .addEventListener("click", () => {
-        alert("Explore More coming soon!");
-      });
+      Medium: [
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_foundation.png", alt: "MAC NC40 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_foundation.png", alt: "Fenty shade 310 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_foundation.png", alt: "NARS Syracuse foundation" }
+      ],
 
-      const favoriteButton =
-        document.getElementById("favoriteButton");
+      Tan: [
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_nc45.png", alt: "MAC NC45 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_330.png", alt: "Fenty shade 330 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_barcelona.png", alt: "NARS Barcelona foundation" }
+      ],
 
-      const favoriteImage =
-        document.getElementById("favoriteImage");
+      Deep: [
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_nc50.png", alt: "MAC NC50 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_450.png", alt: "Fenty shade 450 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_manaus.png", alt: "NARS Manaus foundation" }
+      ]
+    };
 
-      /*
-        Stores a separate favorite state for each product.
-        Product 1, product 2, and product 3
-        each have their own true/false value.
-      */
-      const favoriteStates = [false, false, false];
+    const params = new URLSearchParams(window.location.search);
+    const skinDepth = productsByDepth[params.get("skinDepth")] ? params.get("skinDepth") : "Medium";
+    const eyeShape = params.get("eyeShape") || "Almond";
+    const noseShape = params.get("noseShape") || "Straight";
+    const faceShape = params.get("faceShape") || "Oval";
+    const products = productsByDepth[skinDepth];
+    let currentProductIndex = 0;
+    const favoriteStates = [false, false, false];
 
-      let currentProductIndex = 0;
+    document.getElementById("shadeResult").style.backgroundColor = skinColors[skinDepth];
+    document.getElementById("shadeName").textContent = `${skinDepth} Match`;
+    document.getElementById("shadeDetails").textContent = `Skin depth: ${skinDepth}`;
+    document.getElementById("eyePill").textContent = `Eye: ${eyeShape}`;
+    document.getElementById("nosePill").textContent = `Nose: ${noseShape}`;
+    document.getElementById("facePill").textContent = `Face: ${faceShape}`;
 
-      /* Prevent the heart from triggering product swiping */
-      favoriteButton.addEventListener("pointerdown", (event) => {
-        event.stopPropagation();
-      });
+    const card = document.getElementById("productCard");
+    const productImage = document.getElementById("productImage");
+    const productName = document.getElementById("productName");
+    const productPrice = document.getElementById("productPrice");
+    const favoriteButton = document.getElementById("favoriteButton");
+    const favoriteImage = document.getElementById("favoriteImage");
+    const dots = document.querySelectorAll(".dot");
 
-      favoriteButton.addEventListener("pointerup", (event) => {
-        event.stopPropagation();
-      });
+    function updateFavoriteImage() {
+      favoriteImage.src = favoriteStates[currentProductIndex] ? "assets/clicked_heart.png" : "assets/hearted.png";
+    }
 
-      /* Show the hover heart */
-      favoriteButton.addEventListener("mouseenter", () => {
-        if (!favoriteStates[currentProductIndex]) {
-          favoriteImage.src = "assets/hover_heart.png";
-        }
-      });
-
-      /* Return to the default gray heart */
-      favoriteButton.addEventListener("mouseleave", () => {
-        if (!favoriteStates[currentProductIndex]) {
-          favoriteImage.src = "assets/hearted.png";
-        }
-      });
-
-      /* Show the filled heart after clicking */
-      favoriteButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-
-        favoriteStates[currentProductIndex] =
-          !favoriteStates[currentProductIndex];
-
-        favoriteImage.src = favoriteStates[currentProductIndex]
-          ? "assets/clicked_heart.png"
-          : "assets/hearted.png";
-      });
-
-    /*
-      Product information.
-    */
-    const products = [
-      {
-        name: "MAC Serum Powered<br>Foundation",
-        price: "$X.XX",
-        image: "assets/mac_foundation.png",
-        alt: "MAC Studio Radiance Serum-Powered Foundation"
-      },
-      {
-        name: "Fenty Pro Filt'r<br>Foundation",
-        price: "$X.XX",
-        image: "assets/fenty_foundation.png",
-        alt: "Fenty Beauty Pro Filt'r Foundation"
-      },
-      {
-        name: "NARS Light Reflecting<br>Foundation",
-        price: "$X.XX",
-        image: "assets/nars_foundation.png",
-        alt: "NARS Light Reflecting Foundation"
-      }
-    ];
-
-    /*
-      Finds the product elements.
-    */
-    const productName =
-      document.getElementById("productName");
-
-    const productPrice =
-      document.getElementById("productPrice");
-
-    const productImage =
-      document.getElementById("productImage");
-
-    const productCard =
-      document.getElementById("productCard");
-
-    const productDots =
-      document.querySelectorAll(".dot");
-
-    /*
-      Displays a selected product
-      and plays the slide transition.
-    */
-    function showProduct(productIndex, direction = "next") {
-      const product = products[productIndex];
-
-      currentProductIndex = productIndex;
-
-      favoriteImage.src = favoriteStates[productIndex]
-        ? "assets/clicked_heart.png"
-        : "assets/hearted.png";
-
-      /*
-        Removes the previous animation class.
-      */
-      productCard.classList.remove(
-        "product-enter-next",
-        "product-enter-prev"
-      );
-
-      /*
-        Updates product information.
-      */
+    function showProduct(index, direction = "left") {
+      currentProductIndex = index;
+      const product = products[index];
       productName.innerHTML = product.name;
       productPrice.textContent = product.price;
       productImage.src = product.image;
       productImage.alt = product.alt;
-
-      /*
-        Forces the animation to restart.
-      */
-      void productCard.offsetWidth;
-
-      /*
-        Applies the correct slide direction.
-      */
-      productCard.classList.add(
-        direction === "prev"
-          ? "product-enter-prev"
-          : "product-enter-next"
-      );
-
-      /*
-        Updates the active dot.
-      */
-      productDots.forEach((dot, index) => {
-        dot.classList.toggle(
-          "active",
-          index === productIndex
-        );
-      });
+      dots.forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === index));
+      updateFavoriteImage();
+      card.classList.remove("slide-left", "slide-right");
+      void card.offsetWidth;
+      card.classList.add(direction === "right" ? "slide-right" : "slide-left");
     }
 
-    /*
-      Makes each product dot clickable.
-    */
-    productDots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        let currentProduct = 0;
+    dots.forEach((dot) => dot.addEventListener("click", () => {
+      const nextIndex = Number(dot.dataset.product);
+      showProduct(nextIndex, nextIndex < currentProductIndex ? "right" : "left");
+    }));
 
-        productDots.forEach((currentDot, index) => {
-          if (currentDot.classList.contains("active")) {
-            currentProduct = index;
-          }
-        });
-
-        const selectedProduct =
-          Number(dot.dataset.product);
-
-        showProduct(
-          selectedProduct,
-          selectedProduct >= currentProduct
-            ? "next"
-            : "prev"
-        );
-      });
+    favoriteButton.addEventListener("mouseenter", () => {
+      if (!favoriteStates[currentProductIndex]) favoriteImage.src = "assets/hover_heart.png";
+    });
+    favoriteButton.addEventListener("mouseleave", updateFavoriteImage);
+    favoriteButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      favoriteStates[currentProductIndex] = !favoriteStates[currentProductIndex];
+      updateFavoriteImage();
     });
 
-    /*
-      Displays the first product on page load.
-    */
+    let startX = 0;
+    card.addEventListener("touchstart", (event) => { startX = event.changedTouches[0].screenX; }, { passive: true });
+    card.addEventListener("touchend", (event) => {
+      const distance = event.changedTouches[0].screenX - startX;
+      if (Math.abs(distance) < 50) return;
+      const next = distance < 0 ? (currentProductIndex + 1) % products.length : (currentProductIndex - 1 + products.length) % products.length;
+      showProduct(next, distance < 0 ? "left" : "right");
+    }, { passive: true });
+
+    document.querySelector(".back").addEventListener("click", () => { window.location.href = "intro_scan.html"; });
+    document.querySelector(".restart").addEventListener("click", () => { window.location.href = "face_scan.html"; });
+    document.querySelector(".explore-button").addEventListener("click", () => alert("Explore More coming soon!"));
     showProduct(0);
-
-    /*
-      Allows swiping or mouse-dragging
-      across the product card.
-    */
-    let pointerStartX = 0;
-
-    productCard.addEventListener("pointerdown", (event) => {
-      pointerStartX = event.clientX;
-
-      productCard.setPointerCapture(event.pointerId);
-    });
-
-    productCard.addEventListener("pointerup", (event) => {
-      const pointerEndX = event.clientX;
-      const swipeDistance =
-        pointerEndX - pointerStartX;
-
-      const minimumSwipeDistance = 50;
-
-      let currentProduct = 0;
-
-      /*
-        Finds the active product.
-      */
-      productDots.forEach((dot, index) => {
-        if (dot.classList.contains("active")) {
-          currentProduct = index;
-        }
-      });
-
-      /*
-        Dragging left shows the next product.
-      */
-      if (swipeDistance < -minimumSwipeDistance) {
-        currentProduct++;
-
-        if (currentProduct >= products.length) {
-          currentProduct = 0;
-        }
-
-        showProduct(currentProduct, "next");
-      }
-
-      /*
-        Dragging right shows the previous product.
-      */
-      if (swipeDistance > minimumSwipeDistance) {
-        currentProduct--;
-
-        if (currentProduct < 0) {
-          currentProduct = products.length - 1;
-        }
-
-        showProduct(currentProduct, "prev");
-      }
-
-      /*
-        Releases pointer control.
-      */
-      if (productCard.hasPointerCapture(event.pointerId)) {
-        productCard.releasePointerCapture(event.pointerId);
-      }
-    });
-
-    /*
-      Prevents errors if dragging is cancelled.
-    */
-    productCard.addEventListener("pointercancel", (event) => {
-      if (productCard.hasPointerCapture(event.pointerId)) {
-        productCard.releasePointerCapture(event.pointerId);
-      }
-    });
   </script>
-
 </body>
 </html>
