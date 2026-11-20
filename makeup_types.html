@@ -33,7 +33,7 @@
   <script src="makeup_data.js"></script>
   <script src="script.js"></script>
   <script>
-    // each links to the product list for that type
+    
     document.getElementById("typeTiles").innerHTML = TYPES.map(t =>
       '<a class="tile" href="makeup_products.html?type=' + t.key + '">' + icon(t.key) + t.label + '</a>'
     ).join("");
