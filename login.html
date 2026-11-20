@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the page responsive on different mobile devices -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>MatchUp - Log in</title>
+
+  <!-- Karla is used for the interface text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --field-pink: #fbcdd5;
+      --border: #9f1f47;
+      --placeholder: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f4f4f4;
+      font-family: Karla, sans-serif;
+    }
+
+    /* Responsive mobile frame */
+    main.phone {
+      position: relative;
+      width: 100%;
+      max-width: 393px;
+      min-height: 100svh;
+      margin: 0 auto;
+      overflow: hidden;
+
+      background: linear-gradient(
+        to bottom,
+        #fdecef 0%,
+        #fffafa 57%,
+        #ffffff 100%
+      );
+    }
+
+    /* Main login content */
+    .page {
+      min-height: 100svh;
+      padding: 32px 22px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Login heading */
+    h1 {
+      align-self: auto;
+      margin: 0 0 32px;
+
+      color: #000;
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Login form */
+    .form {
+      width: 100%;
+      max-width: 337px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Individual input container */
+    .field {
+      position: relative;
+      width: 100%;
+      height: 62px;
+      margin-bottom: 16px;
+    }
+
+    /* Input box */
+    .field input {
+      width: 100%;
+      height: 100%;
+      padding: 0 18px 0 72px;
+
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      outline: none;
+
+      background: var(--field-pink);
+      color: #000;
+
+      font: 400 21px Karla, sans-serif;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Placeholder text */
+    .field input::placeholder {
+      color: var(--placeholder);
+      opacity: 1;
+    }
+
+    /* Focused input */
+    .field input:focus {
+      border-width: 2px;
+    }
+
+    /* Input icons */
+    .field > img {
+      position: absolute;
+      z-index: 1;
+      left: 24px;
+      top: 50%;
+
+      width: 32px;
+      height: 32px;
+
+      transform: translateY(-50%);
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* Lock icon sizing */
+    .field.password > img {
+      width: 32px;
+      height: 32px;
+    }
+
+    /*
+      Remember checkbox.
+
+      It is smaller and lighter so it does not compete
+      with the input fields.
+    */
+    .remember {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      margin: 6px 0 24px;
+
+      color: #000;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Custom checkbox */
+    .remember input {
+      appearance: none;
+      width: 19px;
+      height: 19px;
+      margin: 0;
+
+      border: 1px solid #c4c4c4;
+      border-radius: 3px;
+      background: #d9d9d9;
+
+      cursor: pointer;
+    }
+
+    /* Checked checkbox */
+    .remember input:checked {
+      position: relative;
+      background: var(--border);
+      border-color: var(--border);
+    }
+
+    .remember input:checked::after {
+      content: "✓";
+      position: absolute;
+      left: 3px;
+      top: -3px;
+
+      color: #fff;
+      font: 700 17px Karla, sans-serif;
+    }
+
+    /*
+      Main login button.
+
+      Full width creates stronger visual hierarchy
+      and matches the signup page.
+    */
+    .primary {
+      align-self: stretch;
+      width: 100%;
+      height: 54px;
+
+      border: 1px solid var(--border);
+      border-radius: 100px;
+
+      background: var(--border);
+      color: #fff;
+
+      font: 500 22px Karla, sans-serif;
+      cursor: pointer;
+
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .primary:hover {
+      background: #82183a;
+    }
+
+    .primary:active {
+      transform: translateY(1px);
+    }
+
+    /* Signup link */
+    .secondary {
+      margin-top: 18px;
+      padding: 0;
+
+      border: 0;
+      background: transparent;
+
+      color: #000;
+      font: 400 17px Karla, sans-serif;
+      cursor: pointer;
+    }
+
+    .secondary:hover {
+      text-decoration: underline;
+    }
+
+    /* Burgundy Sign Up text */
+    .signup-link {
+      color: var(--border);
+    }
+
+    /* Smaller-screen adjustments */
+    @media (max-width: 350px) {
+      .page {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .field input {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Responsive mobile frame -->
+  <main class="phone">
+
+    <!-- Main login content -->
+    <section class="page">
+
+      <!-- Page heading -->
+      <h1>Login</h1>
+
+      <!-- Login form -->
+      <form class="form" id="loginForm">
+
+        <!-- Username field -->
+        <label class="field">
+          <img src="assets/profile.png" alt="">
+
+          <input
+            id="loginUsername"
+            type="text"
+            autocomplete="username"
+            placeholder="Username"
+            aria-label="Username"
+          >
+        </label>
+
+        <!-- Password field -->
+        <label class="field password">
+          <img src="assets/lock.png" alt="">
+
+          <input
+            id="loginPassword"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Password"
+            aria-label="Password"
+          >
+        </label>
+
+        <!-- Remember-me checkbox -->
+        <label class="remember">
+          <input
+            id="rememberLogin"
+            type="checkbox"
+          >
+
+          <span>Stay Signed In</span>
+        </label>
+
+        <!-- Login button -->
+        <button class="primary" type="submit">
+          Log in
+        </button>
+
+        <!-- Link to signup page -->
+        <button class="secondary" type="button" id="toSignup">
+          Don’t have an account?
+          <span class="signup-link">Sign Up</span>
+        </button>
+
+      </form>
+    </section>
+  </main>
+
+  <script>
+    /*
+      Removes the placeholder while the user is typing.
+    */
+    document.querySelectorAll(".field input").forEach((input) => {
+      const originalPlaceholder = input.placeholder;
+
+      input.addEventListener("focus", () => {
+        input.placeholder = "";
+      });
+
+      input.addEventListener("blur", () => {
+        if (!input.value) {
+          input.placeholder = originalPlaceholder;
+        }
+      });
+    });
+
+    /*
+      Sends the user to the signup page.
+    */
+    document.getElementById("toSignup").addEventListener("click", () => {
+      window.location.href = "signup.html";
+    });
+
+    /*
+      Frontend-only login behavior.
+
+      No backend connection is being used yet.
+    */
+    document.getElementById("loginForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const rememberLogin =
+        document.getElementById("rememberLogin").checked;
+
+      if (rememberLogin) {
+        localStorage.setItem("matchupRememberLogin", "true");
+      }
+    });
+  </script>
+
+</body>
+</html>
