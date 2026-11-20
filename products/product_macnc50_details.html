@@ -167,24 +167,25 @@
     const heartButton = document.getElementById('heartButton');
     const heartImage = document.getElementById('heartImage');
   
-    let heartClicked = false;
+    let heartClickedM50 = false;
   
     heartButton.addEventListener('mouseenter', () => {
-      if (!heartClicked) {
+      if (!heartClickedM50) {
         heartImage.src = '../assets/hover_heart.png';
       }
     });
   
     heartButton.addEventListener('mouseleave', () => {
-      if (!heartClicked) {
+      if (!heartClickedM50) {
         heartImage.src = '../assets/hearted.png';
       }
     });
   
     heartButton.addEventListener('click', () => {
-      heartClicked = !heartClicked;
+      heartClickedM50 = !heartClickedM50;
+      localStorage.setItem('heartClickedM50', heartClickedM50);
   
-      heartImage.src = heartClicked
+      heartImage.src = heartClickedM50
         ? '../assets/clicked_heart.png'
         : '../assets/hearted.png';
     });
