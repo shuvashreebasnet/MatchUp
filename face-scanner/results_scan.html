@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MatchUp - Results</title>
+  <link rel="stylesheet" href="../navigation-bar/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +13,12 @@
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; background: #eee; font-family: Karla, sans-serif; color: #000; }
     .phone { position: relative; width: 100%; max-width: 393px; min-height: 100svh; margin: 0 auto; overflow: hidden; background: linear-gradient(#fdecef 0%, #fffafa 55%, #fff 100%); }
-    .page { min-height: 852px; padding: 22px 15px 94px; overflow-y: auto; }
+    .page {
+    height: 100%;
+    min-height: 0;
+    padding: 22px 15px 94px;
+    overflow-y: auto;
+    }
     .top-button { position: absolute; z-index: 2; top: 22px; width: 45px; height: 45px; padding: 10px; border: 0; border-radius: 15px; background: #fff; box-shadow: 0 5px 5px rgba(0,0,0,.25); cursor: pointer; }
     .top-button.back { left: 15px; } .top-button.restart { right: 15px; }
     .top-button img { width: 100%; height: 100%; object-fit: contain; }
@@ -38,20 +44,14 @@
     @keyframes slideLeft { from { opacity: .35; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes slideRight { from { opacity: .35; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
     .explore-button { display: block; width: calc(100% - 40px); height: 68px; margin: 0 auto; border: 1px solid var(--border); border-radius: 100px; background: var(--pink); box-shadow: 0 5px 6px rgba(0,0,0,.25); font: 400 30px Karla, sans-serif; cursor: pointer; }
-    .navbar { position: absolute; z-index: 3; right: 0; bottom: 0; left: 0; height: 66px; border-top: 1px solid #000; background: #fff; }
-    .navbar ul { display: flex; align-items: center; justify-content: space-around; height: 100%; margin: 0; padding: 0 6px; list-style: none; }
-    .navbar li { position: relative; display: flex; flex: 1; justify-content: center; height: 100%; }
-    .navbar a { display: flex; align-items: center; justify-content: center; width: 100%; padding: 8px; }
-    .navbar img { width: 33px; height: 33px; object-fit: contain; transition: transform 200ms ease; }
-    .navbar li.active img { transform: translateY(-3px) scale(1.2); }
     @media (max-width: 393px) { .phone { width: 100%; } }
   </style>
 </head>
 <body>
   <main class="phone">
     <section class="page">
-      <button class="top-button back" type="button" aria-label="Back to intro"><img src="assets/back_arrow.png" alt=""></button>
-      <button class="top-button restart" type="button" aria-label="Restart scan"><img src="assets/restart_arrow.png" alt=""></button>
+      <button class="top-button back" type="button" aria-label="Back to intro"><img src="../assets/back_arrow.png" alt=""></button>
+      <button class="top-button restart" type="button" aria-label="Restart scan"><img src="../assets/restart_arrow.png" alt=""></button>
       <h1>Your Results</h1>
 
       <section class="shade-result" id="shadeResult">
@@ -71,9 +71,9 @@
 
       <section class="product-card" id="productCard">
         <button class="favorite-button" id="favoriteButton" type="button" aria-label="Favorite product">
-          <img id="favoriteImage" src="assets/hearted.png" alt="">
+          <img id="favoriteImage" src="../assets/hearted.png" alt="">
         </button>
-        <img class="product-image" id="productImage" src="assets/mac_foundation.png" alt="MAC foundation">
+        <img class="product-image" id="productImage" src="../assets/mac_foundation.png" alt="MAC foundation">
         <p class="product-name" id="productName">MAC Studio Radiance<br>Foundation</p>
         <p class="product-price" id="productPrice">$46.00</p>
       </section>
@@ -86,49 +86,41 @@
       <button class="explore-button" type="button">Explore More</button>
     </section>
 
-    <nav class="navbar" aria-label="Main navigation">
-      <ul>
-        <li><a href="#" aria-label="Home"><img src="assets/navbar-icons/home-icon-black.png" data-black="assets/navbar-icons/home-icon-black.png" data-pink="assets/navbar-icons/home-icon-pink.png" alt=""></a></li>
-        <li><a href="#" aria-label="Favorites"><img src="assets/navbar-icons/favorites-icon-black.png" data-black="assets/navbar-icons/favorites-icon-black.png" data-pink="assets/navbar-icons/favorites-icon-pink.png" alt=""></a></li>
-        <li class="active"><a href="intro_scan.html" aria-label="Scan" aria-current="page"><img src="assets/navbar-icons/scan-icon-pink.png" data-black="assets/navbar-icons/scan-icon-black.png" data-pink="assets/navbar-icons/scan-icon-pink.png" alt=""></a></li>
-        <li><a href="#" aria-label="Browse"><img src="assets/navbar-icons/browse-icon-black.png" data-black="assets/navbar-icons/browse-icon-black.png" data-pink="assets/navbar-icons/browse-icon-pink.png" alt=""></a></li>
-        <li><a href="#" aria-label="Account"><img src="assets/navbar-icons/account-icon-black.png" data-black="assets/navbar-icons/account-icon-black.png" data-pink="assets/navbar-icons/account-icon-pink.png" alt=""></a></li>
-      </ul>
-    </nav>
+    <div id="navbar-container"></div>
   </main>
 
-  <script src="script.js"></script>
+  <script src="../navigation-bar/script.js"></script>
   <script>
     const skinColors = { Fair: "#F7DCC8", Light: "#E9B99B", Medium: "#CC987D", Tan: "#A9684D", Deep: "#75402F" };
     const productsByDepth = {
       Fair: [
-        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_n11.png", alt: "MAC N11 foundation" },
-        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_100.png", alt: "Fenty shade 100 foundation" },
-        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_oslo.png", alt: "NARS Oslo foundation" }
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "../assets/makeup-products/mac_n11.png", alt: "MAC N11 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "../assets/makeup-products/fenty_100.png", alt: "Fenty shade 100 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "../assets/makeup-products/nars_oslo.png", alt: "NARS Oslo foundation" }
       ],
 
       Light: [
-        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_nc20.png", alt: "MAC NC20 foundation" },
-        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_185.png", alt: "Fenty shade 185 foundation" },
-        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_fiji.png", alt: "NARS Fiji foundation" }
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "../assets/makeup-products/mac_nc20.png", alt: "MAC NC20 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "../assets/makeup-products/fenty_185.png", alt: "Fenty shade 185 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "../assets/makeup-products/nars_fiji.png", alt: "NARS Fiji foundation" }
       ],
 
       Medium: [
-        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_foundation.png", alt: "MAC NC40 foundation" },
-        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_foundation.png", alt: "Fenty shade 310 foundation" },
-        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_foundation.png", alt: "NARS Syracuse foundation" }
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "../assets/makeup-products/mac_foundation.png", alt: "MAC NC40 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "../assets/makeup-products/fenty_foundation.png", alt: "Fenty shade 310 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "../assets/makeup-products/nars_foundation.png", alt: "NARS Syracuse foundation" }
       ],
 
       Tan: [
-        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_nc45.png", alt: "MAC NC45 foundation" },
-        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_330.png", alt: "Fenty shade 330 foundation" },
-        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_barcelona.png", alt: "NARS Barcelona foundation" }
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "../assets/makeup-products/mac_nc45.png", alt: "MAC NC45 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "../assets/makeup-products/fenty_330.png", alt: "Fenty shade 330 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "../assets/makeup-products/nars_barcelona.png", alt: "NARS Barcelona foundation" }
       ],
 
       Deep: [
-        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "assets/makeup-products/mac_nc50.png", alt: "MAC NC50 foundation" },
-        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "assets/makeup-products/fenty_450.png", alt: "Fenty shade 450 foundation" },
-        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "assets/makeup-products/nars_manaus.png", alt: "NARS Manaus foundation" }
+        { name: "MAC Studio Radiance<br>Foundation", price: "$46.00", image: "../assets/makeup-products/mac_nc50.png", alt: "MAC NC50 foundation" },
+        { name: "Fenty Pro Filt'r<br>Foundation", price: "$40.00", image: "../assets/makeup-products/fenty_450.png", alt: "Fenty shade 450 foundation" },
+        { name: "NARS Light Reflecting<br>Foundation", price: "$55.00", image: "../assets/makeup-products/nars_manaus.png", alt: "NARS Manaus foundation" }
       ]
     };
 
@@ -157,7 +149,7 @@
     const dots = document.querySelectorAll(".dot");
 
     function updateFavoriteImage() {
-      favoriteImage.src = favoriteStates[currentProductIndex] ? "assets/clicked_heart.png" : "assets/hearted.png";
+      favoriteImage.src = favoriteStates[currentProductIndex] ? "../assets/clicked_heart.png" : "../assets/hearted.png";
     }
 
     function showProduct(index, direction = "left") {
@@ -180,7 +172,7 @@
     }));
 
     favoriteButton.addEventListener("mouseenter", () => {
-      if (!favoriteStates[currentProductIndex]) favoriteImage.src = "assets/hover_heart.png";
+      if (!favoriteStates[currentProductIndex]) favoriteImage.src = "../assets/hover_heart.png";
     });
     favoriteButton.addEventListener("mouseleave", updateFavoriteImage);
     favoriteButton.addEventListener("click", (event) => {

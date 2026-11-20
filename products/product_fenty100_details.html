@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fenty Pro Filt’r Shade 100</title>
+<link rel="stylesheet" href="../navigation-bar/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,16 +16,16 @@
       position: relative;
       width: 100%;
       max-width: 393px;
-      min-height: 100svh;
+      height: min(852px, 100svh);
       margin: 0 auto;
       overflow: hidden;
-      background: linear-gradient(
-        #fdecef 0%,
-        var(--page-pink) 55%,
-        #fff 100%
-      );
     }
-    .page { min-height: 852px; padding-bottom: 94px; overflow-y: auto; }
+    .page {
+      height: 100%;
+      min-height: 0;
+      padding-bottom: 94px;
+      overflow-y: auto;
+    }
 
     .back-button { position: absolute; z-index: 2; top: 22px; left: 15px; width: 64px; height: 64px; padding: 8px; border: 0; border-radius: 15px; background: #fff; box-shadow: 0 4px 5px rgba(0,0,0,.25); cursor: pointer; }
     .back-button img { width: 100%; height: 100%; object-fit: contain; }
@@ -67,9 +68,25 @@
     .actions { display: flex; align-items: center; gap: 18px; margin: 43px 20px 0; }
     .heart-button { width: 57px; height: 57px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
     .heart-button img { width: 100%; height: 100%; object-fit: contain; }
-    .list-button { flex: 1; height: 58px; border: 1px solid var(--border); border-radius: 100px; background: var(--pink); box-shadow: 0 4px 5px rgba(0,0,0,.22); font: 400 29px Karla, sans-serif; cursor: pointer; }
-    .list-button:active { transform: translateY(1px); }
+    .list-button {
+      flex: 1;
+      height: 58px;
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--pink);
+      box-shadow: 0 4px 5px rgba(0, 0, 0, .22);
+
+      color: #000;
+      font: 400 29px Karla, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+    }    
+    .list-button:active { transform: translateY(1px); }
     .bottom-nav { position: absolute; z-index: 3; right: 0; bottom: 0; left: 0; height: 72px; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #000; background: #fff; }
     .nav-item { position: relative; width: 55px; height: 60px; display: flex; justify-content: center; align-items: center; }
     .nav-item img { width: 43px; height: 43px; object-fit: contain; }
@@ -80,7 +97,7 @@
   <main class="phone">
     <section class="page">
       <button class="back-button" type="button" aria-label="Back to results">
-        <img src="assets/back_arrow.png" alt="">
+        <img src="../assets/back_arrow.png" alt="">
       </button>
 
       <h1 class="product-title">Pro Filt’r Soft Matte Longwear Liquid Foundation</h1>
@@ -90,7 +107,7 @@
       </div>
       <div class="recommendation">Highly rated by customers for:<span>Coverage, Inclusivity, Shade</span></div>
 
-      <div class="product-image" aria-label="Product image placeholder"><img src = "./assets/makeup-products/fenty_100.png" alt = "Pro Filt’r Soft Matte Longwear Liquid Foundation Shade 100"></div>
+      <div class="product-image" aria-label="Product image placeholder"><img src = "./../assets/makeup-products/fenty_100.png" alt = "Pro Filt’r Soft Matte Longwear Liquid Foundation Shade 100"></div>
 
       <div class="dots" aria-hidden="true">
         <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -100,9 +117,9 @@
 
       <div class="tags">
         <div class="tag">$5 - 25</div>
-        <div class="tag">Cruelty-free <img src="assets/bunny.png" alt=""></div>
+        <div class="tag">Cruelty-free <img src="../assets/bunny.png" alt=""></div>
         <div class="tag">Dry Skin</div>
-        <div class="tag eco">Eco-friendly <img src="assets/leaf.png" alt=""></div>
+        <div class="tag eco">Eco-friendly <img src="../assets/leaf.png" alt=""></div>
       </div>
 
       <section class="description">
@@ -112,27 +129,26 @@
 
       <div class="actions">
       <button class="heart-button" id="heartButton" type="button" aria-label="Add to favorites">
-          <img id="heartImage" src="assets/hearted.png" alt="Favorite">
+          <img id="heartImage" src="../assets/hearted.png" alt="Favorite">
         </button>
       
-        <button class="list-button" type="button" href = "https://www.sephora.com/product/pro-filtr-soft-matte-longwear-foundation-P87985432?skuId=1925122&om_mmc=ppc-MSN_357022448_1299623970822404_pla-4584826058106900_1925122__43613_c&country_switch=us&lang=en&msclkid=d40314b4338c1a906e827e4b85541dd1&utm_source=bing&utm_medium=cpc&utm_campaign=Sephora-USA-USD_CWORL_PLA_CONV_X_M-SHO_DESK_X_All_X_EN_MFB&utm_term=4584826058106900&utm_content=PLA_X_CWORL_DESK_MFB&gclid=d40314b4338c1a906e827e4b85541dd1&gclsrc=3p.ds&gad_source=7&gad_campaignid=11581080137">
+        <a
+          class="list-button"
+          href="https://www.sephora.com/product/pro-filtr-soft-matte-longwear-foundation-P87985432"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Add to List
-        </button>
+        </a>
       </div>
     </section>
 
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <div class="nav-item"><img src="assets/house.png" alt=""></div>
-      <div class="nav-item"><img src="assets/saved.png" alt=""></div>
-      <div class="nav-item active"><img src="assets/lookup.png" alt=""></div>
-      <div class="nav-item"><img src="assets/favorites.png" alt=""></div>
-      <div class="nav-item"><img src="assets/settings.png" alt=""></div>
-    </nav>
+    <div id="navbar-container"></div>
   </main>
 
   <script>
     document.querySelector('.back-button').addEventListener('click', () => {
-      window.location.href = 'results_scan.html';
+      window.history.back();
     });
   
     const heartButton = document.getElementById('heartButton');
@@ -142,13 +158,13 @@
   
     heartButton.addEventListener('mouseenter', () => {
       if (!heartClicked) {
-        heartImage.src = 'assets/hover_heart.png';
+        heartImage.src = '../assets/hover_heart.png';
       }
     });
   
     heartButton.addEventListener('mouseleave', () => {
       if (!heartClicked) {
-        heartImage.src = 'assets/hearted.png';
+        heartImage.src = '../assets/hearted.png';
       }
     });
   
@@ -156,9 +172,11 @@
       heartClicked = !heartClicked;
   
       heartImage.src = heartClicked
-        ? 'assets/clicked_heart.png'
-        : 'assets/hearted.png';
+        ? '../assets/clicked_heart.png'
+        : '../assets/hearted.png';
     });
   </script>
+
+  <script src="../navigation-bar/script.js"></script>
 </body>
 </html>

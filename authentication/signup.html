@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
 
+  <!-- Allows the page to scale correctly on mobile devices -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -10,21 +11,28 @@
 
   <title>MatchUp - Sign up</title>
 
+  <!-- Imports the Karla font used throughout the page -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+    /* Main colors used on the page */
     :root {
       --field-pink: #fbcdd5;
       --border: #9f1f47;
       --placeholder: #666666;
     }
 
+    /* Makes sizing easier to control */
     * {
       box-sizing: border-box;
     }
 
+    /* General page styling */
     body {
       margin: 0;
       min-height: 100vh;
@@ -41,6 +49,7 @@
       margin: 0 auto;
       overflow: hidden;
 
+      /* Pink-to-white background gradient */
       background: linear-gradient(
         to bottom,
         #fdecef 0%,
@@ -49,7 +58,7 @@
       );
     }
 
-    /* Main page content */
+    /* Main signup page content */
     .page {
       min-height: 100svh;
       padding: 38px 22px 32px;
@@ -59,7 +68,7 @@
       align-items: center;
     }
 
-    /* Page heading */
+    /* Register heading */
     h1 {
       margin: 0 0 26px;
       color: #000;
@@ -69,7 +78,7 @@
       text-align: center;
     }
 
-    /* Contains the profile circle and remove button */
+    /* Holds the profile image and remove button */
     .avatar-wrap {
       position: relative;
       margin-bottom: 30px;
@@ -119,7 +128,7 @@
       transition: opacity 0.2s ease;
     }
 
-    /* Uploaded profile image */
+    /* Uploaded profile picture */
     .profile-photo {
       position: absolute;
       inset: 0;
@@ -129,35 +138,41 @@
       height: 100%;
 
       display: none;
+
+      /* Crops the image inside the circle */
       object-fit: cover;
+
+      /* Allows the user to reposition the image */
       object-position: 50% 50%;
 
       cursor: grab;
       touch-action: none;
     }
 
+    /* Changes the cursor while dragging */
     .profile-photo:active {
       cursor: grabbing;
     }
 
-    /* Show uploaded image */
+    /* Shows the uploaded photo */
     .avatar.has-photo .profile-photo {
       display: block;
     }
 
-    /* Hide default icon after photo upload */
+    /* Hides the default profile icon after uploading a photo */
     .avatar.has-photo::before,
     .avatar.has-photo::after {
       opacity: 0;
     }
 
-    /* Pencil hover image */
+    /* Pencil image shown when hovering over the avatar */
     .avatar .pencil {
       position: absolute;
       z-index: 3;
 
       width: 42px;
       height: 42px;
+
       object-fit: contain;
 
       opacity: 0;
@@ -165,12 +180,13 @@
       transition: opacity 0.2s ease;
     }
 
+    /* Shows the pencil when hovering or focusing on the avatar */
     .avatar:hover .pencil,
     .avatar:focus .pencil {
       opacity: 1;
     }
 
-    /* Hidden file input */
+    /* Hidden file picker */
     .profile-input {
       position: absolute;
       width: 1px;
@@ -198,6 +214,7 @@
       cursor: pointer;
     }
 
+    /* Darkens the remove button on hover */
     .remove-photo:hover {
       background: #761533;
     }
@@ -212,7 +229,7 @@
       align-items: center;
     }
 
-    /* Individual input container */
+    /* Individual input field */
     .field {
       position: relative;
       width: 100%;
@@ -220,7 +237,7 @@
       margin-bottom: 16px;
     }
 
-    /* Input box */
+    /* Pink input box */
     .field input {
       width: 100%;
       height: 100%;
@@ -237,18 +254,18 @@
       box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
     }
 
-    /* Placeholder text */
+    /* Placeholder styling */
     .field input::placeholder {
       color: var(--placeholder);
       opacity: 1;
     }
 
-    /* Focused input */
+    /* Slightly thicker border when selected */
     .field input:focus {
       border-width: 2px;
     }
 
-    /* Input icons */
+    /* Icons inside the input fields */
     .field > img {
       position: absolute;
       z-index: 1;
@@ -263,13 +280,13 @@
       pointer-events: none;
     }
 
-    /* Phone icon */
+    /* Phone icon sizing */
     .field.phone > img {
       width: 34px;
       height: 34px;
     }
 
-    /* Lock icon */
+    /* Lock icon sizing */
     .field.password > img {
       width: 32px;
       height: 32px;
@@ -295,10 +312,12 @@
       transition: background 0.2s ease, transform 0.1s ease;
     }
 
+    /* Button hover state */
     .primary:hover {
       background: #82183a;
     }
 
+    /* Small button movement when clicked */
     .primary:active {
       transform: translateY(1px);
     }
@@ -316,11 +335,12 @@
       cursor: pointer;
     }
 
+    /* Underlines the login link on hover */
     .secondary:hover {
       text-decoration: underline;
     }
 
-    /* Burgundy Log In text */
+    /* Burgundy color for the Log In text */
     .signup-link {
       color: var(--border);
     }
@@ -345,15 +365,19 @@
 
 <body>
 
+  <!-- Responsive mobile frame -->
   <main class="phone">
+
+    <!-- Main signup content -->
     <section class="page">
 
+      <!-- Page heading -->
       <h1>Register</h1>
 
       <!-- Profile photo area -->
       <div class="avatar-wrap">
 
-        <!-- Clicking the avatar opens the gallery -->
+        <!-- Clickable profile circle -->
         <div
           class="avatar"
           id="avatar"
@@ -361,6 +385,7 @@
           role="button"
           aria-label="Choose a profile photo"
         >
+
           <!-- Uploaded photo preview -->
           <img
             class="profile-photo"
@@ -369,15 +394,15 @@
             alt="Selected profile photo"
           >
 
-          <!-- Pencil hover image -->
+          <!-- Pencil shown on hover -->
           <img
             class="pencil"
-            src="assets/pencil.png"
+            src="../assets/pencil.png"
             alt=""
           >
         </div>
 
-        <!-- Separate file picker -->
+        <!-- Hidden file picker -->
         <input
           class="profile-input"
           id="profilePhoto"
@@ -385,7 +410,7 @@
           accept="image/*"
         >
 
-        <!-- Remove uploaded photo -->
+        <!-- Button for removing the uploaded photo -->
         <button
           class="remove-photo"
           id="removePhoto"
@@ -395,15 +420,14 @@
         >
           ×
         </button>
-
       </div>
 
       <!-- Signup form -->
       <form class="form" id="signupForm">
 
-        <!-- Username -->
+        <!-- Username field -->
         <label class="field">
-          <img src="assets/profile.png" alt="">
+          <img src="../assets/profile.png" alt="">
 
           <input
             id="signupUsername"
@@ -414,22 +438,9 @@
           >
         </label>
 
-        <!-- Email -->
-        <label class="field">
-          <img src="assets/email.png" alt="">
-
-          <input
-            id="signupEmail"
-            type="email"
-            autocomplete="email"
-            placeholder="Email"
-            aria-label="Email"
-          >
-        </label>
-
-        <!-- Mobile number -->
+        <!-- Mobile number field -->
         <label class="field phone">
-          <img src="assets/phone-call.png" alt="">
+          <img src="../assets/phone-call.png" alt="">
 
           <input
             id="mobileNumber"
@@ -440,9 +451,9 @@
           >
         </label>
 
-        <!-- Password -->
+        <!-- Password field -->
         <label class="field password">
-          <img src="assets/lock.png" alt="">
+          <img src="../assets/lock.png" alt="">
 
           <input
             id="signupPassword"
@@ -453,9 +464,9 @@
           >
         </label>
 
-        <!-- Confirm password -->
+        <!-- Confirm-password field -->
         <label class="field password">
-          <img src="assets/lock.png" alt="">
+          <img src="../assets/lock.png" alt="">
 
           <input
             id="confirmPassword"
@@ -471,8 +482,12 @@
           Sign Up
         </button>
 
-        <!-- Login link -->
-        <button class="secondary" type="button" id="toLogin">
+        <!-- Link back to the login page -->
+        <button
+          class="secondary"
+          type="button"
+          id="toLogin"
+        >
           Have an account?
           <span class="signup-link">Log In</span>
         </button>
@@ -482,22 +497,34 @@
   </main>
 
   <script>
+    /*
+      Gets references to the profile photo elements.
+    */
     const profileInput = document.getElementById("profilePhoto");
     const avatar = document.getElementById("avatar");
     const profilePreview = document.getElementById("profilePreview");
     const removePhoto = document.getElementById("removePhoto");
 
+    /*
+      Stores the current image position.
+      These values are percentages.
+    */
     let photoPositionX = 50;
     let photoPositionY = 50;
 
+    /*
+      Variables used while dragging the image.
+    */
     let isDragging = false;
     let wasDragged = false;
     let startX = 0;
     let startY = 0;
 
     /*
-      Clicking the avatar opens the file picker.
-      Dragging the uploaded photo does not open it.
+      Clicking the avatar opens the photo gallery.
+
+      The wasDragged check prevents the gallery from opening
+      after the user drags the uploaded image.
     */
     avatar.addEventListener("click", () => {
       if (!wasDragged) {
@@ -506,7 +533,7 @@
     });
 
     /*
-      Allows keyboard users to open the gallery.
+      Allows keyboard users to open the photo picker.
     */
     avatar.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -516,7 +543,8 @@
     });
 
     /*
-      Reads and displays the selected image.
+      Reads the selected image and displays it
+      inside the circular profile container.
     */
     profileInput.addEventListener("change", () => {
       const selectedFile = profileInput.files[0];
@@ -528,13 +556,18 @@
       const reader = new FileReader();
 
       reader.addEventListener("load", () => {
+        /* Displays the uploaded photo */
         profilePreview.src = reader.result;
 
+        /* Resets the image position */
         photoPositionX = 50;
         photoPositionY = 50;
-
         profilePreview.style.objectPosition = "50% 50%";
+
+        /* Shows the uploaded photo */
         avatar.classList.add("has-photo");
+
+        /* Shows the remove button */
         removePhoto.hidden = false;
       });
 
@@ -542,7 +575,7 @@
     });
 
     /*
-      Starts dragging the uploaded image.
+      Starts dragging the uploaded photo.
     */
     profilePreview.addEventListener("pointerdown", (event) => {
       event.preventDefault();
@@ -558,7 +591,7 @@
     });
 
     /*
-      Repositions the uploaded image inside the circle.
+      Moves the uploaded photo inside the circular container.
     */
     profilePreview.addEventListener("pointermove", (event) => {
       if (!isDragging) {
@@ -568,6 +601,7 @@
       const movementX = event.clientX - startX;
       const movementY = event.clientY - startY;
 
+      /* Detects whether the image was actually dragged */
       if (Math.abs(movementX) > 2 || Math.abs(movementY) > 2) {
         wasDragged = true;
       }
@@ -575,12 +609,17 @@
       const avatarWidth = avatar.offsetWidth;
       const avatarHeight = avatar.offsetHeight;
 
+      /*
+        Adjusts the photo position based on pointer movement.
+      */
       photoPositionX -= (movementX / avatarWidth) * 100;
       photoPositionY -= (movementY / avatarHeight) * 100;
 
+      /* Keeps the image position within valid limits */
       photoPositionX = Math.max(0, Math.min(100, photoPositionX));
       photoPositionY = Math.max(0, Math.min(100, photoPositionY));
 
+      /* Applies the new position */
       profilePreview.style.objectPosition =
         `${photoPositionX}% ${photoPositionY}%`;
 
@@ -599,39 +638,50 @@
       }
 
       /*
-        Keeps the click suppressed briefly after dragging,
-        so the gallery does not open accidentally.
+        Temporarily prevents the gallery from opening
+        immediately after dragging.
       */
       setTimeout(() => {
         wasDragged = false;
       }, 100);
     });
 
+    /*
+      Stops dragging if the pointer is cancelled.
+    */
     profilePreview.addEventListener("pointercancel", () => {
       isDragging = false;
       wasDragged = false;
     });
 
     /*
-      Removes the uploaded photo.
+      Removes the uploaded profile photo.
     */
     removePhoto.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
 
+      /* Clears the selected file */
       profileInput.value = "";
+
+      /* Clears the preview */
       profilePreview.src = "";
       profilePreview.style.objectPosition = "50% 50%";
 
+      /* Resets the position */
       photoPositionX = 50;
       photoPositionY = 50;
 
+      /* Restores the default avatar */
       avatar.classList.remove("has-photo");
+
+      /* Hides the remove button */
       removePhoto.hidden = true;
     });
 
     /*
-      Removes placeholders while typing.
+      Removes placeholders while the user is typing.
+      Restores them if the field is left empty.
     */
     document.querySelectorAll(".field input").forEach((input) => {
       const originalPlaceholder = input.placeholder;
@@ -648,20 +698,94 @@
     });
 
     /*
-      Goes to the login page.
+      Sends the user to the login page.
     */
     document.getElementById("toLogin").addEventListener("click", () => {
       window.location.href = "login.html";
     });
 
     /*
-      Frontend-only signup behavior.
+      Handles account creation.
     */
-    document.getElementById("signupForm").addEventListener("submit", (event) => {
-      event.preventDefault();
+    document
+      .getElementById("signupForm")
+      .addEventListener("submit", (event) => {
+        event.preventDefault();
 
-      window.location.href = "login.html";
-    });
+        /* Gets the values entered by the user */
+        const username = document
+          .getElementById("signupUsername")
+          .value
+          .trim();
+
+        const mobileNumber = document
+          .getElementById("mobileNumber")
+          .value
+          .trim();
+
+        const password = document
+          .getElementById("signupPassword")
+          .value;
+
+        const confirmPassword = document
+          .getElementById("confirmPassword")
+          .value;
+
+        /*
+          Makes sure every required field is completed.
+        */
+        if (
+          !username ||
+          !mobileNumber ||
+          !password ||
+          !confirmPassword
+        ) {
+          alert("Please complete all fields.");
+          return;
+        }
+
+        /*
+          Confirms both password fields match.
+        */
+        if (password !== confirmPassword) {
+          alert("Passwords do not match.");
+          return;
+        }
+
+        /*
+          Creates the account object.
+
+          The profile photo is stored as a data URL.
+          This allows the uploaded image to remain available
+          after the user leaves the signup page.
+        */
+        const account = {
+          username: username,
+          mobileNumber: mobileNumber,
+          password: password,
+          profilePhoto: profilePreview.src || "",
+          photoPositionX: photoPositionX,
+          photoPositionY: photoPositionY
+        };
+
+        /*
+          Saves the account in the browser.
+
+          This is suitable for a frontend prototype only.
+          A real application should never store passwords
+          directly in localStorage.
+        */
+        localStorage.setItem(
+          "matchupAccount",
+          JSON.stringify(account)
+        );
+
+        /* Confirms successful account creation */
+        alert("Account created successfully!");
+
+        /* Sends the user to the login page */
+        window.location.href = "login.html";
+      });
   </script>
 
 </body>

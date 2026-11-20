@@ -2,20 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Makes the page responsive on different mobile devices -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>MatchUp - Makeup Recommender</title>
+
+  <link rel="stylesheet" href="../navigation-bar/styles.css">
+  <!-- Imports the Karla font used throughout the page -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
+    /* Main colors */
     :root {
       --pink: #f7a0b0;
       --border: #9f1f47;
       --page-pink: #fff5f6;
     }
 
-    * { box-sizing: border-box; }
+    /* Makes sizing easier to control */
+    * {
+      box-sizing: border-box;
+    }
 
+    /* General page styling */
     body {
       margin: 0;
       min-height: 100vh;
@@ -24,13 +42,16 @@
       color: #000;
     }
 
+    /* Responsive mobile frame */
     .phone {
       position: relative;
       width: 100%;
       max-width: 393px;
-      min-height: 100svh;
+      height: 100svh;
+      min-height: 600px;
       margin: 0 auto;
       overflow: hidden;
+
       background: linear-gradient(
         #fdecef 0%,
         var(--page-pink) 55%,
@@ -38,12 +59,16 @@
       );
     }
 
+    /* Main page content */
     .content {
-      min-height: 852px;
-      padding: 38px 18px 93px;
+      height: 100%;
+      min-height: 0;
+
+      padding: 38px 18px 110px;
       overflow-y: auto;
     }
 
+    /* Welcome heading */
     h1 {
       margin: 35px 0 38px;
       text-align: center;
@@ -52,15 +77,17 @@
       font-weight: 700;
     }
 
+    /* Main page title */
     .title {
       margin: 0 auto 32px;
       text-align: center;
       font-size: 40px;
-      line-height: .95;
+      line-height: 0.95;
       font-weight: 800;
       letter-spacing: 1px;
     }
 
+    /* How-it-works heading */
     .how-it-works {
       margin: 0 0 10px;
       text-align: center;
@@ -68,210 +95,192 @@
       font-weight: 400;
     }
 
+    /* Holds all instruction cards */
     .steps {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
+    /* Individual instruction card */
     .step-card {
       display: flex;
       align-items: center;
       width: 100%;
-      min-height: 100px;
+      min-height: 290px;
+      padding: 14px;
+
       border-radius: 26px;
       background: #fff;
-      box-shadow: 0 7px 6px rgba(0, 0, 0, .25);
+      box-shadow: 0 7px 6px rgba(0, 0, 0, 0.25);
     }
 
+    /*
+      Instruction image sizing.
+
+      The first card still uses a grey placeholder.
+      The second and third cards use the scanner screenshots.
+    */
     .step-image {
-      position: relative;
-      left: 15px;
-      flex: 0 0 143px;
-      width: 90px;
-      height: 80px;
-      margin-right: 40px;
+      flex: 0 0 120px;
+      width: 120px;
+      height: 250px;
+      margin-right: 20px;
+
+      border-radius: 12px;
       background: #d9d9d9;
-      object-fit: cover;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+
+      object-fit: contain;
+      object-position: center;
     }
 
+    /* Instruction text */
     .step-text {
+      flex: 1;
       margin: 0;
+
       font-size: 16px;
-      line-height: 1.12;
+      line-height: 1.2;
       font-weight: 600;
     }
 
+    /* Ready button */
     .ready-button {
       display: block;
       width: calc(100% - 44px);
       height: 68px;
       margin: 50px auto 0;
+
       border: 1px solid var(--border);
       border-radius: 100px;
+
       background: var(--pink);
-      box-shadow: 0 5px 6px rgba(0, 0, 0, .25);
       color: #000;
+
+      box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
       font: 400 30px Karla, sans-serif;
       cursor: pointer;
     }
 
-    .ready-button:active { transform: translateY(1px); }
-
-    /* Teammate's navigation bar */
-    .navbar {
-      position: absolute;
-      z-index: 1000;
-      right: 0;
-      bottom: 0;
-      left: 0;
-
-      height: 66px;
-      border-top: 1px solid #000;
-      background: #fff;
+    /* Small movement when pressed */
+    .ready-button:active {
+      transform: translateY(1px);
     }
 
-    .navbar ul {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-
-      height: 100%;
-      margin: 0;
-      padding: 0 6px;
-
-      list-style: none;
-    }
-
-    .navbar ul li {
-      position: relative;
-
-      display: flex;
-      flex: 1;
-      justify-content: center;
-
-      height: 100%;
-    }
-
-    .navbar ul li a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 100%;
-      padding: 8px;
-    }
-
-    .navbar ul li img {
-      width: 33px;
-      height: 33px;
-      object-fit: contain;
-      transition: transform 200ms ease;
-    }
-
-    .navbar ul li.active img {
-      transform: translateY(-3px) scale(1.2);
-    }
-
+    /* Makes the phone frame fill smaller screens */
     @media (max-width: 393px) {
-      .phone { width: 100%; }
+      .phone {
+        width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
+
+  <!-- Main mobile frame -->
   <main class="phone">
+
+    <!-- Main intro content -->
     <section class="content">
+
+      <!-- Welcome heading -->
       <h1>Welcome!</h1>
-      <h2 class="title">MAKEUP<br>RECOMMENDER</h2>
-      <p class="how-it-works">How it works</p>
 
-      <section class="steps" aria-label="How the makeup recommender works">
+      <!-- App title -->
+      <h2 class="title">
+        MAKEUP<br>
+        RECOMMENDER
+      </h2>
+
+      <!-- Section heading -->
+      <p class="how-it-works">
+        How it works
+      </p>
+
+      <!-- Instruction cards -->
+      <section
+        class="steps"
+        aria-label="How the makeup recommender works"
+      >
+
+        <!-- First instruction card remains a grey placeholder -->
         <article class="step-card">
-          <div class="step-image" aria-label="Instruction image placeholder"></div>
-          <p class="step-text">Add your preferences<br>in the Homepage for<br>skin type, styles, and<br>production</p>
+          <img
+            class="step-image"
+            src="../assets/filter_preview.png"
+            alt="Product filters screen"
+          >
+
+          <p class="step-text">
+            Add your preferences<br>
+            in the Homepage for<br>
+            skin type, styles, and<br>
+            production
+          </p>
         </article>
 
+        <!-- Second instruction card uses the face scanner image -->
         <article class="step-card">
-          <div class="step-image" aria-label="Instruction image placeholder"></div>
-          <p class="step-text">Put your face in frame<br>and press Ready!</p>
+          <img
+            class="step-image"
+            src="../assets/face_scan_preview.png"
+            alt="Face scanner screen"
+          >
+
+          <p class="step-text">
+            Put your face in frame<br>
+            and press Ready!
+          </p>
         </article>
 
+        <!-- Third instruction card uses the results image -->
         <article class="step-card">
-          <div class="step-image" aria-label="Instruction image placeholder"></div>
-          <p class="step-text">Check out your results<br>and recommended<br>products!</p>
+          <img
+            class="step-image"
+            src="../assets/results_scan_preview.png"
+            alt="Face scan results screen"
+          >
+
+          <p class="step-text">
+            Check out your results<br>
+            and recommended<br>
+            products!
+          </p>
         </article>
+
       </section>
 
-      <button class="ready-button" type="button" id="readyButton">Ready!</button>
+      <!-- Takes the user to the face scanner -->
+      <button
+        class="ready-button"
+        type="button"
+        id="readyButton"
+      >
+        Ready!
+      </button>
+
     </section>
 
-    <nav class="navbar" aria-label="Main navigation">
-      <ul>
-        <li>
-          <a href="#" aria-label="Home">
-            <img
-              src="assets/navbar-icons/home-icon-black.png"
-              data-black="assets/navbar-icons/home-icon-black.png"
-              data-pink="assets/navbar-icons/home-icon-pink.png"
-              alt=""
-            >
-          </a>
-        </li>
-    
-        <li>
-          <a href="#" aria-label="Favorites">
-            <img
-              src="assets/navbar-icons/favorites-icon-black.png"
-              data-black="assets/navbar-icons/favorites-icon-black.png"
-              data-pink="assets/navbar-icons/favorites-icon-pink.png"
-              alt=""
-            >
-          </a>
-        </li>
-    
-        <!-- Scan is active on intro_scan.html -->
-        <li class="active">
-          <a href="intro_scan.html" aria-label="Scan" aria-current="page">
-            <img
-              src="assets/navbar-icons/scan-icon-pink.png"
-              data-black="assets/navbar-icons/scan-icon-black.png"
-              data-pink="assets/navbar-icons/scan-icon-pink.png"
-              alt=""
-            >
-          </a>
-        </li>
-    
-        <li>
-          <a href="#" aria-label="Browse">
-            <img
-              src="assets/navbar-icons/browse-icon-black.png"
-              data-black="assets/navbar-icons/browse-icon-black.png"
-              data-pink="assets/navbar-icons/browse-icon-pink.png"
-              alt=""
-            >
-          </a>
-        </li>
-    
-        <li>
-          <a href="#" aria-label="Account">
-            <img
-              src="assets/navbar-icons/account-icon-black.png"
-              data-black="assets/navbar-icons/account-icon-black.png"
-              data-pink="assets/navbar-icons/account-icon-pink.png"
-              alt=""
-            >
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <div id="navbar-container"></div>
+
   </main>
 
-  <script src="script.js"></script>
+  <!-- Loads the shared navigation JavaScript -->
+  <script src="../navigation-bar/script.js"></script>
 
   <script>
-    document.getElementById('readyButton').addEventListener('click', () => {
-      window.location.href = 'face_scan.html';
-    });
+    /*
+      Sends the user to the face scanner
+      when Ready is clicked.
+    */
+    document
+      .getElementById("readyButton")
+      .addEventListener("click", () => {
+        window.location.href = "face_scan.html";
+      });
   </script>
+
 </body>
 </html>

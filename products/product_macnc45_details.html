@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title> MAC NC45 Studio Radiance Foundation</title>
+<link rel="stylesheet" href="../navigation-bar/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +16,7 @@
       position: relative;
       width: 100%;
       max-width: 393px;
-      min-height: 100svh;
+      height: min(852px, 100svh);
       margin: 0 auto;
       overflow: hidden;
       background: linear-gradient(
@@ -24,7 +25,7 @@
         #fff 100%
       );
     }
-    .page { min-height: 852px; padding-bottom: 94px; overflow-y: auto; }
+    .page { height: 100%; min-height: 0; padding-bottom: 160px; overflow-y: auto; }
 
     .back-button { position: absolute; z-index: 2; top: 22px; left: 15px; width: 64px; height: 64px; padding: 8px; border: 0; border-radius: 15px; background: #fff; box-shadow: 0 4px 5px rgba(0,0,0,.25); cursor: pointer; }
     .back-button img { width: 100%; height: 100%; object-fit: contain; }
@@ -80,7 +81,7 @@
   <main class="phone">
     <section class="page">
       <button class="back-button" type="button" aria-label="Back to results">
-        <img src="assets/back_arrow.png" alt="">
+        <img src="../assets/back_arrow.png" alt="">
       </button>
 
       <h1 class="product-title"> MAC NC45 Studio Radiance Foundation</h1>
@@ -90,7 +91,7 @@
       </div>
       <div class="recommendation">Highly rated by customers for:<span>Blendability, Texture, Shade Match</span></div>
 
-      <div class="product-image" aria-label="Product image placeholder"><img src = "./assets/makeup-products/mac_nc45.png" alt = "mac nc 50 serum foundation"></div>
+      <div class="product-image" aria-label="Product image placeholder"><img src = "./../assets/makeup-products/mac_nc45.png" alt = "mac nc 50 serum foundation"></div>
 
       <div class="dots" aria-hidden="true">
         <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -100,9 +101,9 @@
 
       <div class="tags">
         <div class="tag">$5 - 25</div>
-        <div class="tag">Cruelty-free <img src="assets/bunny.png" alt=""></div>
+        <div class="tag">Cruelty-free <img src="../assets/bunny.png" alt=""></div>
         <div class="tag">Dry Skin</div>
-        <div class="tag eco">Eco-friendly <img src="assets/leaf.png" alt=""></div>
+        <div class="tag eco">Eco-friendly <img src="../assets/leaf.png" alt=""></div>
       </div>
 
       <section class="description">
@@ -112,7 +113,7 @@
 
       <div class="actions">
         <button class="heart-button" id="heartButton" type="button">
-          <img id="heartImage" src="assets/hearted.png" alt="Favorite">
+          <img id="heartImage" src="../assets/hearted.png" alt="Favorite">
         </button>
       
         <button class="list-button" type="button">
@@ -121,18 +122,12 @@
       </div>
     </section>
 
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <div class="nav-item"><img src="assets/house.png" alt=""></div>
-      <div class="nav-item"><img src="assets/saved.png" alt=""></div>
-      <div class="nav-item active"><img src="assets/lookup.png" alt=""></div>
-      <div class="nav-item"><img src="assets/favorites.png" alt=""></div>
-      <div class="nav-item"><img src="assets/settings.png" alt=""></div>
-    </nav>
+    <div id="navbar-container"></div>
   </main>
 
   <script>
     document.querySelector('.back-button').addEventListener('click', () => {
-      window.location.href = 'results_scan.html';
+      window.history.back();
     });
   
     const heartButton = document.getElementById('heartButton');
@@ -142,13 +137,13 @@
   
     heartButton.addEventListener('mouseenter', () => {
       if (!heartClicked) {
-        heartImage.src = 'assets/hover_heart.png';
+        heartImage.src = '../assets/hover_heart.png';
       }
     });
   
     heartButton.addEventListener('mouseleave', () => {
       if (!heartClicked) {
-        heartImage.src = 'assets/hearted.png';
+        heartImage.src = '../assets/hearted.png';
       }
     });
   
@@ -156,9 +151,10 @@
       heartClicked = !heartClicked;
   
       heartImage.src = heartClicked
-        ? 'assets/clicked_heart.png'
-        : 'assets/hearted.png';
+        ? '../assets/clicked_heart.png'
+        : '../assets/hearted.png';
     });
   </script>
+  <script src="../navigation-bar/script.js"></script>
 </body>
 </html>
