@@ -12,7 +12,7 @@ body {
     position: relative;
     width: min(393px, 100vw);
     height: min(852px, 100vh);
-    min-height: 400px;
+    min-height: min(400px, 100vh);
     margin: 0 auto;
     overflow: scroll;
     background: linear-gradient(#fdecef 0%, #fff8f9 55%, #fff 100%);
@@ -63,6 +63,7 @@ body {
     transition: transform 200ms ease;
 }
 
+.navbar ul li.hover img,
 .navbar ul li.active img {
     transform: translateY(-3px) scale(1.2);
 }
