@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Product Filters </title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <form class="phone" method="POST">
+            <h1>Filters</h1>
+            <div class="price-range">
+                <h4> Price: </h4>
+                <input type="checkbox" id="0-25"> $0 - $25 <br>
+                <input type="checkbox" id="25-50"> $25 - $50 <br>
+                <input type="checkbox" id="50-75"> $50 - $75 <br>
+                <input type="checkbox" id="75-100"> $75 - $100 <br>
+                <input type="checkbox" id="100-125"> $100 - $125 <br>
+                <input type="checkbox" id="150-175"> $150 - $175 <br>
+                <input type="checkbox" id="175-200"> $175 - $200 <br>
+            </div>
+            
+            <div class="makeup-brands">
+                <h4> Search Brands: </h4>
+                <input type="checkbox"> L'Oréal Paris <br>
+                <input type="checkbox"> Estée Lauder <br>
+                <input type="checkbox"> Shiseido <br>
+                <input type="checkbox"> Olay <br>
+                <input type="checkbox"> Dove <br>
+            </div><br>
+            
+            <div class="ingredient-menu">
+                <h4> Allergens to Exclude: </h4>
+                <select name="Natural Rubber">
+                    <option>Natural Rubber</option>
+                    <option> N/A </option>
+                    <option> Latex </option>
+                </select> 
+
+                <select name="Metals">
+                    <option>Metals</option>
+                    <option> N/A </option>
+                    <option> Gold </option>
+                    <option> Nickel </option>
+                </select> <br>
+
+                <select name="Dyes">
+                    <option>Dyes</option>
+                    <option> N/A </option>
+                    <option> Coal-tar </option>
+                    <option> PPD </option>
+                </select> 
+
+                <select name="Fragrances">
+                    <option> Fragrances </option>
+                    <option> N/A </option>
+                    <option> Citral </option>
+                    <option> Citronellol </option>
+                    <option> Geraniol </option>
+                    <option> Limolene </option>
+                    <option> Linalool </option>
+                </select> 
+
+                <select name="Preservatives">
+                    <option> Perservatives </option>
+                    <option> N/A </option>
+                    <option> CMIT </option>
+                    <option> Formaldehyde and formaldehyde releasing ingredients </option>
+                    <option> MIT </option>
+                </select> <br>
+                <input type="checkbox"> I'm not allergic to any of these.
+            </div> <br>
+            
+            <div class="ethical-production-tags">
+                <h4> Ethical Production: </h4>
+                <input type="checkbox" name="cruelty-free"> Cruelty-Free <br>
+                <input type="checkbox" name="fair-trade"> Fair-Trade Certified <br>
+                <input type="checkbox" name="eco-friendly"> Eco-Friendly <br>
+            </div> <br>
+            
+            <div class="filter-management-buttons" style="margin-left: 60px;">
+                <button type="reset" style="font-size: large; background-color: #fbcdd5;"> Clear All </button>
+                <button type="submit" style="font-size: large;"> <strong>Save and Apply</strong></button>
+            </div>
+        </form>
+    </body>
+</html>

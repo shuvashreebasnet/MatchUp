@@ -14,8 +14,9 @@ body {
     height: min(852px, 100vh);
     min-height: 400px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: scroll;
     background: linear-gradient(#fdecef 0%, #fff8f9 55%, #fff 100%);
+    padding: 5px 20px;
 }
 /* navigation bar styling */
 .navbar {
@@ -64,4 +65,39 @@ body {
 
 .navbar ul li.active img {
     transform: translateY(-3px) scale(1.2);
+}
+
+/* green text box styling */
+.green_textbox{
+    background-color:#cee9c7;
+    border-radius: 10px;
+    padding:5px;
+    margin:8px;
+}
+
+/* element styling */
+button{
+   background-color:#f7a0b0;
+   border-radius: 12px;
+}
+
+select{
+    background-color: #fbcdd5;
+    border-radius: 8px;
+    margin:4px;
+}
+
+input[type="checkbox"]{
+    accent-color: #cee9c7;
+}
+
+input[type="range"]{
+    accent-color: #cee9c7;
+    border-width: 2px;
+    margin: 5px;
+    
+}
+
+h1{
+    text-align: center;
 }
