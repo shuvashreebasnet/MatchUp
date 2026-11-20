@@ -2,15 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- Makes the page responsive on different mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>MatchUp - Face Scan</title>
+
+  <link rel="stylesheet" href="../navigation-bar/styles.css">
+  <!-- Imports the Karla font used on the scanner page -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
-    :root { --pink: #f7a0b0; --border: #9f1f47; --page-pink: #fff8f9; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; background: #eee; font-family: Karla, sans-serif; }
+    /* Main colors used on the page */
+    :root {
+      --pink: #f7a0b0;
+      --border: #9f1f47;
+      --page-pink: #fff8f9;
+    }
+
+    /* Makes sizing easier to control */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* General page styling */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #eee;
+      font-family: Karla, sans-serif;
+    }
+
+    /* Responsive mobile frame */
     .phone {
       position: relative;
       width: 100%;
@@ -18,257 +46,773 @@
       min-height: 100svh;
       margin: 0 auto;
       overflow: hidden;
-      background: linear-gradient(#fdecef 0%, var(--page-pink) 55%, #fff 100%);
+
+      /* Pink-to-white background gradient */
+      background: linear-gradient(
+        #fdecef 0%,
+        var(--page-pink) 55%,
+        #fff 100%
+      );
     }
 
-    /* Live camera preview. The video is mirrored like a normal selfie camera. */
+    /*
+      Live camera preview.
+
+      The video is mirrored so it behaves
+      like a normal front-facing selfie camera.
+    */
     #camera {
       position: absolute;
       inset: 0 0 66px;
+
       width: 100%;
       height: calc(100% - 66px);
+
       background: #d9d9d9;
       object-fit: cover;
+
+      /* Mirrors the front-facing camera */
       transform: scaleX(-1);
     }
 
-    .camera-tint { position: absolute; inset: 0 0 66px; background: rgba(255, 248, 249, .16); pointer-events: none; }
+    /*
+      Adds a subtle tint above the camera preview
+      so the scanner matches the rest of the design.
+    */
+    .camera-tint {
+      position: absolute;
+      inset: 0 0 66px;
 
+      background: rgba(255, 248, 249, 0.16);
+      pointer-events: none;
+    }
+
+    /*
+      Close button in the upper-left corner.
+    */
     .close-button {
       position: absolute;
       z-index: 5;
+
       top: 18px;
       left: 19px;
+
       width: 45px;
       height: 45px;
+
       border: 0;
       border-radius: 8px;
+
       background: #fff;
-      box-shadow: 0 4px 5px rgba(0,0,0,.25);
+      box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
+
       cursor: pointer;
     }
-    .close-button::before, .close-button::after {
+
+    /* First diagonal line of the X */
+    .close-button::before,
+    /* Second diagonal line of the X */
+    .close-button::after {
       content: "";
+
       position: absolute;
       top: 21px;
       left: 5px;
+
       width: 35px;
       height: 4px;
+
       background: #000;
       transform: rotate(45deg);
     }
-    .close-button::after { transform: rotate(-45deg); }
 
-    .scan-title, .scan-status, .camera-message, .scan-message, .ready-button, .face-frame, .scan-line { z-index: 3; }
+    /* Rotates the second line in the opposite direction */
+    .close-button::after {
+      transform: rotate(-45deg);
+    }
+
+    /*
+      Keeps the scanner elements above
+      the camera preview.
+    */
+    .scan-title,
+    .scan-status,
+    .camera-message,
+    .scan-message,
+    .ready-button,
+    .face-frame,
+    .scan-line {
+      z-index: 3;
+    }
+
+    /* Scanner title */
     .scan-title {
       position: absolute;
       top: 75px;
       left: 50%;
+
       transform: translateX(-50%);
       margin: 0;
+
       color: #000;
       font-size: 30px;
       white-space: nowrap;
     }
+
+    /*
+      Displays the current scanner status,
+      such as “No face detected” or “Face detected”.
+    */
     .scan-status {
       position: absolute;
       top: 125px;
       left: 50%;
-      transform: translateX(-50%);
+
       width: 205px;
       min-height: 48px;
+
       display: flex;
       justify-content: center;
       align-items: center;
+
       padding: 8px 14px;
+      transform: translateX(-50%);
+
       border-radius: 30px;
       background: #fff;
-      box-shadow: 0 5px 6px rgba(0,0,0,.25);
+      box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
+
       text-align: center;
       font-size: 20px;
     }
-    .camera-message, .scan-message {
+
+    /*
+      Messages that explain what the user
+      should do while scanning.
+    */
+    .camera-message,
+    .scan-message {
       position: absolute;
       left: 50%;
-      transform: translateX(-50%);
+
       width: 88%;
+
+      transform: translateX(-50%);
+
       text-align: center;
       font-size: 17px;
       font-weight: 600;
     }
-    .camera-message { top: 190px; color: #9f1f47; }
-    .scan-message { top: 235px; color: #000; }
 
-    /* Face-positioning guide. Ready stays disabled until a face is inside it. */
+    /* Camera permission or camera error message */
+    .camera-message {
+      top: 190px;
+      color: var(--border);
+    }
+
+    /* Face-positioning instructions */
+    .scan-message {
+      top: 235px;
+      color: #000;
+    }
+
+    /*
+      White face-positioning frame.
+
+      The Ready button stays disabled until
+      the user's face is inside this frame.
+    */
     .face-frame {
       position: absolute;
-      left: 28px;
       top: 300px;
+      left: 28px;
+
       width: calc(100% - 56px);
       height: 390px;
+
       border: 5px solid #fff;
-      box-shadow: 0 0 0 9999px rgba(0,0,0,.12);
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.12);
+
       pointer-events: none;
     }
+
+    /*
+      Pink scanning bar that moves vertically
+      inside the face frame.
+    */
     .scan-line {
       position: absolute;
-      left: 33px;
-      width: calc(100% - 66px);
       top: 305px;
+      left: 33px;
+
+      width: calc(100% - 66px);
       height: 4px;
+
       background: var(--pink);
       box-shadow: 0 0 12px var(--pink);
+
       animation: scan 2.2s ease-in-out infinite alternate;
       pointer-events: none;
     }
-    @keyframes scan { from { transform: translateY(0); } to { transform: translateY(380px); } }
 
+    /* Moves the scanning bar up and down */
+    @keyframes scan {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(380px);
+      }
+    }
+
+    /*
+      Ready button at the bottom of the scanner.
+    */
     .ready-button {
       position: absolute;
       bottom: 85px;
       left: 50%;
-      transform: translateX(-50%);
+
       width: 220px;
       height: 55px;
+
+      transform: translateX(-50%);
+
       border: 1px solid var(--border);
       border-radius: 100px;
+
       background: var(--pink);
-      box-shadow: 0 5px 6px rgba(0,0,0,.25);
+      box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
+
       font: 400 25px Karla, sans-serif;
       cursor: pointer;
     }
-    .ready-button:disabled { opacity: .5; cursor: not-allowed; }
-    .ready-button:active:not(:disabled) { transform: translateX(-50%) translateY(1px); }
 
-    /* Teammate's navigation bar, copied into this page so it stays fixed here. */
-    .navbar { position: absolute; z-index: 6; right: 0; bottom: 0; left: 0; height: 66px; border-top: 1px solid #000; background: #fff; }
-    .navbar ul { display: flex; align-items: center; justify-content: space-around; height: 100%; margin: 0; padding: 0 6px; list-style: none; }
-    .navbar li { position: relative; display: flex; flex: 1; justify-content: center; height: 100%; }
-    .navbar a { display: flex; align-items: center; justify-content: center; width: 100%; padding: 8px; }
-    .navbar img { width: 33px; height: 33px; object-fit: contain; transition: transform 200ms ease; }
-    .navbar li.active img { transform: translateY(-3px) scale(1.2); }
+    /* Makes the button appear disabled */
+    .ready-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Small movement when the enabled button is clicked */
+    .ready-button:active:not(:disabled) {
+      transform: translateX(-50%) translateY(1px);
+    }
+
   </style>
 </head>
+
 <body>
+
+  <!-- Main mobile scanner frame -->
   <main class="phone">
-    <video id="camera" autoplay playsinline muted></video>
-    <div class="camera-tint" aria-hidden="true"></div>
 
-    <button class="close-button" type="button" aria-label="Close face scan"></button>
-    <h1 class="scan-title">Scanning Face</h1>
-    <div class="scan-status" id="scanStatus">Starting camera...</div>
-    <p class="camera-message" id="cameraMessage"></p>
-    <p class="scan-message" id="scanMessage">Center your face inside the frame.</p>
-    <div class="face-frame" aria-label="Face positioning frame"></div>
-    <div class="scan-line" aria-hidden="true"></div>
-    <button class="ready-button" id="readyButton" type="button" disabled>Ready!</button>
+    <!-- Live camera feed -->
+    <video
+      id="camera"
+      autoplay
+      playsinline
+      muted
+    ></video>
 
-    <nav class="navbar" aria-label="Main navigation">
-      <ul>
-        <li><a href="#" aria-label="Home"><img src="assets/navbar-icons/home-icon-black.png" data-black="assets/navbar-icons/home-icon-black.png" data-pink="assets/navbar-icons/home-icon-pink.png" alt=""></a></li>
-        <li><a href="#" aria-label="Favorites"><img src="assets/navbar-icons/favorites-icon-black.png" data-black="assets/navbar-icons/favorites-icon-black.png" data-pink="assets/navbar-icons/favorites-icon-pink.png" alt=""></a></li>
-        <li class="active"><a href="intro_scan.html" aria-label="Scan" aria-current="page"><img src="assets/navbar-icons/scan-icon-pink.png" data-black="assets/navbar-icons/scan-icon-black.png" data-pink="assets/navbar-icons/scan-icon-pink.png" alt=""></a></li>
-        <li><a href="#" aria-label="Browse"><img src="assets/navbar-icons/browse-icon-black.png" data-black="assets/navbar-icons/browse-icon-black.png" data-pink="assets/navbar-icons/browse-icon-pink.png" alt=""></a></li>
-        <li><a href="#" aria-label="Account"><img src="assets/navbar-icons/account-icon-black.png" data-black="assets/navbar-icons/account-icon-black.png" data-pink="assets/navbar-icons/account-icon-pink.png" alt=""></a></li>
-      </ul>
-    </nav>
+    <!-- Light overlay above the camera -->
+    <div
+      class="camera-tint"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Close scanner button -->
+    <button
+      class="close-button"
+      type="button"
+      aria-label="Close face scan"
+    ></button>
+
+    <!-- Scanner heading -->
+    <h1 class="scan-title">
+      Scanning Face
+    </h1>
+
+    <!-- Current scanner status -->
+    <div
+      class="scan-status"
+      id="scanStatus"
+    >
+      Starting camera...
+    </div>
+
+    <!-- Camera permission message -->
+    <p
+      class="camera-message"
+      id="cameraMessage"
+    ></p>
+
+    <!-- Face-positioning instructions -->
+    <p
+      class="scan-message"
+      id="scanMessage"
+    >
+      Center your face inside the frame.
+    </p>
+
+    <!-- Face-positioning frame -->
+    <div
+      class="face-frame"
+      aria-label="Face positioning frame"
+    ></div>
+
+    <!-- Animated scanning bar -->
+    <div
+      class="scan-line"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Ready button -->
+    <button
+      class="ready-button"
+      id="readyButton"
+      type="button"
+      disabled
+    >
+      Ready!
+    </button>
+
+    <div id="navbar-container"></div>
   </main>
 
-  <script src="script.js"></script>
-  <script type="module">
-    /* MediaPipe Face Landmarker gives us 478 landmarks for a live video frame. */
-    import { FilesetResolver, FaceLandmarker } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/vision_bundle.mjs";
+  <!-- Loads the shared navigation JavaScript -->
+  <script src="../navigation-bar/script.js"></script>
 
+  <!-- MediaPipe Face Landmarker scanner logic -->
+  <script type="module">
+
+    /*
+      Imports MediaPipe tools from the CDN.
+
+      Face Landmarker gives the scanner
+      detailed facial landmark points.
+    */
+    import {
+      FilesetResolver,
+      FaceLandmarker
+    } from
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/vision_bundle.mjs";
+
+    /*
+      Gets references to the page elements.
+    */
     const video = document.getElementById("camera");
     const readyButton = document.getElementById("readyButton");
     const scanStatus = document.getElementById("scanStatus");
     const cameraMessage = document.getElementById("cameraMessage");
     const scanMessage = document.getElementById("scanMessage");
+
+    /*
+      Creates an invisible canvas.
+
+      The canvas is used to sample camera pixels
+      for the skin-depth estimate.
+    */
     const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d", { willReadFrequently: true });
+
+    const context = canvas.getContext(
+      "2d",
+      {
+        willReadFrequently: true
+      }
+    );
+
+    /*
+      Variables used by the scanner.
+    */
     let faceLandmarker;
     let latestLandmarks = null;
     let cameraStream = null;
     let lastVideoTime = -1;
 
+    /*
+      These colors are only the visual colors
+      used on the results page.
+
+      They are not compared directly against
+      camera pixels because lighting changes
+      camera colors significantly.
+    */
     const skinPalette = {
-      Fair: [247, 220, 200], Light: [233, 185, 155], Medium: [204, 152, 125],
-      Tan: [169, 104, 77], Deep: [117, 64, 47]
+      Fair: "#F7DCC8",
+      Light: "#E9B99B",
+      Medium: "#CC987D",
+      Tan: "#A9684D",
+      Deep: "#75402F"
     };
 
-    function distance(a, b) {
-      return Math.sqrt(a.reduce((sum, value, i) => sum + (value - b[i]) ** 2, 0));
-    }
+    /*
+      Finds a point between two facial landmarks.
 
-    function nearestSkinDepth(rgb) {
-      return Object.entries(skinPalette).sort((a, b) => distance(rgb, a[1]) - distance(rgb, b[1]))[0][0];
-    }
-
-    /* Samples cheek and forehead points, then chooses the nearest UI skin-depth color. */
-    function classifySkinDepth(points) {
-      const samplePoints = [points[234], points[454], points[10]].filter(Boolean);
-      const pixels = samplePoints.map((point) => {
-        const x = Math.max(0, Math.min(canvas.width - 1, Math.round(point.x * canvas.width)));
-        const y = Math.max(0, Math.min(canvas.height - 1, Math.round(point.y * canvas.height)));
-        return context.getImageData(x, y, 1, 1).data;
-      });
-      if (!pixels.length) return "Medium";
-      const rgb = [0, 1, 2].map((channel) => Math.round(pixels.reduce((sum, pixel) => sum + pixel[channel], 0) / pixels.length));
-      return nearestSkinDepth(rgb);
-    }
-
-    /* These landmark ratios are intentionally simple UI heuristics, not a diagnostic model. */
-    function classifyFaceShape(points) {
-      const width = Math.abs(points[234].x - points[454].x);
-      const height = Math.abs(points[10].y - points[152].y);
-      const ratio = width / Math.max(height, .001);
-      if (ratio > .92) return "Round";
-      if (ratio < .68) return "Oblong";
-      const forehead = Math.abs(points[127].x - points[356].x);
-      const cheek = width;
-      const jaw = Math.abs(points[172].x - points[397].x);
-      if (forehead > cheek * 1.04 && jaw < cheek * .84) return "Heart";
-      if (jaw > cheek * .95) return "Square";
-      if (forehead < cheek * .82 && jaw < cheek * .82) return "Diamond";
-      return "Oval";
-    }
-
-    function eyeMetrics(points, outer, inner, top, bottom) {
+      This helps move the sample point inward
+      so we do not sample shadows at the edge
+      of the user's face.
+    */
+    function betweenPoints(pointA, pointB, amount) {
       return {
-        width: Math.abs(points[outer].x - points[inner].x),
-        height: Math.abs(points[top].y - points[bottom].y),
-        slope: points[outer].y - points[inner].y
+        x: pointA.x + (pointB.x - pointA.x) * amount,
+        y: pointA.y + (pointB.y - pointA.y) * amount
       };
     }
 
+    /*
+      Gets the median RGB value from a small
+      square area around a facial landmark.
+
+      A patch is more reliable than one pixel
+      because it reduces camera noise and shadows.
+    */
+    function getMedianPixel(point) {
+      const x = Math.round(point.x * canvas.width);
+      const y = Math.round(point.y * canvas.height);
+
+      const sampleSize = 9;
+      const halfSize = Math.floor(sampleSize / 2);
+
+      const red = [];
+      const green = [];
+      const blue = [];
+
+      /*
+        Reads several pixels around the selected point.
+      */
+      for (
+        let offsetY = -halfSize;
+        offsetY <= halfSize;
+        offsetY++
+      ) {
+        for (
+          let offsetX = -halfSize;
+          offsetX <= halfSize;
+          offsetX++
+        ) {
+          const pixelX = Math.max(
+            0,
+            Math.min(
+              canvas.width - 1,
+              x + offsetX
+            )
+          );
+
+          const pixelY = Math.max(
+            0,
+            Math.min(
+              canvas.height - 1,
+              y + offsetY
+            )
+          );
+
+          const pixel = context.getImageData(
+            pixelX,
+            pixelY,
+            1,
+            1
+          ).data;
+
+          red.push(pixel[0]);
+          green.push(pixel[1]);
+          blue.push(pixel[2]);
+        }
+      }
+
+      /*
+        Finds the middle value in each color channel.
+      */
+      function median(values) {
+        values.sort((a, b) => a - b);
+        return values[Math.floor(values.length / 2)];
+      }
+
+      return {
+        red: median(red),
+        green: median(green),
+        blue: median(blue)
+      };
+    }
+
+    /*
+      Estimates skin depth using brightness thresholds.
+
+      Deep now requires genuinely low brightness.
+      This prevents medium skin from being classified
+      as Deep because of camera shadows.
+    */
+    function classifySkinDepth(points) {
+      const centerPoint = points[1] || points[4];
+
+      /*
+        If the center landmark is unavailable,
+        use Medium as a safe fallback.
+      */
+      if (!centerPoint) {
+        return "Medium";
+      }
+
+      /*
+        Samples inward cheek areas, forehead,
+        and additional cheek landmarks.
+      */
+      const samplePoints = [
+        betweenPoints(points[234], centerPoint, 0.38),
+        betweenPoints(points[454], centerPoint, 0.38),
+        betweenPoints(points[10], centerPoint, 0.30),
+        points[116],
+        points[345]
+      ].filter(Boolean);
+
+      /*
+        Gets a median RGB sample for every point.
+      */
+      const samples = samplePoints.map((point) => {
+        return getMedianPixel(point);
+      });
+
+      /*
+        Uses Medium as a fallback if no samples exist.
+      */
+      if (!samples.length) {
+        return "Medium";
+      }
+
+      /*
+        Converts every sample into brightness.
+
+        The formula weights green slightly more
+        because human vision is more sensitive to it.
+      */
+      const brightnessValues = samples.map((sample) => {
+        return (
+          sample.red * 0.299 +
+          sample.green * 0.587 +
+          sample.blue * 0.114
+        );
+      });
+
+      /*
+        Calculates the average brightness
+        across all sampled face areas.
+      */
+      const averageBrightness =
+        brightnessValues.reduce(
+          (total, value) => total + value,
+          0
+        ) / brightnessValues.length;
+
+      /*
+        Converts brightness into one of the
+        five generalized skin-depth categories.
+      */
+      if (averageBrightness >= 215) {
+        return "Fair";
+      }
+
+      if (averageBrightness >= 180) {
+        return "Light";
+      }
+
+      if (averageBrightness >= 135) {
+        return "Medium";
+      }
+
+      if (averageBrightness >= 95) {
+        return "Tan";
+      }
+
+      return "Deep";
+    }
+
+    /*
+      Estimates the general face shape
+      using facial landmark width ratios.
+    */
+    function classifyFaceShape(points) {
+      const width = Math.abs(
+        points[234].x - points[454].x
+      );
+
+      const height = Math.abs(
+        points[10].y - points[152].y
+      );
+
+      const ratio = width / Math.max(height, 0.001);
+
+      if (ratio > 0.92) {
+        return "Round";
+      }
+
+      if (ratio < 0.68) {
+        return "Oblong";
+      }
+
+      const forehead = Math.abs(
+        points[127].x - points[356].x
+      );
+
+      const cheek = width;
+
+      const jaw = Math.abs(
+        points[172].x - points[397].x
+      );
+
+      if (
+        forehead > cheek * 1.04 &&
+        jaw < cheek * 0.84
+      ) {
+        return "Heart";
+      }
+
+      if (jaw > cheek * 0.95) {
+        return "Square";
+      }
+
+      if (
+        forehead < cheek * 0.82 &&
+        jaw < cheek * 0.82
+      ) {
+        return "Diamond";
+      }
+
+      return "Oval";
+    }
+
+    /*
+      Calculates eye width, height,
+      and corner slope.
+    */
+    function eyeMetrics(
+      points,
+      outer,
+      inner,
+      top,
+      bottom
+    ) {
+      return {
+        width: Math.abs(
+          points[outer].x - points[inner].x
+        ),
+
+        height: Math.abs(
+          points[top].y - points[bottom].y
+        ),
+
+        slope:
+          points[outer].y - points[inner].y
+      };
+    }
+
+    /*
+      Estimates the general eye shape.
+    */
     function classifyEyeShape(points) {
-      const left = eyeMetrics(points, 33, 133, 159, 145);
-      const right = eyeMetrics(points, 263, 362, 386, 374);
-      const ratio = ((left.height / left.width) + (right.height / right.width)) / 2;
-      const slope = (left.slope - right.slope) / 2;
-      if (ratio > .42) return "Round";
-      if (slope < -.018) return "Upturned";
-      if (slope > .018) return "Downturned";
-      if (ratio < .25) return "Hooded";
+      const left = eyeMetrics(
+        points,
+        33,
+        133,
+        159,
+        145
+      );
+
+      const right = eyeMetrics(
+        points,
+        263,
+        362,
+        386,
+        374
+      );
+
+      const ratio =
+        (
+          left.height / left.width +
+          right.height / right.width
+        ) / 2;
+
+      const slope =
+        (left.slope - right.slope) / 2;
+
+      if (ratio > 0.42) {
+        return "Round";
+      }
+
+      if (slope < -0.018) {
+        return "Upturned";
+      }
+
+      if (slope > 0.018) {
+        return "Downturned";
+      }
+
+      if (ratio < 0.25) {
+        return "Hooded";
+      }
+
       return "Almond";
     }
 
+    /*
+      Estimates the general nose shape.
+    */
     function classifyNoseShape(points) {
-      const bridge = Math.abs(points[6].y - points[168].y);
-      const noseWidth = Math.abs(points[48].x - points[278].x);
-      const noseLength = Math.abs(points[6].y - points[2].y);
-      const widthRatio = noseWidth / Math.max(noseLength, .001);
-      if (widthRatio > .72) return "Wide";
-      if (noseLength < bridge * .72) return "Button";
-      if (points[2].y < points[6].y) return "Upturned";
-      if (widthRatio < .42) return "Straight";
+      const bridge = Math.abs(
+        points[6].y - points[168].y
+      );
+
+      const noseWidth = Math.abs(
+        points[48].x - points[278].x
+      );
+
+      const noseLength = Math.abs(
+        points[6].y - points[2].y
+      );
+
+      const widthRatio =
+        noseWidth / Math.max(noseLength, 0.001);
+
+      if (widthRatio > 0.72) {
+        return "Wide";
+      }
+
+      if (noseLength < bridge * 0.72) {
+        return "Button";
+      }
+
+      if (points[2].y < points[6].y) {
+        return "Upturned";
+      }
+
+      if (widthRatio < 0.42) {
+        return "Straight";
+      }
+
       return "Roman";
     }
 
+    /*
+      Analyzes all facial categories
+      when the user presses Ready.
+    */
     function analyzeFace(points) {
+      /* Matches the canvas to the camera resolution */
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      /* Draws the current camera frame onto the canvas */
+      context.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      /*
+        Returns all detected categories.
+      */
       return {
         skinDepth: classifySkinDepth(points),
         eyeShape: classifyEyeShape(points),
@@ -277,88 +821,260 @@
       };
     }
 
+    /*
+      Checks whether the entire face
+      is inside the scanner frame.
+    */
     function faceIsInsideFrame(points) {
       const xs = points.map((point) => point.x);
       const ys = points.map((point) => point.y);
-      const minX = Math.min(...xs), maxX = Math.max(...xs);
-      const minY = Math.min(...ys), maxY = Math.max(...ys);
+
+      const minX = Math.min(...xs);
+      const maxX = Math.max(...xs);
+      const minY = Math.min(...ys);
+      const maxY = Math.max(...ys);
+
       const width = maxX - minX;
       const height = maxY - minY;
-      const centered = minX > .12 && maxX < .88 && minY > .08 && maxY < .90;
-      return centered && width > .22 && height > .28 && width < .82;
+
+      const centered =
+        minX > 0.12 &&
+        maxX < 0.88 &&
+        minY > 0.08 &&
+        maxY < 0.90;
+
+      return (
+        centered &&
+        width > 0.22 &&
+        height > 0.28 &&
+        width < 0.82
+      );
     }
 
+    /*
+      Updates the scanner message
+      based on the current face position.
+    */
     function updateFaceStatus(points) {
+      /*
+        No face was detected.
+      */
       if (!points) {
         latestLandmarks = null;
         readyButton.disabled = true;
+
         scanStatus.textContent = "No face detected";
-        scanMessage.textContent = "Move your face into the white frame.";
+        scanMessage.textContent =
+          "Move your face into the white frame.";
+
         return;
       }
+
+      /*
+        A face exists, but it is not positioned correctly.
+      */
       if (!faceIsInsideFrame(points)) {
         latestLandmarks = null;
         readyButton.disabled = true;
+
         scanStatus.textContent = "Adjust your position";
-        scanMessage.textContent = "Keep your whole face inside the white frame.";
+        scanMessage.textContent =
+          "Keep your whole face inside the white frame.";
+
         return;
       }
+
+      /*
+        The face is correctly positioned.
+      */
       latestLandmarks = points;
       readyButton.disabled = false;
+
       scanStatus.textContent = "Face detected";
       scanMessage.textContent = "Perfect. Tap Ready!";
     }
 
+    /*
+      Continuously analyzes the live camera feed.
+    */
     async function detectLoop() {
-      if (video.readyState >= 2 && video.currentTime !== lastVideoTime) {
+      /*
+        Only analyzes a new video frame
+        when the video time has changed.
+      */
+      if (
+        video.readyState >= 2 &&
+        video.currentTime !== lastVideoTime
+      ) {
         lastVideoTime = video.currentTime;
-        const result = faceLandmarker.detectForVideo(video, performance.now());
-        updateFaceStatus(result.faceLandmarks?.[0] || null);
+
+        const result =
+          faceLandmarker.detectForVideo(
+            video,
+            performance.now()
+          );
+
+        updateFaceStatus(
+          result.faceLandmarks?.[0] || null
+        );
       }
+
+      /*
+        Runs the detector again
+        on the next animation frame.
+      */
       requestAnimationFrame(detectLoop);
     }
 
+    /*
+      Starts the camera and MediaPipe detector.
+    */
     async function start() {
       try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+        /*
+          Requests access to the front-facing camera.
+        */
+        cameraStream =
+          await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: "user"
+            },
+            audio: false
+          });
+
+        /* Displays the camera stream */
         video.srcObject = cameraStream;
+
+        /* Starts playing the video */
         await video.play();
+
         cameraMessage.textContent = "";
-        scanStatus.textContent = "Looking for your face...";
-        const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm");
-        faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
-          baseOptions: { modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task", delegate: "GPU" },
-          runningMode: "VIDEO",
-          numFaces: 1,
-          outputFaceBlendshapes: false
-        });
+        scanStatus.textContent =
+          "Looking for your face...";
+
+        /*
+          Loads the MediaPipe vision files.
+        */
+        const vision =
+          await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+          );
+
+        /*
+          Creates the Face Landmarker.
+        */
+        faceLandmarker =
+          await FaceLandmarker.createFromOptions(
+            vision,
+            {
+              baseOptions: {
+                modelAssetPath:
+                  "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+
+                delegate: "GPU"
+              },
+
+              runningMode: "VIDEO",
+              numFaces: 1,
+              outputFaceBlendshapes: false
+            }
+          );
+
+        /* Begins scanning the live camera feed */
         detectLoop();
+
       } catch (error) {
+        /*
+          Displays a helpful message if
+          camera access or MediaPipe fails.
+        */
         console.error(error);
-        scanStatus.textContent = "Camera unavailable";
-        cameraMessage.textContent = "Allow camera access, then reload this page.";
-        scanMessage.textContent = "The scanner needs a live camera to continue.";
+
+        scanStatus.textContent =
+          "Camera unavailable";
+
+        cameraMessage.textContent =
+          "Allow camera access, then reload this page.";
+
+        scanMessage.textContent =
+          "The scanner needs a live camera to continue.";
       }
     }
 
-    readyButton.addEventListener("click", async () => {
-      if (!latestLandmarks) return;
-      readyButton.disabled = true;
-      scanStatus.textContent = "Analyzing your features...";
-      scanMessage.textContent = "Hold still for a moment.";
-      const analysis = analyzeFace(latestLandmarks);
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-      cameraStream?.getTracks().forEach((track) => track.stop());
-      const params = new URLSearchParams(analysis);
-      window.location.href = `results_scan.html?${params.toString()}`;
-    });
+    /*
+      Runs when the user presses Ready.
+    */
+    readyButton.addEventListener(
+      "click",
+      async () => {
+        /*
+          Prevents scanning if the face
+          is not correctly positioned.
+        */
+        if (!latestLandmarks) {
+          return;
+        }
 
-    document.querySelector(".close-button").addEventListener("click", () => {
-      cameraStream?.getTracks().forEach((track) => track.stop());
-      window.location.href = "intro_scan.html";
-    });
+        readyButton.disabled = true;
 
+        scanStatus.textContent =
+          "Analyzing your features...";
+
+        scanMessage.textContent =
+          "Hold still for a moment.";
+
+        /*
+          Determines skin depth and facial features.
+        */
+        const analysis =
+          analyzeFace(latestLandmarks);
+
+        /*
+          Gives the scanner time to display
+          the analyzing message.
+        */
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1200);
+        });
+
+        /*
+          Stops the camera before leaving the page.
+        */
+        cameraStream?.getTracks().forEach((track) => {
+          track.stop();
+        });
+
+        /*
+          Sends the detected values
+          to results_scan.html.
+        */
+        const params =
+          new URLSearchParams(analysis);
+
+        window.location.href =
+          `results_scan.html?${params.toString()}`;
+      }
+    );
+
+    /*
+      Sends the user back to intro_scan.html
+      when they press the X button.
+    */
+    document
+      .querySelector(".close-button")
+      .addEventListener("click", () => {
+        cameraStream?.getTracks().forEach((track) => {
+          track.stop();
+        });
+
+        window.location.href = "intro_scan.html";
+      });
+
+    /*
+      Starts the scanner when the page loads.
+    */
     start();
+
   </script>
 </body>
 </html>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MAC NC50 at Ulta</title>
+<link rel="stylesheet" href="../navigation-bar/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -92,7 +93,7 @@
   <main class="phone">
     <section class="page">
       <button class="back-button" type="button" aria-label="Back to results">
-        <img src="assets/back_arrow.png" alt="">
+        <img src="../assets/back_arrow.png" alt="">
       </button>
 
       <h1 class="product-title">Studio Fix Fluid SPF15 24HR Matte Foundation + Oil Control</h1>
@@ -102,7 +103,7 @@
       </div>
       <div class="recommendation">Highly rated by customers for:<span>Blendability, Matte Finish, Lightweight</span></div>
 
-      <div class="product-image" aria-label="Product image placeholder"><img src = "./assets/makeup-products/mac_nc50.png" alt = "Pro Filt’r Soft Matte Longwear Liquid Foundation Shade 185"></div>
+      <div class="product-image" aria-label="Product image placeholder"><img src = "./../assets/makeup-products/mac_nc50.png" alt = "Pro Filt’r Soft Matte Longwear Liquid Foundation Shade 185"></div>
 
       <div class="dots" aria-hidden="true">
         <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -112,9 +113,9 @@
 
       <div class="tags">
         <div class="tag">$25 - $50</div>
-        <div class="tag">Cruelty-free <img src="assets/bunny.png" alt=""></div>
+        <div class="tag">Cruelty-free <img src="../assets/bunny.png" alt=""></div>
         <div class="tag">Oily Skin</div>
-        <div class="tag">Eco-friendly <img src="assets/leaf.png" alt=""></div>
+        <div class="tag">Eco-friendly <img src="../assets/leaf.png" alt=""></div>
       </div>
 
       <section class="description">
@@ -148,25 +149,19 @@
 
     <div class="actions">
       <button class="heart-button" id="heartButton" type="button" aria-label="Add to favorites">
-        <img id="heartImage" src="assets/hearted.png" alt="">
+        <img id="heartImage" src="../assets/hearted.png" alt="">
       </button>
       <a class="list-button" href="https://www.ulta.com/p/studio-fix-fluid-spf15-24hr-matte-foundation-oil-control-pimprod2044825?sku=2622182&cmpid=PS_Bing&utm_medium=paid_search&utm_source=bing&CAWELAID=330000200003192186&msclkid=1cdcd8ce758818b1a985b231cb376f7e&utm_campaign=BS_PrestCos_TopSellers&utm_term=4580702904699910&utm_content=BS_PrestCos_TopSellers" target="_blank" rel="noopener noreferrer">
         Go to site
       </a>
     </div>
 
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <div class="nav-item"><img src="assets/house.png" alt=""></div>
-      <div class="nav-item"><img src="assets/saved.png" alt=""></div>
-      <div class="nav-item active"><img src="assets/lookup.png" alt=""></div>
-      <div class="nav-item"><img src="assets/favorites.png" alt=""></div>
-      <div class="nav-item"><img src="assets/settings.png" alt=""></div>
-    </nav>
+    <div id="navbar-container"></div>
   </main>
 
   <script>
     document.querySelector('.back-button').addEventListener('click', () => {
-      window.location.href = 'results_scan.html';
+      window.history.back();
     });
   
     const heartButton = document.getElementById('heartButton');
@@ -176,13 +171,13 @@
   
     heartButton.addEventListener('mouseenter', () => {
       if (!heartClicked) {
-        heartImage.src = 'assets/hover_heart.png';
+        heartImage.src = '../assets/hover_heart.png';
       }
     });
   
     heartButton.addEventListener('mouseleave', () => {
       if (!heartClicked) {
-        heartImage.src = 'assets/hearted.png';
+        heartImage.src = '../assets/hearted.png';
       }
     });
   
@@ -190,9 +185,10 @@
       heartClicked = !heartClicked;
   
       heartImage.src = heartClicked
-        ? 'assets/clicked_heart.png'
-        : 'assets/hearted.png';
+        ? '../assets/clicked_heart.png'
+        : '../assets/hearted.png';
     });
   </script>
+  <script src="../navigation-bar/script.js"></script>
 </body>
 </html>

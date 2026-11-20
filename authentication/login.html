@@ -14,19 +14,26 @@
   <!-- Karla is used for the interface text -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+    /* Main colors used on the page */
     :root {
       --field-pink: #fbcdd5;
       --border: #9f1f47;
       --placeholder: #666666;
+      --error: #c62828;
     }
 
+    /* Makes sizing easier to control */
     * {
       box-sizing: border-box;
     }
 
+    /* General page styling */
     body {
       margin: 0;
       min-height: 100vh;
@@ -43,6 +50,7 @@
       margin: 0 auto;
       overflow: hidden;
 
+      /* Pink-to-white background gradient */
       background: linear-gradient(
         to bottom,
         #fdecef 0%,
@@ -142,6 +150,22 @@
     }
 
     /*
+      Error or success message.
+
+      JavaScript changes the text and color
+      when the user submits the form.
+    */
+    .login-message {
+      width: 100%;
+      min-height: 22px;
+      margin: 0 0 12px;
+
+      color: var(--error);
+      font-size: 16px;
+      text-align: center;
+    }
+
+    /*
       Remember checkbox.
 
       It is smaller and lighter so it does not compete
@@ -181,6 +205,7 @@
       border-color: var(--border);
     }
 
+    /* Checkmark inside the checkbox */
     .remember input:checked::after {
       content: "✓";
       position: absolute;
@@ -215,10 +240,12 @@
       transition: background 0.2s ease, transform 0.1s ease;
     }
 
+    /* Darkens the login button when hovered */
     .primary:hover {
       background: #82183a;
     }
 
+    /* Slight movement when the button is clicked */
     .primary:active {
       transform: translateY(1px);
     }
@@ -236,6 +263,7 @@
       cursor: pointer;
     }
 
+    /* Underlines the signup link when hovered */
     .secondary:hover {
       text-decoration: underline;
     }
@@ -279,7 +307,7 @@
 
         <!-- Username field -->
         <label class="field">
-          <img src="assets/profile.png" alt="">
+          <img src="../assets/profile.png" alt="">
 
           <input
             id="loginUsername"
@@ -292,7 +320,7 @@
 
         <!-- Password field -->
         <label class="field password">
-          <img src="assets/lock.png" alt="">
+          <img src="../assets/lock.png" alt="">
 
           <input
             id="loginPassword"
@@ -302,6 +330,13 @@
             aria-label="Password"
           >
         </label>
+
+        <!-- Error message appears here when login fails -->
+        <p
+          class="login-message"
+          id="loginMessage"
+          aria-live="polite"
+        ></p>
 
         <!-- Remember-me checkbox -->
         <label class="remember">
@@ -319,7 +354,11 @@
         </button>
 
         <!-- Link to signup page -->
-        <button class="secondary" type="button" id="toSignup">
+        <button
+          class="secondary"
+          type="button"
+          id="toSignup"
+        >
           Don’t have an account?
           <span class="signup-link">Sign Up</span>
         </button>
@@ -331,6 +370,7 @@
   <script>
     /*
       Removes the placeholder while the user is typing.
+      Restores it when the field is empty again.
     */
     document.querySelectorAll(".field input").forEach((input) => {
       const originalPlaceholder = input.placeholder;
@@ -354,20 +394,101 @@
     });
 
     /*
-      Frontend-only login behavior.
-
-      No backend connection is being used yet.
+      Handles login validation.
     */
-    document.getElementById("loginForm").addEventListener("submit", (event) => {
-      event.preventDefault();
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", (event) => {
+        event.preventDefault();
 
-      const rememberLogin =
-        document.getElementById("rememberLogin").checked;
+        /*
+          Gets the username and password
+          entered by the user.
+        */
+        const enteredUsername = document
+          .getElementById("loginUsername")
+          .value
+          .trim();
 
-      if (rememberLogin) {
-        localStorage.setItem("matchupRememberLogin", "true");
-      }
-    });
+        const enteredPassword = document
+          .getElementById("loginPassword")
+          .value;
+
+        const rememberLogin =
+          document.getElementById("rememberLogin").checked;
+
+        const loginMessage =
+          document.getElementById("loginMessage");
+
+        /*
+          Clears any previous error message.
+        */
+        loginMessage.textContent = "";
+
+        /*
+          Retrieves the account saved by signup.html.
+        */
+        const savedAccount = JSON.parse(
+          localStorage.getItem("matchupAccount")
+        );
+
+        /*
+          Shows an error if no account has been created.
+        */
+        if (!savedAccount) {
+          loginMessage.textContent =
+            "Account does not exist. Please sign up first.";
+          return;
+        }
+
+        /*
+          Checks whether the username matches
+          the stored account.
+        */
+        if (enteredUsername !== savedAccount.username) {
+          loginMessage.textContent =
+            "Account does not exist. Please check your username.";
+          return;
+        }
+
+        /*
+          Checks whether the password matches
+          the stored account.
+        */
+        if (enteredPassword !== savedAccount.password) {
+          loginMessage.textContent =
+            "Incorrect password.";
+          return;
+        }
+
+        /*
+          Saves the login preference if selected.
+        */
+        if (rememberLogin) {
+          localStorage.setItem(
+            "matchupRememberLogin",
+            "true"
+          );
+        } else {
+          localStorage.removeItem(
+            "matchupRememberLogin"
+          );
+        }
+
+        /*
+          Stores a simple logged-in status.
+        */
+        localStorage.setItem(
+          "matchupLoggedIn",
+          "true"
+        );
+
+        /*
+          Sends the valid user to the scanner intro page.
+        */
+        window.location.href =
+          "../face-scanner/intro_scan.html";
+      });
   </script>
 
 </body>
