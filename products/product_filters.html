@@ -8,7 +8,8 @@
     </head>
 
     <body>
-        <form class="phone" method="POST">
+        
+        <form class="phone">
             <h1>Filters</h1>
             <div class="price-range">
                 <h4> Price: </h4>
@@ -23,11 +24,11 @@
             
             <div class="makeup-brands">
                 <h4> Search Brands: </h4>
+                <input type="checkbox"> Fenty Beauty <br>
                 <input type="checkbox"> L'Oréal Paris <br>
-                <input type="checkbox"> Estée Lauder <br>
+                <input type="checkbox"> MAC <br>
+                <input type="checkbox"> NARS <br>
                 <input type="checkbox"> Shiseido <br>
-                <input type="checkbox"> Olay <br>
-                <input type="checkbox"> Dove <br>
             </div><br>
             
             <div class="ingredient-menu">
@@ -74,15 +75,26 @@
             
             <div class="ethical-production-tags">
                 <h4> Ethical Production: </h4>
-                <input type="checkbox" name="cruelty-free"> Cruelty-Free <br>
-                <input type="checkbox" name="fair-trade"> Fair-Trade Certified <br>
-                <input type="checkbox" name="eco-friendly"> Eco-Friendly <br>
+                <div>
+                    <input type="checkbox" name="cruelty-free"> Cruelty-Free 
+                    <img src="bunny-removebg-preview.png" width="15px" height="15px" style="background-color: #fff;">
+                </div>
+                <div id="eco-friendly">
+                    <input type="checkbox" name="eco-friendly"> Eco-Friendly
+                    <img src="leaf-removebg-preview.png" width="15px" height="15px">
+                </div>           
             </div> <br>
             
             <div class="filter-management-buttons" style="margin-left: 60px;">
                 <button type="reset" style="font-size: large; background-color: #fbcdd5;"> Clear All </button>
-                <button type="submit" style="font-size: large;"> <strong>Save and Apply</strong></button>
+                <button id="save_button" onclick="save()" style="font-size: large;"> <strong>Save and Apply</strong></button>
             </div>
+            <script>
+                function save(){
+                    document.getElementById("save_button").innerHTML = "Saved";
+                    document.getElementById("save_button").style = "background-color:#CEE9C7;font-size: large; font-weight:bold;";
+                }
+            </script>
         </form>
       <script src="../navigation-bar/script.js"></script>
 </body>
