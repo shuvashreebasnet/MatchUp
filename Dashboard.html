@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MatchUp - Dashboard</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+        <style>
+            :root {
+            --field-pink: #fbcdd5;
+            --border: #9f1f47;
+            --placeholder: #666666;
+            }
+
+            * {
+            box-sizing: border-box;
+            }
+
+            body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f4f4f4;
+            font-family: Karla, sans-serif;
+            }
+
+            /* Responsive mobile frame */
+            main.phone {
+            position: relative;
+            width: 100%;
+            max-width: 393px;
+            min-height: 100svh;
+            margin: 0 auto;
+            overflow: hidden;
+
+            background: linear-gradient(
+                to bottom,
+                #fdecef 0%,
+                #fffafa 57%,
+                #ffffff 100%
+            );
+            }
+
+            .page {
+            min-height: 100svh;
+            padding: 32px 22px;
+            }
+
+            h1{
+                font-size: 24px;
+                margin-bottom: 78px;
+                text-align: center;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            h3 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .circle-img {
+                position: relative;
+                width: 181px;
+                height: 181px;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+
+            .circle-img img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .circle-img::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+                pointer-events: none;
+            }
+
+            .button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            }
+
+            .button1 {
+            width: 97px;
+            height: 26px;
+            border-radius: 10px;
+            opacity: 80%;
+            background-color: #F7A0B0;
+            border: 1px solid #9F1F47;
+            }
+
+            .button2 {
+            width: 97px;
+            height: 26px;
+            border-radius: 10px;
+            opacity: 80%;
+            background-color: #CEE9C7;
+            border: 1px solid #234D34;
+            }
+
+            .button3 {
+            background-color: #F7A0B0;
+            border: 1px solid #9F1F47;
+            width: 337px;
+            height: 68px;
+            border-radius: 9999px;
+            box-shadow: 0px 4px 4px rgba(0,0,0,0.25)
+            }
+
+            .empty-message:not(:only-child) {
+                display: none;
+            }
+
+            .align{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            }
+
+            dialog {
+            border: none;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            }
+
+            form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            }
+
+            .text-image {
+                display: flex;
+                align-items: center;
+                gap: 10px
+            }
+
+            input[type="radio"] {
+                accent-color: #F7A0B0;
+            }
+
+            input[type="checkbox"] {
+                accent-color: #CEE9C7;
+            }
+
+            .img-box {
+                height: 110px;
+                width: 110px;
+                background-color: #ffffff;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: left;
+                gap: 10px;
+                width: 350px;
+            }
+
+            .corner-icon {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                z-index: 2;
+                width: 20px;
+            }
+
+            a {
+                color: initial;
+                font-size: 15px;
+                position: absolute;
+                bottom: 10px;
+                text-decoration: none;
+            }
+
+            .product-img
+            {
+                height: 80px;
+            }
+
+    </style>
+    </head>
+
+    <body>
+        <main class="phone">
+            <section class="page">
+        <div style="display: flex; justify-content: center">
+        <img src="../assets/matchup-logo.svg" alt="logo" style="height:40px">
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 20px">
+            <div class="circle-img">
+                <img src="bear.png" alt="Profile picture">
+            </div>
+        </div>
+        <h2 style="margin-top: 10px; text-align: center">You</h2>
+        <h3>Features</h3>
+
+<div class="align" id="feat-list"></div>
+<button id="openBtn" class="button button1">
+    <img src="white-edit-icon.png" alt="add a feature">
+</button>
+<dialog id="editFeat">
+  <form id="featForm">
+    <h2> Edit Features</h2>
+    <div class="text-image">
+      <h3>Face Shape</h3>
+      <img src="face.svg" alt="face" style="margin-bottom: -10px">
+    </div>
+    <label><input type="radio" id="oval" name="face_shape" value="Oval">Oval</label><br>
+    <label><input type="radio" id="square" name="face_shape" value="Square">Square</label><br>
+    <label><input type="radio" id="heart" name="face_shape" value="Heart">Heart</label><br>
+
+    <div class="text-image">
+        <h3>Eye Shape</h3>
+        <img src="eye.svg" alt="eye" style="margin-bottom: -10px">
+    </div>
+    <label><input type="radio" id="almond" name="eye_shape" value="Almond">Almond</label><br>
+    <label><input type="radio" id="round" name="eye_shape" value="Round">Round</label><br>
+    <label><input type="radio" id="monolid" name="eye_shape" value="Monolid">Monolid</label><br>
+
+    <div class="text-image">
+        <h3>Nose Type</h3>
+        <img src="nose.svg" alt="nose" style="margin-bottom: -10px">
+    </div>
+    <label><input type="radio" id="greek" name="nose_shape" value="Greek">Straight/Greek</label><br>
+    <label><input type="radio" id="roman" name="nose_shape" value="Roman">Aquiline/Roman</label><br>
+    <label><input type="radio" id="turnedup" name="nose_shape" value="Turned-up">Turned-up/Celestial</label><br>
+  <button type="submit" class="button button1">Add to List</button>
+</form>
+</dialog>
+
+<h3>Preferences</h3>
+
+<div class="align" id="pref-list"></div>
+<button id="openBtn2" class="button button2">
+    <img src="white-edit-icon.png" alt="add a feature">
+</button>
+<dialog id="editPrefs">
+  <form id="popupForm">
+    <h3>Price Range</h3>
+    <label><input type="checkbox" id="price1" name="price1" value="$0-25">$0-25</label><br>
+    <label><input type="checkbox" id="price2" name="price2" value="$25-50">$25-50</label><br>
+    <h3>Ethical Production</h3>
+    <div class="text-image">
+    <label><input type="checkbox" id="cruelty" name="cruelty" value="Cruelty-free">
+        Cruelty-Free
+        <img src="bunny.svg">
+    </label><br>
+    </div>
+    <div class="text-image">
+    <label><input type="checkbox" id="eco" name="eco" value="Eco-friendly">
+            Eco-friendly
+            <img src="leaf.svg">
+        </label><br>
+    </div>
+  <button type="submit" class="button button2">Add to List</button>
+</form>
+</dialog>
+
+<h3>Favorite Products</h3>
+        <!--links to browsing page-->
+        <div id="row" class="row">
+            <button class="button button3 empty-message">
+                <h2>Find Products</h2>
+            </button>
+        </div>
+
+            </section>
+        </main>
+    </body>
+</html>
+
+<script>
+  const modal = document.getElementById('editFeat');
+  const openBtn = document.getElementById('openBtn');
+  const form = document.getElementById('featForm');
+  const container1 = document.getElementById('feat-list');
+
+  openBtn.addEventListener('click', () => modal.showModal());
+
+  form.addEventListener('submit', (event) => {
+    // Find the currently checked radio button
+    event.preventDefault();
+    const face = document.querySelector('input[name="face_shape"]:checked');
+    const eye = document.querySelector('input[name="eye_shape"]:checked');
+    const nose = document.querySelector('input[name="nose_shape"]:checked');
+
+    // Guard clause in case nothing is selected yet
+    if (!face || !eye || !nose) {
+      alert('Please select an option first.');
+      return;
+    }
+
+    // Create a list item and set its text to the radio button's value
+    const div1 = document.createElement('div');
+    div1.className = 'button button1';
+    const faceText = document.createElement('p');
+    faceText.textContent = face.value;
+    const faceImg = document.createElement('img');
+    faceImg.src = 'face.svg';
+    faceImg.alt = 'face';
+
+    const div2 = document.createElement('div');
+    div2.className = 'button button1';
+    const eyeText = document.createElement('p');
+    eyeText.textContent = eye.value;
+    const eyeImg = document.createElement('img');
+    eyeImg.src = 'eye.svg';
+    eyeImg.alt = 'eye';
+
+
+    const div3 = document.createElement('div');
+    div3.className = 'button button1';
+    const noseText = document.createElement('p');
+    noseText.textContent = nose.value;
+    const noseImg = document.createElement('img');
+    noseImg.src = 'nose.svg';
+    noseImg.alt = 'nose';
+
+
+    div1.appendChild(faceImg);
+    div1.appendChild(faceText);
+    container1.appendChild(div1);
+
+    div2.appendChild(eyeImg);
+    div2.appendChild(eyeText);
+    container1.appendChild(div2);
+
+    div3.appendChild(noseImg);
+    div3.appendChild(noseText);
+    container1.appendChild(div3);
+
+    modal.close();
+    form.reset();
+  });
+
+  const modal2 = document.getElementById('editPrefs');
+  const openBtn2 = document.getElementById('openBtn2');
+  const form2 = document.getElementById('popupForm');
+  const container2 = document.getElementById('pref-list');
+
+  openBtn2.addEventListener('click', () => modal2.showModal());
+
+  form2.addEventListener('submit', (event) => {
+    // Find the currently checked radio button
+    event.preventDefault();
+    const price1 = document.querySelector('input[value="$0-25"]');
+    const price2 = document.querySelector('input[value="$25-50"]');
+    
+    const cruelty = document.querySelector('input[value="Cruelty-free"]');
+    const eco = document.querySelector('input[value="Eco-friendly"]');
+
+    if(price1.checked){
+      const div1 = document.createElement('div');
+      div1.className = 'button button2';
+      const text = document.createElement('p');
+      text.textContent = price1.value;
+
+      div1.appendChild(text);
+      container2.appendChild(div1);
+    }
+    
+    if(price2.checked){
+      const div1 = document.createElement('div');
+      div1.className = 'button button2';
+      const text = document.createElement('p');
+      text.textContent = price2.value;
+
+      div1.appendChild(text);
+      container2.appendChild(div1);
+    }
+
+    if(cruelty.checked){
+      const div1 = document.createElement('div');
+      div1.className = 'button button2';
+      const img = document.createElement('img');
+      img.src = 'bunny.svg';
+      img.alt = 'bunny';
+
+      div1.appendChild(img);
+      container2.appendChild(div1);
+    }
+
+    if(eco.checked){
+      const div1 = document.createElement('div');
+      div1.className = 'button button2';
+      const img = document.createElement('img');
+      img.src = 'leaf.svg';
+      img.alt = 'leaf';
+
+      div1.appendChild(img);
+      container2.appendChild(div1);
+    }
+
+    modal2.close();
+    form2.reset();
+  });
+
+      const container = document.getElementById('row');
+
+    if(localStorage.getItem('heartClickedF100') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_fenty100_details.html';
+        link.textContent = 'Fenty 100';
+        link.id='f100';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        link.id='f100';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/fenty_100.png';
+        productImg.className = 'product-img';
+        link.id='f100';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        link.id='f100';
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedF100') === 'false')
+    {
+        const items = document.querySelectorAll(".f100");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedF185') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_fenty185_details.html';
+        link.textContent = 'Fenty 185';
+        link.id='f185';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        link.id='f185';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/fenty_185.png';
+        productImg.className = 'product-img';
+        link.id='f185';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        link.id='f185';
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedF185') === 'false')
+    {
+        const items = document.querySelectorAll(".f185");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedF330') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_fenty330_details.html';
+        link.textContent = 'Fenty 330';
+        link.id='f330';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        link.id='f330';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/fenty_330.png';
+        productImg.className = 'product-img';
+        link.id='f330';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        link.id='f330';
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedF330') === 'false')
+    {
+        const items = document.querySelectorAll(".f330");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+        if(localStorage.getItem('heartClickedF450') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_fenty450_details.html';
+        link.textContent = 'Fenty 450';
+        link.id='f450';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        link.id='f450';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/fenty_450.png';
+        productImg.className = 'product-img';
+        link.id='f450';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        link.id='f450';
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedF450') === 'false')
+    {
+        const items = document.querySelectorAll(".f450");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedM11') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_macn11_details.html';
+        link.textContent = 'Mac N11';
+        link.id = 'm11';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='m11';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/mac_n11.png';
+        productImg.className = 'product-img';
+        productImg.id='m11';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='m11'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedM11') === 'false')
+    {
+        const items = document.querySelectorAll(".m11");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedM20') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_macnc20_details.html';
+        link.textContent = 'Mac N20';
+        link.id = 'm20';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='m20';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/mac_nc20.png';
+        productImg.className = 'product-img';
+        productImg.id='m20';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='m20'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedM20') === 'false')
+    {
+        const items = document.querySelectorAll(".m20");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedM45') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_macnc45_details.html';
+        link.textContent = 'Mac N45';
+        link.id = 'm45';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='m45';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/mac_nc45.png';
+        productImg.className = 'product-img';
+        productImg.id='m45';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='m45'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedM45') === 'false')
+    {
+        const items = document.querySelectorAll(".m45");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedM50') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_macnc50_details.html';
+        link.textContent = 'Mac N50';
+        link.id = 'm50';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='m50';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/mac_nc50.png';
+        productImg.className = 'product-img';
+        productImg.id='m50';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='m50'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedM50') === 'false')
+    {
+        const items = document.querySelectorAll(".m50");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedNB') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_narsbarcelona_details.html';
+        link.textContent = 'Nars Barcelona';
+        link.id = 'nb';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='nb';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/nars_barcelona.png';
+        productImg.className = 'product-img';
+        productImg.id='nb';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='nb'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedNB') === 'false')
+    {
+        const items = document.querySelectorAll(".nb");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedNF') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_narsfiji_details.html';
+        link.textContent = 'Nars Fiji';
+        link.id = 'nf';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='nf';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/nars_fiji.png';
+        productImg.className = 'product-img';
+        productImg.id='nf';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='nf'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedNF') === 'false')
+    {
+        const items = document.querySelectorAll(".nf");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+
+    if(localStorage.getItem('heartClickedNM') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_narsmanaus_details.html';
+        link.textContent = 'Nars Manaus';
+        link.id = 'nm';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='nm';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/nars_manaus.png';
+        productImg.className = 'product-img';
+        productImg.id='nm';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='nm'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedNM') === 'false')
+    {
+        const items = document.querySelectorAll(".nm");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+    
+        if(localStorage.getItem('heartClickedNO') === 'true')
+    {
+        const link = document.createElement('a');
+        link.href = '../product_narsoslo_details.html';
+        link.textContent = 'Nars Oslo';
+        link.id = 'no';
+        const newBox = document.createElement('div');
+        newBox.className = 'img-box';
+        newBox.id ='no';
+        const productImg = document.createElement('img');
+        productImg.src = '../assets/makeup-products/nars_oslo.png';
+        productImg.className = 'product-img';
+        productImg.id='no';
+        const icon = document.createElement('img');
+        icon.src = '../assets/clicked_heart.png';
+        icon.className = 'corner-icon';
+        icon.id='no'
+
+        newBox.appendChild(productImg);
+        newBox.appendChild(icon);
+        newBox.appendChild(link);
+        container.appendChild(newBox);
+    }
+    if(localStorage.getItem('heartClickedNO') === 'false')
+    {
+        const items = document.querySelectorAll(".no");
+        items.forEach(item => {
+            item.remove();
+        });
+    }
+</script>

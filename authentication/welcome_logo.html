@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the page fit properly on phones -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>MatchUp</title>
+
+  <!-- Imports the cursive font used for the MatchUp logo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    /* Makes sizing more predictable */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Background outside the mobile frame */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f4f4f4;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /*
+      Main mobile splash-screen frame.
+    */
+    .splash-screen {
+      position: relative;
+
+      width: 100%;
+      max-width: 393px;
+      height: 852px;
+      min-height: 100svh;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      overflow: hidden;
+      cursor: pointer;
+
+      /* Pink-to-white background */
+      background: linear-gradient(
+        to bottom,
+        #fdecef 0%,
+        #fffafa 57%,
+        #ffffff 100%
+      );
+
+      /* Adds a frame shadow on desktop */
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+
+      /* Controls the fade-out transition */
+      transition: opacity 0.6s ease;
+    }
+
+    /*
+      Fades the splash screen away
+      after the user clicks it.
+    */
+    .splash-screen.fade-out {
+      opacity: 0;
+    }
+
+    /*
+      Holds the animated logo letters.
+    */
+    .wordmark {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+      padding: 0 18px;
+
+      font-family: "Luxurious Script", cursive;
+      font-size: 92px;
+      line-height: 1;
+
+      white-space: nowrap;
+    }
+
+    /*
+      Each letter starts invisible, blurry,
+      and slightly lowered.
+    */
+    .wordmark span {
+      display: inline-block;
+
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(3px);
+
+      /*
+        Prevents the browser from creating
+        choppy gradient stripes inside the letters.
+      */
+      background: none;
+      -webkit-background-clip: initial;
+      background-clip: initial;
+      -webkit-text-fill-color: currentColor;
+
+      animation: letterAppear 0.75s ease forwards;
+    }
+
+    /*
+      Creates a smooth visual color transition
+      from dark burgundy to pink across the logo.
+    */
+    .wordmark span:nth-child(1) {
+      color: #000000;
+      animation-delay: 0s;
+    }
+
+    .wordmark span:nth-child(2) {
+      color: #1d0711;
+      animation-delay: 0.18s;
+    }
+
+    .wordmark span:nth-child(3) {
+      color: #4a1123;
+      animation-delay: 0.36s;
+    }
+
+    .wordmark span:nth-child(4) {
+      color: #731334;
+      animation-delay: 0.54s;
+    }
+
+    .wordmark span:nth-child(5) {
+      color: #9f1f47;
+      animation-delay: 0.72s;
+    }
+
+    .wordmark span:nth-child(6) {
+      color: #c94a6c;
+      animation-delay: 0.90s;
+    }
+
+    .wordmark span:nth-child(7) {
+      color: #f7a0b0;
+      animation-delay: 1.08s;
+    }
+
+    /*
+      Makes each letter appear individually.
+    */
+    @keyframes letterAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    /* Large decorative sparkle */
+    .sparkle-large {
+      position: absolute;
+      top: calc(50% - 125px);
+      left: 76%;
+
+      width: 34px;
+      height: 34px;
+
+      background: #f7a0b0;
+      clip-path: polygon(
+        50% 0%,
+        62% 38%,
+        100% 50%,
+        62% 62%,
+        50% 100%,
+        38% 62%,
+        0% 50%,
+        38% 38%
+      );
+
+      opacity: 0;
+      animation: sparkleAppear 0.6s ease forwards;
+      animation-delay: 1.15s;
+    }
+
+    /* Small decorative sparkle */
+    .sparkle-small {
+      position: absolute;
+      top: calc(50% - 82px);
+      left: 83%;
+
+      width: 22px;
+      height: 22px;
+
+      background: #9f1f47;
+      clip-path: polygon(
+        50% 0%,
+        62% 38%,
+        100% 50%,
+        62% 62%,
+        50% 100%,
+        38% 62%,
+        0% 50%,
+        38% 38%
+      );
+
+      opacity: 0;
+      animation: sparkleAppear 0.6s ease forwards;
+      animation-delay: 1.35s;
+    }
+    
+    /*
+      Makes the sparkles appear after the logo.
+    */
+    @keyframes sparkleAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /*
+      Responsive styling for smaller phones.
+    */
+    @media (max-width: 393px) {
+      .splash-screen {
+        width: 100%;
+        height: 100svh;
+      }
+
+      .wordmark {
+        font-size: 23vw;
+        padding: 0 12px;
+      }
+
+      .sparkle-large {
+        left: 76%;
+      }
+
+      .sparkle-small {
+        left: 83%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Entire splash screen is clickable -->
+  <main
+    class="splash-screen"
+    id="splashScreen"
+    aria-label="Open MatchUp"
+  >
+
+    <!-- Animated MatchUp logo -->
+    <div
+      class="wordmark"
+      aria-label="MatchUp"
+    >
+      <span>M</span>
+      <span>a</span>
+      <span>t</span>
+      <span>c</span>
+      <span>h</span>
+      <span>U</span>
+      <span>p</span>
+    </div>
+
+    <!-- Decorative logo sparkles -->
+    <div
+      class="sparkle-large"
+      aria-hidden="true"
+    ></div>
+
+    <div
+      class="sparkle-small"
+      aria-hidden="true"
+    ></div>
+
+  </main>
+
+  <script>
+    /*
+      Finds the splash screen so JavaScript
+      can control the transition.
+    */
+    const splashScreen =
+      document.getElementById("splashScreen");
+
+    /*
+      Runs when the user clicks or taps
+      anywhere on the splash screen.
+    */
+    splashScreen.addEventListener("click", () => {
+
+      /*
+        Starts the fade-out animation.
+      */
+      splashScreen.classList.add("fade-out");
+
+      /*
+        Opens the login page after
+        the fade-out finishes.
+      */
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 600);
+    });
+  </script>
+
+</body>
+</html>

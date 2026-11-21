@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Generic User Profile </title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+    <body>
+        <div class="phone">
+            <div id="user_profile">
+                <img src=./../assets/profile.png alt="profile picture not available" style="margin-top: 50px; margin-left: 130px;"></img>
+                <h2 id="username" style="text-align:center;"> User Name </h2>
+            </div><br>
+            
+            <div id="preferences_list">
+                <h3>Preferences</h3>
+                <ul name="preferences" style="justify-content: center;"> 
+                    <li class="green_textbox">X Foundation</li>
+                    <li class="green_textbox">Y Eyeshadow</li>
+                    <li class="green_textbox">Z Perfume</li>
+                </ul>
+            </div><br>
+            
+            <button id="toggle_friend" onclick="add()" ondblclick="remove()" style="background-color:#F7A0B0; margin-left:133px;">
+                <p id="button_text" style="font-size: medium;">Add Friend</p>
+            </button>
+        </div>
+
+        <script>
+            let current_friend = true;
+            const button_status = document.getElementById("toggle_friend");
+            const button_label = document.getElementById("button_text");
+
+            function add(){
+                current_friend = true;
+
+                // change button's look
+                button_label.innerHTML = "Remove Friend";
+                button_status.style = "background-color:#CEE9C7; margin-left:125px;";
+            }
+
+            function remove(){
+                current_friend = false;
+
+                // change button's look
+                button_label.innerHTML = "Add Friend";
+                button_status.style = "background-color:#F7A0B0; margin-left:133px;";
+            }
+        </script>
+    </body>
+</html>

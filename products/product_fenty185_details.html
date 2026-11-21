@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fenty Pro Filt’r Shade 185</title>
+
+  <!-- Shared navigation styles -->
+  <link rel="stylesheet" href="../navigation-bar/styles.css">
+
+  <!-- Karla font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --pink: #f7a0b0;
+      --border: #9f1f47;
+      --page-pink: #fff5f6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #eee;
+      font-family: Karla, sans-serif;
+      color: #000;
+    }
+
+    /* Mobile phone frame */
+    .phone {
+      position: relative;
+      width: 100%;
+      max-width: 393px;
+      height: min(852px, 100svh);
+      margin: 0 auto;
+      overflow: hidden;
+
+      background: linear-gradient(
+        #fdecef 0%,
+        var(--page-pink) 55%,
+        #fff 100%
+      );
+    }
+
+    /* Scrollable product page */
+    .page {
+      height: 100%;
+      min-height: 0;
+      padding-bottom: 160px;
+      overflow-y: auto;
+    }
+
+    /* Back button */
+    .back-button {
+      position: absolute;
+      z-index: 2;
+      top: 22px;
+      left: 15px;
+
+      width: 64px;
+      height: 64px;
+      padding: 8px;
+
+      border: 0;
+      border-radius: 15px;
+      background: #fff;
+      box-shadow: 0 4px 5px rgba(0, 0, 0, .25);
+      cursor: pointer;
+    }
+
+    .back-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Product title */
+    .product-title {
+      margin: 118px 20px 10px;
+      font-size: clamp(22px, 7vw, 28px);
+      line-height: 1.05;
+      font-weight: 500;
+      white-space: normal;
+    }
+
+    /* Rating section */
+    .rating-row {
+      height: 37px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 0 10px;
+      font-size: 17px;
+    }
+
+    .stars {
+      font-size: 30px;
+      letter-spacing: -5px;
+      line-height: 1;
+    }
+
+    .reviews {
+      margin-left: 5px;
+      white-space: nowrap;
+    }
+
+    /* Recommendation banner */
+    .recommendation {
+      min-height: 29px;
+      height: auto;
+      padding: 5px 10px;
+
+      background: var(--pink);
+      font-size: 15px;
+      line-height: 1.2;
+      white-space: normal;
+    }
+
+    .recommendation span {
+      margin-left: 4px;
+      color: var(--border);
+    }
+
+    /* Product image */
+    .product-image {
+      width: 340px;
+      height: 340px;
+      margin: 36px auto 22px;
+      background: #fff;
+    }
+
+    .product-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Product dots */
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 27px;
+      margin-bottom: 25px;
+    }
+
+    .dot {
+      width: 19px;
+      height: 19px;
+      border: 0;
+      border-radius: 50%;
+      background: #d9d9d9;
+    }
+
+    .dot.active {
+      background: #000;
+    }
+
+    /* Product price */
+    .price {
+      margin: 0 0 8px;
+      text-align: center;
+      font-size: 31px;
+      font-weight: 600;
+    }
+
+    /* Product tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      padding: 0 24px;
+    }
+
+    .tag {
+      height: 33px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+
+      border-radius: 20px;
+      background: #cdeac6;
+
+      font-size: 18px;
+      white-space: nowrap;
+    }
+
+    .tag.eco {
+      background: #d9d9d9;
+    }
+
+    .tag img {
+      width: 25px;
+      height: 25px;
+      margin-left: 5px;
+      object-fit: contain;
+    }
+
+    /* Product description */
+    .description {
+      margin: 18px 20px 0;
+    }
+
+    .description h2 {
+      margin: 0;
+      font-size: 25px;
+      font-weight: 600;
+    }
+
+    .description p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .description p + p {
+      margin-top: 12px;
+    }
+
+    /* Reviews */
+    .review-section {
+      margin: 24px 16px 0;
+    }
+
+    .review-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 4px 10px;
+    }
+
+    .review-heading h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .review-count {
+      min-width: 100px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      background: var(--pink);
+      color: #fff;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .review-card {
+      min-height: 88px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+    }
+
+    .review-card-heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .review-card h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .review-stars {
+      font-size: 20px;
+      letter-spacing: -2px;
+      white-space: nowrap;
+    }
+
+    .review-card p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Fixed action buttons above the navbar */
+    .actions {
+      position: absolute;
+      z-index: 4;
+      right: 0;
+      bottom: 66px;
+      left: 0;
+
+      display: flex;
+      align-items: center;
+      gap: 18px;
+
+      margin: 0;
+      padding: 8px 20px;
+
+      background: rgba(255, 255, 255, .96);
+    }
+
+    /* Favorite button */
+    .heart-button {
+      width: 57px;
+      height: 57px;
+      padding: 0;
+
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .heart-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* External product link */
+    .list-button {
+      flex: 1;
+      height: 58px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--pink);
+      box-shadow: 0 4px 5px rgba(0, 0, 0, .22);
+
+      color: #000;
+      font: 400 29px Karla, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .list-button:active {
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="phone">
+
+    <!-- Scrollable product content -->
+    <section class="page">
+
+      <!-- Back button -->
+      <button
+        class="back-button"
+        type="button"
+        aria-label="Back to results"
+      >
+        <img src="../assets/back_arrow.png" alt="">
+      </button>
+
+      <!-- Product title -->
+      <h1 class="product-title">
+        Pro Filt’r Soft Matte Longwear Foundation — #185
+      </h1>
+
+      <!-- Ratings -->
+      <div class="rating-row">
+        <span class="stars">★ ★ ★ ★ ☆</span>
+        <span class="reviews">9844 reviews</span>
+      </div>
+
+      <!-- Recommendation -->
+      <div class="recommendation">
+        Highly rated by customers for:
+        <span>Coverage, Inclusivity, Shade</span>
+      </div>
+
+      <!-- Product image -->
+      <div
+        class="product-image"
+        aria-label="Product image"
+      >
+        <img
+          src="../assets/makeup-products/fenty_185.png"
+          alt="Pro Filt’r Soft Matte Longwear Liquid Foundation Shade 185"
+        >
+      </div>
+
+      <!-- Product dots -->
+      <div class="dots" aria-hidden="true">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <!-- Price -->
+      <p class="price">$40.00</p>
+
+      <!-- Product tags -->
+      <div class="tags">
+        <div class="tag">$25 - $50</div>
+
+        <div class="tag">
+          Cruelty-free
+          <img src="../assets/bunny.png" alt="">
+        </div>
+
+        <div class="tag">Dry Skin</div>
+
+        <div class="tag eco">
+          Eco-friendly
+          <img src="../assets/leaf.png" alt="">
+        </div>
+      </div>
+
+      <!-- Product description -->
+      <section class="description">
+        <h2>Description</h2>
+
+        <p>
+          Buildable, medium to full coverage foundation with
+          climate-adaptive technology to fight heat, sweat + shine.
+          2019 Allure Reader’s Choice Award Winner!
+        </p>
+
+        <p>
+          AN INSTANT FILTER THAT'S MATTE BUT NEVER FLAT—
+          GET MAX COVERAGE WITHOUT THE WEIGHT
+        </p>
+
+        <p>
+          A soft matte, longwear foundation that features
+          climate-adaptive technology to fight heat, sweat + shine.
+          Stay looking fresh morning or night with this buildable,
+          medium to full coverage formula that is available in a range
+          of 50 boundary-breaking shades.
+        </p>
+      </section>
+
+      <!-- Reviews -->
+      <section
+        class="review-section"
+        aria-labelledby="review-title"
+      >
+        <div class="review-heading">
+          <h2 id="review-title">Reviews:</h2>
+          <span class="review-count">2 Friends</span>
+        </div>
+
+        <div class="review-list">
+          <article class="review-card">
+            <div class="review-card-heading">
+              <h3>Friend 1</h3>
+              <span
+                class="review-stars"
+                aria-label="4 out of 5 stars"
+              >
+                ★★★★☆
+              </span>
+            </div>
+
+            <p>
+              Blended well and was a really good shade match for me!
+            </p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-card-heading">
+              <h3>Friend 2</h3>
+              <span
+                class="review-stars"
+                aria-label="3 out of 5 stars"
+              >
+                ★★★☆☆
+              </span>
+            </div>
+
+            <p>
+              Too warm-toned for me but had good texture.
+            </p>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <!-- Fixed action buttons -->
+    <div class="actions">
+      <button
+        class="heart-button"
+        id="heartButton"
+        type="button"
+        aria-label="Add to favorites"
+      >
+        <img
+          id="heartImage"
+          src="../assets/hearted.png"
+          alt="Favorite"
+        >
+      </button>
+
+      <a
+        class="list-button"
+        href="https://fentybeauty.com/products/pro-filtr-soft-matte-longwear-foundation-185"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Go to site
+      </a>
+    </div>
+
+    <!-- Shared navigation bar loads here -->
+    <div id="navbar-container"></div>
+  </main>
+
+  <!-- Favorite button behavior -->
+  <script>
+    document.querySelector(".back-button").addEventListener("click", () => {
+      window.history.back();
+    });
+
+    const heartButton =
+      document.getElementById("heartButton");
+
+    const heartImage =
+      document.getElementById("heartImage");
+
+    let heartClickedF185 = false;
+
+    heartButton.addEventListener("mouseenter", () => {
+      if (!heartClickedF185) {
+        heartImage.src =
+          "../assets/hover_heart.png";
+      }
+    });
+
+    heartButton.addEventListener("mouseleave", () => {
+      if (!heartClickedF185) {
+        heartImage.src =
+          "../assets/hearted.png";
+      }
+    });
+
+    heartButton.addEventListener("click", () => {
+      heartClickedF185 = !heartClickedF185;
+      localStorage.setItem('heartClickedF185', heartClickedF185);
+
+      heartImage.src = heartClickedF185
+        ? "../assets/clicked_heart.png"
+        : "../assets/hearted.png";
+    });
+  </script>
+
+  <!-- Loads the shared navigation bar -->
+  <script src="../navigation-bar/script.js"></script>
+</body>
+</html>
