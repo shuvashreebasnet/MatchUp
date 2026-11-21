@@ -3,15 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title> Find Friend </title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
+        <link rel="stylesheet" href="../navigation-bar/styles.css">    </head>
 
     <body>
         <div class="phone">
             <h1>Find your friends!</h1> <br>
 
             <form action="add_or_remove_friend.html" method="POST" style="margin-left: 50px;">
-                <img id="lookup_image" src="lookup-removebg-preview.png"width=25px height=25px style="text-align:center;">
+                <img id="lookup_image" src="../assets/lookup-removebg-preview.png"width=33px height=25px style="text-align:center;">
                 <input name="username">
                 <button type="submit">Search</button>
             </form><br>
@@ -20,29 +19,32 @@
                 <h3 style="text-align: left;"> Suggested for you </h3> 
                 <hr>
                 <div id="user">
-                    <img src="account-icon-pink.png">
+                    <img src="../assets/navbar-icons/account-icon-pink.png">
                     <a href="user_janeD.html">Jane Doe</a>
                     <hr>
                 </div>
 
                 <div id="user">
-                    <img src="account-icon-black.png">
+                    <img src="../assets/navbar-icons/account-icon-black.png">
                     <a href="user_johnD.html">John Doe</a>
                     <hr>
                 </div>
 
                 <div id="user">
-                    <img src="account-icon-pink.png">
+                    <img src="../assets/navbar-icons/account-icon-pink.png">
                     <a href="user_manuelaF.html">Manuela Fernández</a>
                     <hr>
                 </div>
 
                 <div id="user">
-                    <img src="account-icon-black.png">
+                    <img src="../assets/navbar-icons/account-icon-black.png">
                     <a href="user_janaN.html">Jana Nováková</a>
                     <hr>
                 </div>
             </div>
+            <div id="navbar-container"></div>
+        <!-- Loads the shared navigation JavaScript -->
+        <script src="../navigation-bar/script.js"></script>
         </div>
     </body>
 </html>
