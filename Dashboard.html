@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MatchUp - Dashboard</title>
+        <link rel="stylesheet" href="../navigation-bar/styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
@@ -214,7 +215,7 @@
         </div>
         <div style="display: flex; justify-content: center; margin-top: 20px">
             <div class="circle-img">
-                <img src="bear.png" alt="Profile picture">
+                <img src="./assets/bear.png" alt="Profile picture">
             </div>
         </div>
         <h2 style="margin-top: 10px; text-align: center">You</h2>
@@ -222,14 +223,14 @@
 
 <div class="align" id="feat-list"></div>
 <button id="openBtn" class="button button1">
-    <img src="white-edit-icon.png" alt="add a feature">
+    <img src="./assets/white-edit-icon.png" alt="add a feature">
 </button>
 <dialog id="editFeat">
   <form id="featForm">
     <h2> Edit Features</h2>
     <div class="text-image">
       <h3>Face Shape</h3>
-      <img src="face.svg" alt="face" style="margin-bottom: -10px">
+      <img src="./assets/face.svg" alt="face" style="margin-bottom: -10px">
     </div>
     <label><input type="radio" id="oval" name="face_shape" value="Oval">Oval</label><br>
     <label><input type="radio" id="square" name="face_shape" value="Square">Square</label><br>
@@ -237,7 +238,7 @@
 
     <div class="text-image">
         <h3>Eye Shape</h3>
-        <img src="eye.svg" alt="eye" style="margin-bottom: -10px">
+        <img src="./assets/eye.svg" alt="eye" style="margin-bottom: -10px">
     </div>
     <label><input type="radio" id="almond" name="eye_shape" value="Almond">Almond</label><br>
     <label><input type="radio" id="round" name="eye_shape" value="Round">Round</label><br>
@@ -245,7 +246,7 @@
 
     <div class="text-image">
         <h3>Nose Type</h3>
-        <img src="nose.svg" alt="nose" style="margin-bottom: -10px">
+        <img src="./assets/nose.svg" alt="nose" style="margin-bottom: -10px">
     </div>
     <label><input type="radio" id="greek" name="nose_shape" value="Greek">Straight/Greek</label><br>
     <label><input type="radio" id="roman" name="nose_shape" value="Roman">Aquiline/Roman</label><br>
@@ -258,7 +259,7 @@
 
 <div class="align" id="pref-list"></div>
 <button id="openBtn2" class="button button2">
-    <img src="white-edit-icon.png" alt="add a feature">
+    <img src="./assets/white-edit-icon.png" alt="add a feature">
 </button>
 <dialog id="editPrefs">
   <form id="popupForm">
@@ -269,13 +270,13 @@
     <div class="text-image">
     <label><input type="checkbox" id="cruelty" name="cruelty" value="Cruelty-free">
         Cruelty-Free
-        <img src="bunny.svg">
+        <img src="./assets/bunny.svg">
     </label><br>
     </div>
     <div class="text-image">
     <label><input type="checkbox" id="eco" name="eco" value="Eco-friendly">
             Eco-friendly
-            <img src="leaf.svg">
+            <img src="./assets/leaf.svg">
         </label><br>
     </div>
   <button type="submit" class="button button2">Add to List</button>
@@ -291,10 +292,13 @@
         </div>
 
             </section>
+                <div id="navbar-container"></div>
         </main>
     </body>
 </html>
 
+<!-- Loads the shared navigation JavaScript -->
+<script src="navigation-bar/script.js"></script>
 <script>
   const modal = document.getElementById('editFeat');
   const openBtn = document.getElementById('openBtn');
@@ -322,7 +326,7 @@
     const faceText = document.createElement('p');
     faceText.textContent = face.value;
     const faceImg = document.createElement('img');
-    faceImg.src = 'face.svg';
+    faceImg.src = './assets/face.svg';
     faceImg.alt = 'face';
 
     const div2 = document.createElement('div');
@@ -330,7 +334,7 @@
     const eyeText = document.createElement('p');
     eyeText.textContent = eye.value;
     const eyeImg = document.createElement('img');
-    eyeImg.src = 'eye.svg';
+    eyeImg.src = './assets/eye.svg';
     eyeImg.alt = 'eye';
 
 
@@ -339,7 +343,7 @@
     const noseText = document.createElement('p');
     noseText.textContent = nose.value;
     const noseImg = document.createElement('img');
-    noseImg.src = 'nose.svg';
+    noseImg.src = './assets/nose.svg';
     noseImg.alt = 'nose';
 
 
@@ -399,7 +403,7 @@
       const div1 = document.createElement('div');
       div1.className = 'button button2';
       const img = document.createElement('img');
-      img.src = 'bunny.svg';
+      img.src = './assets/bunny.svg';
       img.alt = 'bunny';
 
       div1.appendChild(img);
@@ -410,7 +414,7 @@
       const div1 = document.createElement('div');
       div1.className = 'button button2';
       const img = document.createElement('img');
-      img.src = 'leaf.svg';
+      img.src = './assets/leaf.svg';
       img.alt = 'leaf';
 
       div1.appendChild(img);
@@ -794,4 +798,13 @@
             item.remove();
         });
     }
+    /*
+      Sends the user to browsing pages
+      when Find Products is clicked.
+    */
+    document
+      .getElementById("row")
+      .addEventListener("click", () => {
+        window.location.href = "../browsing/browse_items.html";
+      });
 </script>
