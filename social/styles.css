@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #eee;
+    font-family: Arial, sans-serif;
+}
+/* phone screen frame and pink-white background*/
+.phone {
+    position: relative;
+    width: min(393px, 100vw);
+    height: min(852px, 100vh);
+    min-height: 400px;
+    margin: 0 auto;
+    overflow: scroll;
+    background: linear-gradient(#fdecef 0%, #fff8f9 55%, #fff 100%);
+    padding: 5px 20px;
+}
+/* navigation bar styling */
+.navbar {
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 66px;
+    border-top: 1px solid #000;
+    background: #fff;
+}
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    margin: 0;
+    padding: 0 6px;
+    list-style-type: none;
+}
+
+.navbar ul li {
+    position: relative;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    height: 100%;
+}
+
+.navbar ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px;
+}
+
+.navbar ul li img {
+    width: 33px;
+    height: 33px;
+    object-fit: contain;
+    transition: transform 200ms ease;
+}
+
+.navbar ul li.active img {
+    transform: translateY(-3px) scale(1.2);
+}
+
+/* green text box styling */
+.green_textbox{
+    background-color:#cee9c7;
+    border-radius: 10px;
+    padding:5px;
+    margin:8px;
+}
+
+/* element styling */
+button{
+   background-color:#f7a0b0;
+   border-radius: 12px;
+}
+
+select{
+    background-color: #fbcdd5;
+    border-radius: 8px;
+    margin:4px;
+}
+
+input[type="checkbox"]{
+    accent-color: #cee9c7;
+}
+
+input[type="range"]{
+    accent-color: #cee9c7;
+    border-width: 2px;
+    margin: 5px;
+    
+}
+
+h1{
+    text-align: center;
+}
