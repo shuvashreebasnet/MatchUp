@@ -24,7 +24,7 @@
     .top-button img { width: 100%; height: 100%; object-fit: contain; }
     h1 { margin: 56px 0 18px; text-align: center; font-size: 48px; line-height: 1; font-weight: 500; }
     .shade-result { width: 100%; height: 195px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 18px; border: 4px solid #000; border-radius: 40px; background: #cc987d; transition: background-color .35s ease; }
-    .shade-name { margin: 0 0 7px; font-size: 50px; line-height: 1; font-weight: 500; }
+    .shade-name { margin: 0 0 7px; font-size: 50px; line-height: 1; font-weight: 500; width: 100%; text-align: center;}
     .shade-details { margin: 0; font-size: 26px; }
     .pink-pills, .green-pills { display: flex; justify-content: space-between; gap: 12px; width: 100%; }
     .pink-pills { margin-bottom: 20px; } .green-pills { margin-bottom: 10px; }
@@ -62,20 +62,22 @@
       <div class="pink-pills">
         <div class="pill" id="eyePill">Eye: Almond</div>
         <div class="pill" id="nosePill">Nose: Straight</div>
-        <div class="pill" id="facePill">Face: Oval</div>
+        <div class="pill" id="facePill">Face: Round</div>
       </div>
 
       <!-- Preferences are intentionally left unchanged for now. -->
       <p class="preference-title">Your Preferences:</p>
-      <div class="green-pills"><div class="pill">Skin type: Dry</div><div class="pill">Cruelty-Free</div><div class="pill">Environment</div></div>
+      <div class="green-pills"><div class="pill">Skin type: Oily</div><div class="pill">Cruelty-Free</div><div class="pill">Eco-Friendly</div></div>
 
       <section class="product-card" id="productCard">
+        <a href = "../products/product_macfoundation_details.html">
         <button class="favorite-button" id="favoriteButton" type="button" aria-label="Favorite product">
           <img id="favoriteImage" src="../assets/hearted.png" alt="">
         </button>
         <img class="product-image" id="productImage" src="../assets/mac_foundation.png" alt="MAC foundation">
         <p class="product-name" id="productName">MAC Studio Radiance<br>Foundation</p>
         <p class="product-price" id="productPrice">$46.00</p>
+        </a>
       </section>
 
       <div class="dots" aria-label="Product matches">
