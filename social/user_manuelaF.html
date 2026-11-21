@@ -9,7 +9,7 @@
     <body>
         <div class="phone">
             <div id="user_profile">
-                <img src=profile.png alt="profile picture not available" style="margin-top: 50px; margin-left: 130px;"></img>
+                <img src=./assets/profile.png alt="profile picture not available" style="margin-top: 50px; margin-left: 130px;"></img>
                 <h2 id="username" style="text-align:center;"> Manuela Fernández </h2>
             </div><br>
             
@@ -26,8 +26,11 @@
             <button id="toggle_friend" onclick="add()" ondblclick="remove()" style="background-color:#F7A0B0; margin-left:133px;">
                 <p id="button_text" style="font-size: medium;">Add Friend</p>
             </button>
+            <div id="navbar-container"></div>
         </div>
-
+        
+        <!-- Loads the shared navigation JavaScript -->
+        <script src="../navigation-bar/script.js"></script>
         <script>
             let current_friend = true;
             const button_status = document.getElementById("toggle_friend");
@@ -38,7 +41,7 @@
 
                 // change button's look
                 button_label.innerHTML = "Remove Friend";
-                button_status.style = "background-color:#CEE9C7; margin-left:125px;";
+                button_status.style = "color: white; background-color:#9f1f47; margin-left:125px;";
             }
 
             function remove(){
